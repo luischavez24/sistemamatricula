@@ -78,7 +78,7 @@ public class Alumno_AD {
                 consulta.setString(7, alumno.getDireccionAlu());
                 consulta.setInt(8, alumno.getCodApoderado());
 
-                respuesta = (consulta.executeUpdate() == 0) ? "No se pudo ejecutar la inserción" : "Correcto";
+                consulta.execute();
             }
             conexion.commit();
             acceso.close();
@@ -96,14 +96,13 @@ public class Alumno_AD {
         try {
             Connection conexion = acceso.getConexion();
             conexion.setAutoCommit(false);
-            try (CallableStatement consulta = conexion.prepareCall("{CALL SP_MODIFICAR_ACTA (?,?,?,?) }")) {
+            try (CallableStatement consulta = conexion.prepareCall("{CALL SP_MODIFICAR_ALUMNO (?,?,?,?) }")) {
                 consulta.setInt(1, alumno.getCodAlu());
                 consulta.setString(2, alumno.getTelefonoAlu());
                 consulta.setString(3, alumno.getEmailAlu());
                 consulta.setString(4, alumno.getDireccionAlu());
 
-                respuesta = (consulta.executeUpdate() == 0) ? "No se pudo ejecutar la actualizaron de datos" : "Correcto";
-
+                consulta.execute();
             }
             conexion.commit();
             acceso.close();
@@ -121,9 +120,9 @@ public class Alumno_AD {
         try {
             Connection conn = acceso.getConexion();
             conn.setAutoCommit(false);
-            try (CallableStatement consulta = conn.prepareCall("{ CALL SP_ELIMINAR_ACTA (?)}")) {
+            try (CallableStatement consulta = conn.prepareCall("{ CALL SP_ELIMINAR_ALUMNO (?)}")) {
                 consulta.setInt(1, codAlumno);
-                respuesta = (consulta.executeUpdate() == 0) ? "No se pudo ejecutar la eliminación de datos" : "Correcto";
+                consulta.execute();
             }
             conn.commit();
             acceso.close();
@@ -140,7 +139,7 @@ public class Alumno_AD {
 
         try {
             Connection conexion = acceso.getConexion();
-            try (CallableStatement consulta = conexion.prepareCall("{ CALL SP_BUSCAR_ALUMNO (?) }")) {
+            try (CallableStatement consulta = conexion.prepareCall("{ CALL SP_BUSCAR_ALUMNO (?, ?) }")) {
                 consulta.registerOutParameter(1, OracleTypes.CURSOR);
                 consulta.setInt(1, codAlumno);
                 consulta.execute();

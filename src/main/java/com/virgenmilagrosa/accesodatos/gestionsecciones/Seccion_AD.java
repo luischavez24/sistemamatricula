@@ -15,6 +15,7 @@ import java.util.List;
 import oracle.jdbc.OracleCallableStatement;
 import oracle.jdbc.OracleTypes;
 import com.virgenmilagrosa.tranversal.entidades.*;
+
 /**
  *
  * @author Jose Carlos
@@ -71,7 +72,7 @@ public class Seccion_AD {
                 consulta.setInt(4, seccion.getNroVacantes());
                 consulta.setInt(5, seccion.getNroSalon());
 
-                respuesta = (consulta.executeUpdate() == 0) ? "No se pudo ejecutar la inserción" : "Correcto";
+                consulta.execute();
             }
             conexion.commit();
             acceso.close();
@@ -94,7 +95,7 @@ public class Seccion_AD {
                 consulta.setInt(2, seccion.getCodGrado());
                 consulta.setInt(3, seccion.getNroSalon());
 
-                respuesta = (consulta.executeUpdate() == 0) ? "No se pudo ejecutar la actualizaron de datos" : "Correcto";
+                consulta.execute();
 
             }
             conexion.commit();
@@ -116,7 +117,7 @@ public class Seccion_AD {
             try (CallableStatement consulta = conn.prepareCall("{ CALL SP_ELIMINAR_SECCION (?,?)}")) {
                 consulta.setInt(1, codSeccion);
                 consulta.setInt(1, codGrado);
-                respuesta = (consulta.executeUpdate() == 0) ? "No se pudo ejecutar la eliminación de datos" : "Correcto";
+                consulta.execute();
             }
             conn.commit();
             acceso.close();
@@ -171,7 +172,7 @@ public class Seccion_AD {
                 consulta.setInt(2, seccion.getCodGrado());
                 consulta.setInt(3, vacantes);
 
-                respuesta = (consulta.executeUpdate() == 0) ? "No se pudo ejecutar la ampliacion de vacantes" : "Correcto";
+                consulta.execute();
 
             }
             conexion.commit();

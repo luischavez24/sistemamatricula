@@ -15,6 +15,7 @@ import java.util.List;
 import oracle.jdbc.OracleCallableStatement;
 import oracle.jdbc.OracleTypes;
 import com.virgenmilagrosa.tranversal.entidades.*;
+
 /**
  *
  * @author Jose Carlos
@@ -78,7 +79,7 @@ public class Apoderado_AD {
                 consulta.setString(6, apoderado.getTelefonoAp());
                 consulta.setString(7, apoderado.getOcupacion());
 
-                respuesta = (consulta.executeUpdate() == 0) ? "No se pudo ejecutar la inserción" : "Correcto";
+                consulta.execute();
             }
             conexion.commit();
             acceso.close();
@@ -102,8 +103,7 @@ public class Apoderado_AD {
                 consulta.setString(3, apoderado.getTelefonoAp());
                 consulta.setString(4, apoderado.getOcupacion());
 
-                respuesta = (consulta.executeUpdate() == 0) ? "No se pudo ejecutar la actualizaron de datos" : "Correcto";
-
+                consulta.execute();
             }
 
             conexion.commit();
@@ -124,7 +124,7 @@ public class Apoderado_AD {
             conn.setAutoCommit(false);
             try (CallableStatement consulta = conn.prepareCall("{ CALL SP_ELIMINAR_APODERADO (?)}")) {
                 consulta.setInt(1, codApoderado);
-                respuesta = (consulta.executeUpdate() == 0) ? "No se pudo ejecutar la eliminación de datos" : "Correcto";
+                consulta.execute();
             }
             conn.commit();
             acceso.close();

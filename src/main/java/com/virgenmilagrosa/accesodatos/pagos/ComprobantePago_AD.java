@@ -78,7 +78,7 @@ public class ComprobantePago_AD {
                 consulta.setInt(5, comprobante.getCodGrado());
                 consulta.setInt(6, comprobante.getCodAlu());
 
-                respuesta = (consulta.executeUpdate() == 0) ? "No se pudo ejecutar la inserción" : "Correcto";
+                consulta.execute();
             }
             conexion.commit();
             acceso.close();
@@ -100,7 +100,7 @@ public class ComprobantePago_AD {
                 consulta.setString(1, comprobante.getNroComprobante());
                 consulta.setDouble(2, comprobante.getMonto());
 
-                respuesta = (consulta.executeUpdate() == 0) ? "No se pudo ejecutar la actualizaron de datos" : "Correcto";
+                consulta.execute();
 
             }
             conexion.commit();
@@ -121,7 +121,7 @@ public class ComprobantePago_AD {
             conn.setAutoCommit(false);
             try (CallableStatement consulta = conn.prepareCall("{ CALL SP_ELIMINAR_COMPROBANTE (?)}")) {
                 consulta.setString(1, nroComprobante);
-                respuesta = (consulta.executeUpdate() == 0) ? "No se pudo ejecutar la eliminación de datos" : "Correcto";
+                consulta.execute();
             }
             conn.commit();
             acceso.close();
@@ -158,7 +158,7 @@ public class ComprobantePago_AD {
                 }
             }
         } catch (SQLException ex) {
-
+            System.out.println(ex);
         } finally {
             acceso.close();
         }

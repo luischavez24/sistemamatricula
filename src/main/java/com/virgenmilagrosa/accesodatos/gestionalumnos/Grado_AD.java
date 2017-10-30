@@ -15,12 +15,13 @@ import java.util.List;
 import oracle.jdbc.OracleCallableStatement;
 import oracle.jdbc.OracleTypes;
 import com.virgenmilagrosa.tranversal.entidades.*;
+
 /**
  *
  * @author Jose Carlos
  */
 public class Grado_AD {
-    
+
     private AccesoBD acceso = AccesoBD.getInstance();
 
     public List<Grado> listarGrados() {
@@ -55,7 +56,7 @@ public class Grado_AD {
 
     }
 
-    public String registrarGrado (Grado grado) {
+    public String registrarGrado(Grado grado) {
 
         String respuesta = "Insercion Completada";
 
@@ -67,7 +68,7 @@ public class Grado_AD {
                 consulta.setString(2, grado.getNomGrado());
                 consulta.setInt(3, grado.getNivel());
 
-                respuesta = (consulta.executeUpdate() == 0) ? "No se pudo ejecutar la inserción" : "Correcto";
+                consulta.execute();
             }
             conexion.commit();
             acceso.close();
@@ -78,7 +79,7 @@ public class Grado_AD {
 
     }
 
-    public String modificarGrado (Grado grado) {
+    public String modificarGrado(Grado grado) {
 
         String respuesta = "Actualizacion Completada";
 
@@ -89,7 +90,7 @@ public class Grado_AD {
                 consulta.setInt(1, grado.getCodGrado());
                 consulta.setInt(2, grado.getNivel());
 
-                respuesta = (consulta.executeUpdate() == 0) ? "No se pudo ejecutar la actualizaron de datos" : "Correcto";
+                consulta.execute();
 
             }
             conexion.commit();
@@ -101,7 +102,7 @@ public class Grado_AD {
 
     }
 
-    public String eliminarGrado (int codGrado) {
+    public String eliminarGrado(int codGrado) {
 
         String respuesta = "Eliminacion Completada";
 
@@ -110,7 +111,7 @@ public class Grado_AD {
             conn.setAutoCommit(false);
             try (CallableStatement consulta = conn.prepareCall("{ CALL SP_ELIMINAR_GRADO (?)}")) {
                 consulta.setInt(1, codGrado);
-                respuesta = (consulta.executeUpdate() == 0) ? "No se pudo ejecutar la eliminación de datos" : "Correcto";
+                consulta.execute();
             }
             conn.commit();
             acceso.close();
@@ -121,7 +122,7 @@ public class Grado_AD {
 
     }
 
-    public Grado buscarGrado (int codGrado) {
+    public Grado buscarGrado(int codGrado) {
 
         Grado grado = null;
 
@@ -149,5 +150,5 @@ public class Grado_AD {
         return grado;
 
     }
-    
+
 }

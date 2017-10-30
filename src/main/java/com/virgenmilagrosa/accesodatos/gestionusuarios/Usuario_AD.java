@@ -77,7 +77,7 @@ public class Usuario_AD {
                 consulta.setString(7, usuario.getUsername());
                 consulta.setString(8, usuario.getPassword());
 
-                respuesta = (consulta.executeUpdate() == 0) ? "No se pudo ejecutar la inserción" : "Correcto";
+                consulta.execute();
             }
             conexion.commit();
             acceso.close();
@@ -99,7 +99,7 @@ public class Usuario_AD {
                 consulta.setInt(1, usuario.getCodUsuario());
                 consulta.setString(2, usuario.getTelfUsuario());
 
-                respuesta = (consulta.executeUpdate() == 0) ? "No se pudo ejecutar la actualizaron de datos" : "Correcto";
+                consulta.execute();
 
             }
             conexion.commit();
@@ -123,7 +123,7 @@ public class Usuario_AD {
                 consulta.setString(2, usuario.getPassword());
                 consulta.setString(3, password);
 
-                respuesta = (consulta.executeUpdate() == 0) ? "No se pudo ejecutar la actualizaron de datos" : "Correcto";
+                consulta.execute();
 
             }
             conexion.commit();
@@ -144,7 +144,7 @@ public class Usuario_AD {
             conn.setAutoCommit(false);
             try (CallableStatement consulta = conn.prepareCall("{ CALL SP_ELIMINAR_USUARIO (?)}")) {
                 consulta.setInt(1, codUsuario);
-                respuesta = (consulta.executeUpdate() == 0) ? "No se pudo ejecutar la eliminación de datos" : "Correcto";
+                consulta.execute();
             }
             conn.commit();
             acceso.close();
@@ -212,7 +212,7 @@ public class Usuario_AD {
                 }
             }
         } catch (SQLException ex) {
-
+            System.out.println(ex);
         } finally {
             acceso.close();
         }

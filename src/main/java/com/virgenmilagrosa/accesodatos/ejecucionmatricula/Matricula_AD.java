@@ -30,7 +30,7 @@ public class Matricula_AD {
                 consulta.setInt(2, seccion.getCodSeccion());
                 consulta.setInt(3, seccion.getCodGrado());
 
-                respuesta = (consulta.executeUpdate() == 0) ? "No se pudo ejecutar la matrícula" : "Correcto";
+                consulta.execute();
             }
             conexion.commit();
             acceso.close();

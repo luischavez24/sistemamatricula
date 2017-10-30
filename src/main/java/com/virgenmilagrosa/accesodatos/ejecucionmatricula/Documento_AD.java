@@ -15,12 +15,13 @@ import java.util.List;
 import oracle.jdbc.OracleCallableStatement;
 import oracle.jdbc.OracleTypes;
 import com.virgenmilagrosa.tranversal.entidades.*;
+
 /**
  *
  * @author Jose Carlos
  */
 public class Documento_AD {
-    
+
     AccesoBD acceso = AccesoBD.getInstance();
 
     public List<Documentos> listarDocumentos() {
@@ -66,7 +67,7 @@ public class Documento_AD {
                 consulta.setInt(1, documento.getCodDocumento());
                 consulta.setString(2, documento.getDescripcionDoc());
                 consulta.setInt(3, documento.getGradoImportancia());
-                respuesta = (consulta.executeUpdate() == 0) ? "No se pudo ejecutar la inserción" : "Correcto";
+                consulta.execute();
             }
             conexion.commit();
             acceso.close();
@@ -88,8 +89,7 @@ public class Documento_AD {
                 consulta.setInt(1, documento.getCodDocumento());
                 consulta.setInt(2, documento.getGradoImportancia());
 
-                respuesta = (consulta.executeUpdate() == 0) ? "No se pudo ejecutar la actualizaron de datos" : "Correcto";
-
+                consulta.execute();
             }
             conexion.commit();
             acceso.close();
@@ -109,7 +109,7 @@ public class Documento_AD {
             conn.setAutoCommit(false);
             try (CallableStatement consulta = conn.prepareCall("{ CALL SP_ELIMINAR_DOCUMENTO (?)}")) {
                 consulta.setInt(1, codDocumento);
-                respuesta = (consulta.executeUpdate() == 0) ? "No se pudo ejecutar la eliminación de datos" : "Correcto";
+                consulta.execute();
             }
             conn.commit();
             acceso.close();

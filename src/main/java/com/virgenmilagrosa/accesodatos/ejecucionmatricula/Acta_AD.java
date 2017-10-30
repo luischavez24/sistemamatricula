@@ -17,6 +17,7 @@ import oracle.jdbc.OracleTypes;
 import com.virgenmilagrosa.tranversal.entidades.*;
 import java.sql.Date;
 import java.text.SimpleDateFormat;
+
 /**
  *
  * @author Jose Carlos
@@ -24,9 +25,9 @@ import java.text.SimpleDateFormat;
 public class Acta_AD {
 
     private AccesoBD acceso = AccesoBD.getInstance();
-    
+
     private static final SimpleDateFormat FORMATO = new SimpleDateFormat("dd/MM/yy hh:mm:ss");
-    
+
     public List<Acta> listarActas() {
 
         List<Acta> lista = new ArrayList<>();
@@ -74,7 +75,7 @@ public class Acta_AD {
                 consulta.setString(3, FORMATO.format(acta.getFechaEntrega()));
                 consulta.setInt(4, acta.getCodUsuario());
                 consulta.setInt(5, acta.getEstado());
-                respuesta = (consulta.executeUpdate() == 0) ? "No se pudo ejecutar la inserción" : "Correcto";
+                consulta.execute();
             }
             conexion.commit();
             acceso.close();
@@ -96,9 +97,7 @@ public class Acta_AD {
                 consulta.setInt(1, acta.getCodDocumento());
                 consulta.setInt(2, acta.getCodAlu());
                 consulta.setInt(3, acta.getEstado());
-
-                respuesta = (consulta.executeUpdate() == 0) ? "No se pudo ejecutar la actualizaron de datos" : "Correcto";
-
+                consulta.execute();
             }
             conexion.commit();
             acceso.close();
@@ -119,7 +118,7 @@ public class Acta_AD {
             try (CallableStatement consulta = conn.prepareCall("{ CALL SP_ELIMINAR_ACTA (?,?)}")) {
                 consulta.setInt(1, codDocumento);
                 consulta.setInt(1, codAlumno);
-                respuesta = (consulta.executeUpdate() == 0) ? "No se pudo ejecutar la eliminación de datos" : "Correcto";
+                consulta.execute();
             }
             conn.commit();
             acceso.close();
