@@ -12,59 +12,59 @@ import java.util.Date;
  * @author juanmanuel
  */
 public class Matricula {
-    public Seccion SeccionMatricula;
-    public Grado GradoMatricula;
-    public Alumnos AlumMatricula;
+    public int COD_SECCION;
+    public int COD_GRADO;
+    public int COD_ALU;
     
-    public String cod_matricula;
-    public Date fecha_ejecucion;
+    public String COD_MATRICULA;
+    public Date FECHA_EJECUCION;
 
-    public Matricula(Seccion SeccionMatricula, Grado GradoMatricula, Alumnos AlumMatricula, String cod_matricula, Date fecha_ejecucion) {
-        this.SeccionMatricula = SeccionMatricula;
-        this.GradoMatricula = GradoMatricula;
-        this.AlumMatricula = AlumMatricula;
-        this.cod_matricula = cod_matricula;
-        this.fecha_ejecucion = fecha_ejecucion;
+    public Matricula(int COD_SECCION, int COD_GRADO, int COD_ALU, String COD_MATRICULA, Date FECHA_EJECUCION) {
+        this.COD_SECCION = COD_SECCION;
+        this.COD_GRADO = COD_GRADO;
+        this.COD_ALU = COD_ALU;
+        this.COD_MATRICULA = COD_MATRICULA;
+        this.FECHA_EJECUCION = FECHA_EJECUCION;
     }
 
-    public Seccion getSeccionMatricula() {
-        return SeccionMatricula;
+    public int getCOD_SECCION() {
+        return COD_SECCION;
     }
 
-    public void setSeccionMatricula(Seccion SeccionMatricula) {
-        this.SeccionMatricula = SeccionMatricula;
+    public void setCOD_SECCION(int COD_SECCION) {
+        this.COD_SECCION = COD_SECCION;
     }
 
-    public Grado getGradoMatricula() {
-        return GradoMatricula;
+    public int getCOD_GRADO() {
+        return COD_GRADO;
     }
 
-    public void setGradoMatricula(Grado GradoMatricula) {
-        this.GradoMatricula = GradoMatricula;
+    public void setCOD_GRADO(int COD_GRADO) {
+        this.COD_GRADO = COD_GRADO;
     }
 
-    public Alumnos getAlumMatricula() {
-        return AlumMatricula;
+    public int getCOD_ALU() {
+        return COD_ALU;
     }
 
-    public void setAlumMatricula(Alumnos AlumMatricula) {
-        this.AlumMatricula = AlumMatricula;
+    public void setCOD_ALU(int COD_ALU) {
+        this.COD_ALU = COD_ALU;
     }
 
-    public String getCod_matricula() {
-        return cod_matricula;
+    public String getCOD_MATRICULA() {
+        return COD_MATRICULA;
     }
 
-    public void setCod_matricula(String cod_matricula) {
-        this.cod_matricula = cod_matricula;
+    public void setCOD_MATRICULA(String COD_MATRICULA) {
+        this.COD_MATRICULA = COD_MATRICULA;
     }
 
-    public Date getFecha_ejecucion() {
-        return fecha_ejecucion;
+    public Date getFECHA_EJECUCION() {
+        return FECHA_EJECUCION;
     }
 
-    public void setFecha_ejecucion(Date fecha_ejecucion) {
-        this.fecha_ejecucion = fecha_ejecucion;
+    public void setFECHA_EJECUCION(Date FECHA_EJECUCION) {
+        this.FECHA_EJECUCION = FECHA_EJECUCION;
     }
-    
+
 }

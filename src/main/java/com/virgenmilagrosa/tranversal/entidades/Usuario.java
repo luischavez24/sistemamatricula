@@ -10,88 +10,88 @@ package com.virgenmilagrosa.tranversal.entidades;
  * @author juanmanuel
  */
 public class Usuario {
-    public int cod_usuario;
-    public String apaterno_usuario;
-    public String nombre;
-    public String amaterno_usuario;
-    public String dni_usuario;
-    public String telf_usuario;
-    public String username;
-    public String pasword;
+    public int COD_USUARIO;
+    public String APATERNO_USUARIO;
+    public String NOMBRE;
+    public String AMATERNO_USUARIO;
+    public String DNI_USUARIO;
+    public String TELF_USUARIO;
+    public String USERNAME;
+    public String PASSWORD;
 
-    public Usuario(int cod_usuario, String apaterno_usuario, String nombre, String amaterno_usuario, String dni_usuario, String telf_usuario, String username, String pasword) {
-        this.cod_usuario = cod_usuario;
-        this.apaterno_usuario = apaterno_usuario;
-        this.nombre = nombre;
-        this.amaterno_usuario = amaterno_usuario;
-        this.dni_usuario = dni_usuario;
-        this.telf_usuario = telf_usuario;
-        this.username = username;
-        this.pasword = pasword;
+    public Usuario(int COD_USUARIO, String APATERNO_USUARIO, String NOMBRE, String AMATERNO_USUARIO, String DNI_USUARIO, String TELF_USUARIO, String USERNAME, String PASSWORD) {
+        this.COD_USUARIO = COD_USUARIO;
+        this.APATERNO_USUARIO = APATERNO_USUARIO;
+        this.NOMBRE = NOMBRE;
+        this.AMATERNO_USUARIO = AMATERNO_USUARIO;
+        this.DNI_USUARIO = DNI_USUARIO;
+        this.TELF_USUARIO = TELF_USUARIO;
+        this.USERNAME = USERNAME;
+        this.PASSWORD = PASSWORD;
     }
 
-    public int getCod_usuario() {
-        return cod_usuario;
+    public int getCOD_USUARIO() {
+        return COD_USUARIO;
     }
 
-    public void setCod_usuario(int cod_usuario) {
-        this.cod_usuario = cod_usuario;
+    public void setCOD_USUARIO(int COD_USUARIO) {
+        this.COD_USUARIO = COD_USUARIO;
     }
 
-    public String getApaterno_usuario() {
-        return apaterno_usuario;
+    public String getAPATERNO_USUARIO() {
+        return APATERNO_USUARIO;
     }
 
-    public void setApaterno_usuario(String apaterno_usuario) {
-        this.apaterno_usuario = apaterno_usuario;
+    public void setAPATERNO_USUARIO(String APATERNO_USUARIO) {
+        this.APATERNO_USUARIO = APATERNO_USUARIO;
     }
 
-    public String getNombre() {
-        return nombre;
+    public String getNOMBRE() {
+        return NOMBRE;
     }
 
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
+    public void setNOMBRE(String NOMBRE) {
+        this.NOMBRE = NOMBRE;
     }
 
-    public String getAmaterno_usuario() {
-        return amaterno_usuario;
+    public String getAMATERNO_USUARIO() {
+        return AMATERNO_USUARIO;
     }
 
-    public void setAmaterno_usuario(String amaterno_usuario) {
-        this.amaterno_usuario = amaterno_usuario;
+    public void setAMATERNO_USUARIO(String AMATERNO_USUARIO) {
+        this.AMATERNO_USUARIO = AMATERNO_USUARIO;
     }
 
-    public String getDni_usuario() {
-        return dni_usuario;
+    public String getDNI_USUARIO() {
+        return DNI_USUARIO;
     }
 
-    public void setDni_usuario(String dni_usuario) {
-        this.dni_usuario = dni_usuario;
+    public void setDNI_USUARIO(String DNI_USUARIO) {
+        this.DNI_USUARIO = DNI_USUARIO;
     }
 
-    public String getTelf_usuario() {
-        return telf_usuario;
+    public String getTELF_USUARIO() {
+        return TELF_USUARIO;
     }
 
-    public void setTelf_usuario(String telf_usuario) {
-        this.telf_usuario = telf_usuario;
+    public void setTELF_USUARIO(String TELF_USUARIO) {
+        this.TELF_USUARIO = TELF_USUARIO;
     }
 
-    public String getUsername() {
-        return username;
+    public String getUSERNAME() {
+        return USERNAME;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public void setUSERNAME(String USERNAME) {
+        this.USERNAME = USERNAME;
     }
 
-    public String getPasword() {
-        return pasword;
+    public String getPASSWORD() {
+        return PASSWORD;
     }
 
-    public void setPasword(String pasword) {
-        this.pasword = pasword;
+    public void setPASSWORD(String PASSWORD) {
+        this.PASSWORD = PASSWORD;
     }
-    
+
 }

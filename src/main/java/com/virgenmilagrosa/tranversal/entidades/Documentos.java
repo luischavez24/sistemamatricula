@@ -10,39 +10,40 @@ package com.virgenmilagrosa.tranversal.entidades;
  * @author juanmanuel
  */
 public class Documentos {
-    public int cod_documento;
-    public String  descripcion_doc;
-    public int grado_importancia;
+    public int COD_DOCUMENTO;
+    public String  DESCRIPCION_DOC;
+    public int GRADO_IMPORTANCIA;
 
-    public Documentos(int cod_documento, String descripcion_doc, int grado_importancia) {
-        this.cod_documento = cod_documento;
-        this.descripcion_doc = descripcion_doc;
-        this.grado_importancia = grado_importancia;
+    public Documentos(int COD_DOCUMENTO, String DESCRIPCION_DOC, int GRADO_IMPORTANCIA) {
+        this.COD_DOCUMENTO = COD_DOCUMENTO;
+        this.DESCRIPCION_DOC = DESCRIPCION_DOC;
+        this.GRADO_IMPORTANCIA = GRADO_IMPORTANCIA;
     }
 
-    public int getCod_documento() {
-        return cod_documento;
+    public int getCOD_DOCUMENTO() {
+        return COD_DOCUMENTO;
     }
 
-    public void setCod_documento(int cod_documento) {
-        this.cod_documento = cod_documento;
+    public void setCOD_DOCUMENTO(int COD_DOCUMENTO) {
+        this.COD_DOCUMENTO = COD_DOCUMENTO;
     }
 
-    public String getDescripcion_doc() {
-        return descripcion_doc;
+    public String getDESCRIPCION_DOC() {
+        return DESCRIPCION_DOC;
     }
 
-    public void setDescripcion_doc(String descripcion_doc) {
-        this.descripcion_doc = descripcion_doc;
+    public void setDESCRIPCION_DOC(String DESCRIPCION_DOC) {
+        this.DESCRIPCION_DOC = DESCRIPCION_DOC;
     }
 
-    public int getGrado_importancia() {
-        return grado_importancia;
+    public int getGRADO_IMPORTANCIA() {
+        return GRADO_IMPORTANCIA;
     }
 
-    public void setGrado_importancia(int grado_importancia) {
-        this.grado_importancia = grado_importancia;
+    public void setGRADO_IMPORTANCIA(int GRADO_IMPORTANCIA) {
+        this.GRADO_IMPORTANCIA = GRADO_IMPORTANCIA;
     }
+
 
     
 }

@@ -10,60 +10,60 @@ import java.util.Date;
  * @author juanmanuel
  */
 public class Acta {
-    public Documentos DocActa;
-    public Alumnos AlumActa;
+    public int COD_DOCUMENTO;
+    public int COD_ALU;
     
-    public Date fecha_entrega;
-    public Usuario UsuarioActa;
-    public int estado;
+    public Date FECHA_ENTREGA;
+    public int COD_USUARIO;
+    public int ESTADO;
 
-    public Acta(Documentos DocActa, Alumnos AlumActa, Date fecha_entrega, Usuario UsuarioActa, int estado) {
-        this.DocActa = DocActa;
-        this.AlumActa = AlumActa;
-        this.fecha_entrega = fecha_entrega;
-        this.UsuarioActa = UsuarioActa;
-        this.estado = estado;
+    public Acta(int COD_DOCUMENTO, int COD_ALU, Date FECHA_ENTREGA, int COD_USUARIO, int ESTADO) {
+        this.COD_DOCUMENTO = COD_DOCUMENTO;
+        this.COD_ALU = COD_ALU;
+        this.FECHA_ENTREGA = FECHA_ENTREGA;
+        this.COD_USUARIO = COD_USUARIO;
+        this.ESTADO = ESTADO;
     }
 
-    public Documentos getDocActa() {
-        return DocActa;
+    public int getCOD_DOCUMENTO() {
+        return COD_DOCUMENTO;
     }
 
-    public void setDocActa(Documentos DocActa) {
-        this.DocActa = DocActa;
+    public void setCOD_DOCUMENTO(int COD_DOCUMENTO) {
+        this.COD_DOCUMENTO = COD_DOCUMENTO;
     }
 
-    public Alumnos getAlumActa() {
-        return AlumActa;
+    public int getCOD_ALU() {
+        return COD_ALU;
     }
 
-    public void setAlumActa(Alumnos AlumActa) {
-        this.AlumActa = AlumActa;
+    public void setCOD_ALU(int COD_ALU) {
+        this.COD_ALU = COD_ALU;
     }
 
-    public Date getFecha_entrega() {
-        return fecha_entrega;
+    public Date getFECHA_ENTREGA() {
+        return FECHA_ENTREGA;
     }
 
-    public void setFecha_entrega(Date fecha_entrega) {
-        this.fecha_entrega = fecha_entrega;
+    public void setFECHA_ENTREGA(Date FECHA_ENTREGA) {
+        this.FECHA_ENTREGA = FECHA_ENTREGA;
     }
 
-    public Usuario getUsuarioActa() {
-        return UsuarioActa;
+    public int getCOD_USUARIO() {
+        return COD_USUARIO;
     }
 
-    public void setUsuarioActa(Usuario UsuarioActa) {
-        this.UsuarioActa = UsuarioActa;
+    public void setCOD_USUARIO(int COD_USUARIO) {
+        this.COD_USUARIO = COD_USUARIO;
     }
 
-    public int getEstado() {
-        return estado;
+    public int getESTADO() {
+        return ESTADO;
     }
 
-    public void setEstado(int estado) {
-        this.estado = estado;
+    public void setESTADO(int ESTADO) {
+        this.ESTADO = ESTADO;
     }
-    
-    
+
+   
 }

@@ -1,58 +1,58 @@
 package com.virgenmilagrosa.tranversal.entidades;
 
 public class Seccion {
-    public int cod_seccion;
-    public Grado GradoSeccion;
-    public String nom_seccion;
-    public int nro_vacantes;
-    public int nro_salon;   
+    public int COD_SECCION;
+    public int COD_GRADO;
+    public String NOMBRE_SECCION;
+    public int NRO_VACANTES;
+    public int NRO_SALON;   
 
-    public Seccion(int cod_seccion, Grado GradoSeccion, String nom_seccion, int nro_vacantes, int nro_salon) {
-        this.cod_seccion = cod_seccion;
-        this.GradoSeccion = GradoSeccion;
-        this.nom_seccion = nom_seccion;
-        this.nro_vacantes = nro_vacantes;
-        this.nro_salon = nro_salon;
+    public Seccion(int COD_SECCION, int COD_GRADO, String NOMBRE_SECCION, int NRO_VACANTES, int NRO_SALON) {
+        this.COD_SECCION = COD_SECCION;
+        this.COD_GRADO = COD_GRADO;
+        this.NOMBRE_SECCION = NOMBRE_SECCION;
+        this.NRO_VACANTES = NRO_VACANTES;
+        this.NRO_SALON = NRO_SALON;
     }
 
-    public int getCod_seccion() {
-        return cod_seccion;
+    public int getCOD_SECCION() {
+        return COD_SECCION;
     }
 
-    public void setCod_seccion(int cod_seccion) {
-        this.cod_seccion = cod_seccion;
+    public void setCOD_SECCION(int COD_SECCION) {
+        this.COD_SECCION = COD_SECCION;
     }
 
-    public Grado getGradoSeccion() {
-        return GradoSeccion;
+    public int getCOD_GRADO() {
+        return COD_GRADO;
     }
 
-    public void setGradoSeccion(Grado GradoSeccion) {
-        this.GradoSeccion = GradoSeccion;
+    public void setCOD_GRADO(int COD_GRADO) {
+        this.COD_GRADO = COD_GRADO;
     }
 
-    public String getNom_seccion() {
-        return nom_seccion;
+    public String getNOMBRE_SECCION() {
+        return NOMBRE_SECCION;
     }
 
-    public void setNom_seccion(String nom_seccion) {
-        this.nom_seccion = nom_seccion;
+    public void setNOMBRE_SECCION(String NOMBRE_SECCION) {
+        this.NOMBRE_SECCION = NOMBRE_SECCION;
     }
 
-    public int getNro_vacantes() {
-        return nro_vacantes;
+    public int getNRO_VACANTES() {
+        return NRO_VACANTES;
     }
 
-    public void setNro_vacantes(int nro_vacantes) {
-        this.nro_vacantes = nro_vacantes;
+    public void setNRO_VACANTES(int NRO_VACANTES) {
+        this.NRO_VACANTES = NRO_VACANTES;
     }
 
-    public int getNro_salon() {
-        return nro_salon;
+    public int getNRO_SALON() {
+        return NRO_SALON;
     }
 
-    public void setNro_salon(int nro_salon) {
-        this.nro_salon = nro_salon;
+    public void setNRO_SALON(int NRO_SALON) {
+        this.NRO_SALON = NRO_SALON;
     }
 
 }

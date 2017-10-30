@@ -10,38 +10,38 @@ package com.virgenmilagrosa.tranversal.entidades;
  * @author juanmanuel
  */
 public class Grado {
-    public int cod_grado;
-    public String nom_grado;
-    public int nivel;
+    public int COD_GRADO;
+    public String NOM_GRADO;
+    public int NIVEL;
 
-    public Grado(int cod_grado, String nom_grado, int nivel) {
-        this.cod_grado = cod_grado;
-        this.nom_grado = nom_grado;
-        this.nivel = nivel;
+    public Grado(int COD_GRADO, String NOM_GRADO, int NIVEL) {
+        this.COD_GRADO = COD_GRADO;
+        this.NOM_GRADO = NOM_GRADO;
+        this.NIVEL = NIVEL;
     }
 
-    public int getCod_grado() {
-        return cod_grado;
+    public int getCOD_GRADO() {
+        return COD_GRADO;
     }
 
-    public void setCod_grado(int cod_grado) {
-        this.cod_grado = cod_grado;
+    public void setCOD_GRADO(int COD_GRADO) {
+        this.COD_GRADO = COD_GRADO;
     }
 
-    public String getNom_grado() {
-        return nom_grado;
+    public String getNOM_GRADO() {
+        return NOM_GRADO;
     }
 
-    public void setNom_grado(String nom_grado) {
-        this.nom_grado = nom_grado;
+    public void setNOM_GRADO(String NOM_GRADO) {
+        this.NOM_GRADO = NOM_GRADO;
     }
 
-    public int getNivel() {
-        return nivel;
+    public int getNIVEL() {
+        return NIVEL;
     }
 
-    public void setNivel(int nivel) {
-        this.nivel = nivel;
+    public void setNIVEL(int NIVEL) {
+        this.NIVEL = NIVEL;
     }
-    
+
 }

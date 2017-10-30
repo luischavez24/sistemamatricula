@@ -9,88 +9,88 @@ package com.virgenmilagrosa.tranversal.entidades;
  * @author juanmanuel
  */
 public class Alumnos {
-    public int cod_alu;
-    public String apaterno_alu;
-    public String nombre_alu;
-    public String amaterno_alu;
-    public String telefono_alu;
-    public String email_alu;
-    public String direccion_alu;
-    public Apoderado apodAlumn;
+    public int COD_ALU;
+    public String APATERNO_ALU;
+    public String NOMBRE_ALU;
+    public String AMATERNO_ALU;
+    public String TELEFONO_ALU;
+    public String EMAIL_ALU;
+    public String DIRECCION_ALU;
+    public int COD_APODERADO;
 
-    public Alumnos(int cod_alu, String apaterno_alu, String nombre_alu, String amaterno_alu, String telefono_alu, String email_alu, String direccion_alu, Apoderado apodAlumn) {
-        this.cod_alu = cod_alu;
-        this.apaterno_alu = apaterno_alu;
-        this.nombre_alu = nombre_alu;
-        this.amaterno_alu = amaterno_alu;
-        this.telefono_alu = telefono_alu;
-        this.email_alu = email_alu;
-        this.direccion_alu = direccion_alu;
-        this.apodAlumn = apodAlumn;
+    public Alumnos(int COD_ALU, String APATERNO_ALU, String NOMBRE_ALU, String AMATERNO_ALU, String TELEFONO_ALU, String EMAIL_ALU, String DIRECCION_ALU, int COD_APODERADO) {
+        this.COD_ALU = COD_ALU;
+        this.APATERNO_ALU = APATERNO_ALU;
+        this.NOMBRE_ALU = NOMBRE_ALU;
+        this.AMATERNO_ALU = AMATERNO_ALU;
+        this.TELEFONO_ALU = TELEFONO_ALU;
+        this.EMAIL_ALU = EMAIL_ALU;
+        this.DIRECCION_ALU = DIRECCION_ALU;
+        this.COD_APODERADO = COD_APODERADO;
     }
 
-    public int getCod_alu() {
-        return cod_alu;
+    public int getCOD_ALU() {
+        return COD_ALU;
     }
 
-    public void setCod_alu(int cod_alu) {
-        this.cod_alu = cod_alu;
+    public void setCOD_ALU(int COD_ALU) {
+        this.COD_ALU = COD_ALU;
     }
 
-    public String getApaterno_alu() {
-        return apaterno_alu;
+    public String getAPATERNO_ALU() {
+        return APATERNO_ALU;
     }
 
-    public void setApaterno_alu(String apaterno_alu) {
-        this.apaterno_alu = apaterno_alu;
+    public void setAPATERNO_ALU(String APATERNO_ALU) {
+        this.APATERNO_ALU = APATERNO_ALU;
     }
 
-    public String getNombre_alu() {
-        return nombre_alu;
+    public String getNOMBRE_ALU() {
+        return NOMBRE_ALU;
     }
 
-    public void setNombre_alu(String nombre_alu) {
-        this.nombre_alu = nombre_alu;
+    public void setNOMBRE_ALU(String NOMBRE_ALU) {
+        this.NOMBRE_ALU = NOMBRE_ALU;
     }
 
-    public String getAmaterno_alu() {
-        return amaterno_alu;
+    public String getAMATERNO_ALU() {
+        return AMATERNO_ALU;
     }
 
-    public void setAmaterno_alu(String amaterno_alu) {
-        this.amaterno_alu = amaterno_alu;
+    public void setAMATERNO_ALU(String AMATERNO_ALU) {
+        this.AMATERNO_ALU = AMATERNO_ALU;
     }
 
-    public String getTelefono_alu() {
-        return telefono_alu;
+    public String getTELEFONO_ALU() {
+        return TELEFONO_ALU;
     }
 
-    public void setTelefono_alu(String telefono_alu) {
-        this.telefono_alu = telefono_alu;
+    public void setTELEFONO_ALU(String TELEFONO_ALU) {
+        this.TELEFONO_ALU = TELEFONO_ALU;
     }
 
-    public String getEmail_alu() {
-        return email_alu;
+    public String getEMAIL_ALU() {
+        return EMAIL_ALU;
     }
 
-    public void setEmail_alu(String email_alu) {
-        this.email_alu = email_alu;
+    public void setEMAIL_ALU(String EMAIL_ALU) {
+        this.EMAIL_ALU = EMAIL_ALU;
     }
 
-    public String getDireccion_alu() {
-        return direccion_alu;
+    public String getDIRECCION_ALU() {
+        return DIRECCION_ALU;
     }
 
-    public void setDireccion_alu(String direccion_alu) {
-        this.direccion_alu = direccion_alu;
+    public void setDIRECCION_ALU(String DIRECCION_ALU) {
+        this.DIRECCION_ALU = DIRECCION_ALU;
     }
 
-    public Apoderado getApodAlumn() {
-        return apodAlumn;
+    public int getCOD_APODERADO() {
+        return COD_APODERADO;
     }
 
-    public void setApodAlumn(Apoderado apodAlumn) {
-        this.apodAlumn = apodAlumn;
+    public void setCOD_APODERADO(int COD_APODERADO) {
+        this.COD_APODERADO = COD_APODERADO;
     }
 
     
