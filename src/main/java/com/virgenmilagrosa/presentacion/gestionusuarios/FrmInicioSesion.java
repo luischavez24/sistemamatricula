@@ -5,6 +5,8 @@
  */
 package com.virgenmilagrosa.presentacion.gestionusuarios;
 
+import com.virgenmilagrosa.tranversal.control.Validaciones;
+
 /**
  *
  * @author lucho
@@ -16,6 +18,24 @@ public class FrmInicioSesion extends javax.swing.JFrame {
      */
     public FrmInicioSesion() {
         initComponents();
+        MetodoInicio();
+    }
+    
+    public void MetodoInicio(){
+        Validaciones v= new Validaciones();
+        v.LimitarCaracter(txtUsuario, 15);
+        v.LimitarCaracter(txtContra, 15);
+        
+    }
+    
+    public void ValidarIngreso(){
+        String usuario=txtUsuario.getText().trim();
+        String password=txtContra.getText().trim();
+        
+        if(usuario.isEmpty() || password.isEmpty()){
+            btnIngresar.setEnabled(false);
+        }else
+            btnIngresar.setEnabled(true);
     }
 
     /**
@@ -30,9 +50,9 @@ public class FrmInicioSesion extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         usuario = new javax.swing.JLabel();
         contrasena = new javax.swing.JLabel();
-        fusuario = new javax.swing.JTextField();
-        fContra = new javax.swing.JPasswordField();
-        ingresar = new javax.swing.JButton();
+        txtUsuario = new javax.swing.JTextField();
+        txtContra = new javax.swing.JPasswordField();
+        btnIngresar = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
 
@@ -47,15 +67,26 @@ public class FrmInicioSesion extends javax.swing.JFrame {
         contrasena.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         contrasena.setText("Contraseña");
 
-        fusuario.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        txtUsuario.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        txtUsuario.addCaretListener(new javax.swing.event.CaretListener() {
+            public void caretUpdate(javax.swing.event.CaretEvent evt) {
+                txtUsuarioCaretUpdate(evt);
+            }
+        });
 
-        fContra.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        txtContra.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        txtContra.addCaretListener(new javax.swing.event.CaretListener() {
+            public void caretUpdate(javax.swing.event.CaretEvent evt) {
+                txtContraCaretUpdate(evt);
+            }
+        });
 
-        ingresar.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        ingresar.setText("Ingresar");
-        ingresar.addActionListener(new java.awt.event.ActionListener() {
+        btnIngresar.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        btnIngresar.setText("Ingresar");
+        btnIngresar.setEnabled(false);
+        btnIngresar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                ingresarActionPerformed(evt);
+                btnIngresarActionPerformed(evt);
             }
         });
 
@@ -77,14 +108,14 @@ public class FrmInicioSesion extends javax.swing.JFrame {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(contrasena)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(fContra))
+                        .addComponent(txtContra))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(110, 110, 110)
-                        .addComponent(ingresar))
+                        .addComponent(btnIngresar))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(usuario, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(fusuario, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(txtUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(39, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -95,14 +126,14 @@ public class FrmInicioSesion extends javax.swing.JFrame {
                     .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(fusuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(usuario))
                         .addGap(24, 24, 24)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(contrasena)
-                            .addComponent(fContra, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(txtContra, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(24, 24, 24)
-                        .addComponent(ingresar))
+                        .addComponent(btnIngresar))
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
                         .addGap(105, 105, 105)
                         .addComponent(jLabel1)))
@@ -127,10 +158,20 @@ public class FrmInicioSesion extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void ingresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ingresarActionPerformed
+    private void btnIngresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIngresarActionPerformed
         // TODO add your handling code here:
        
-    }//GEN-LAST:event_ingresarActionPerformed
+    }//GEN-LAST:event_btnIngresarActionPerformed
+
+    private void txtUsuarioCaretUpdate(javax.swing.event.CaretEvent evt) {//GEN-FIRST:event_txtUsuarioCaretUpdate
+        // TODO add your handling code here:
+        this.ValidarIngreso();
+    }//GEN-LAST:event_txtUsuarioCaretUpdate
+
+    private void txtContraCaretUpdate(javax.swing.event.CaretEvent evt) {//GEN-FIRST:event_txtContraCaretUpdate
+        // TODO add your handling code here:
+        this.ValidarIngreso();
+    }//GEN-LAST:event_txtContraCaretUpdate
 
     /**
      * @param args the command line arguments
@@ -168,13 +209,13 @@ public class FrmInicioSesion extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnIngresar;
     private javax.swing.JLabel contrasena;
-    private javax.swing.JPasswordField fContra;
-    private javax.swing.JTextField fusuario;
-    private javax.swing.JButton ingresar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPasswordField txtContra;
+    private javax.swing.JTextField txtUsuario;
     private javax.swing.JLabel usuario;
     // End of variables declaration//GEN-END:variables
 }
