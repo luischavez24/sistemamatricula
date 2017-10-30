@@ -18,7 +18,7 @@ public class Matricula_AD {
     
     AccesoBD acceso = AccesoBD.getInstance();
     
-    public String ejecutarMatricula(Alumnos alumno, Seccion seccion, Grado grado) {
+    public String ejecutarMatricula(Alumnos alumno, Seccion seccion) {
         
         String respuesta = "Matricula Exitosa";
 
@@ -26,9 +26,9 @@ public class Matricula_AD {
             Connection conexion = acceso.getConexion();
             conexion.setAutoCommit(false);
             try (CallableStatement consulta = conexion.prepareCall("{CALL SP_EJECUTAR_MATRICULA (?,?,?)}")) {
-                consulta.setInt(1, alumno.getCodigo());
-                consulta.setInt(2, seccion.getCodigo());
-                consulta.setInt(3, grado.getCodigo());
+                consulta.setInt(1, alumno.getCodAlu());
+                consulta.setInt(2, seccion.getCodSeccion());
+                consulta.setInt(3, seccion.getCodGrado());
 
                 respuesta = (consulta.executeUpdate() == 0) ? "No se pudo ejecutar la matrícula" : "Correcto";
             }

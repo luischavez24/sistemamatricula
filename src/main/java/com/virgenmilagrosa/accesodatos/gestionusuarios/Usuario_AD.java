@@ -22,7 +22,7 @@ import com.virgenmilagrosa.tranversal.entidades.*;
  */
 public class Usuario_AD {
 
-    AccesoBD acceso = AccesoBD.getInstance();
+    private AccesoBD acceso = AccesoBD.getInstance();
 
     public List<Usuario> listarUsuarios() {
 
@@ -68,12 +68,12 @@ public class Usuario_AD {
             Connection conexion = acceso.getConexion();
             conexion.setAutoCommit(false);
             try (CallableStatement consulta = conexion.prepareCall("{CALL SP_REGISTRAR_USUARIO (?,?,?,?,?,?,?,?)}")) {
-                consulta.setInt(1, usuario.getCodigo());
-                consulta.setString(2, usuario.getAPaterno());
+                consulta.setInt(1, usuario.getCodUsuario());
+                consulta.setString(2, usuario.getaPaternoUsuario());
                 consulta.setString(3, usuario.getNombre());
-                consulta.setString(4, usuario.getAMaterno());
-                consulta.setString(5, usuario.getDni());
-                consulta.setString(6, usuario.getTelefono());
+                consulta.setString(4, usuario.getaMaternoUsuario());
+                consulta.setString(5, usuario.getDniUsuario());
+                consulta.setString(6, usuario.getTelfUsuario());
                 consulta.setString(7, usuario.getUsername());
                 consulta.setString(8, usuario.getPassword());
 
@@ -96,8 +96,8 @@ public class Usuario_AD {
             Connection conexion = acceso.getConexion();
             conexion.setAutoCommit(false);
             try (CallableStatement consulta = conexion.prepareCall("{CALL SP_MODIFICAR_USUARIO (?,?) }")) {
-                consulta.setInt(1, usuario.getCodigo());
-                consulta.setString(2, usuario.getTelefono());
+                consulta.setInt(1, usuario.getCodUsuario());
+                consulta.setString(2, usuario.getTelfUsuario());
 
                 respuesta = (consulta.executeUpdate() == 0) ? "No se pudo ejecutar la actualizaron de datos" : "Correcto";
 
@@ -119,7 +119,7 @@ public class Usuario_AD {
             Connection conexion = acceso.getConexion();
             conexion.setAutoCommit(false);
             try (CallableStatement consulta = conexion.prepareCall("{CALL SP_MODIFICAR_PASSWORD (?,?,?) }")) {
-                consulta.setInt(1, usuario.getCodigo());
+                consulta.setInt(1, usuario.getCodUsuario());
                 consulta.setString(2, usuario.getPassword());
                 consulta.setString(3, password);
 

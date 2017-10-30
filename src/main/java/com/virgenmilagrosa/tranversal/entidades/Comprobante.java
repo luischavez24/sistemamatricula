@@ -10,68 +10,70 @@ import java.util.Date;
  * @author juanmanuel
  */
 public class Comprobante {
-    public String NRO_COMPROBANTE;
-    public int MONTO;
-    public Date FECHA_EMISION;
-    public int COD_SECCION;
-    public int COD_GRADO;
-    public int COD_ALU;
+    public String nroComprobante;
+    public double monto;
+    public Date fechaEmision;
+    public int codSeccion;
+    public int codGrado;
+    public int codAlu;
 
-    public Comprobante(String NRO_COMPROBANTE, int MONTO, Date FECHA_EMISION, int COD_SECCION, int COD_GRADO, int COD_ALU) {
-        this.NRO_COMPROBANTE = NRO_COMPROBANTE;
-        this.MONTO = MONTO;
-        this.FECHA_EMISION = FECHA_EMISION;
-        this.COD_SECCION = COD_SECCION;
-        this.COD_GRADO = COD_GRADO;
-        this.COD_ALU = COD_ALU;
+    public Comprobante() {
     }
 
-    public String getNRO_COMPROBANTE() {
-        return NRO_COMPROBANTE;
+    public Comprobante(String nroComprobante, double monto, Date fechaEmision, int codSeccion, int codGrado, int codAlu) {
+        this.nroComprobante = nroComprobante;
+        this.monto = monto;
+        this.fechaEmision = fechaEmision;
+        this.codSeccion = codSeccion;
+        this.codGrado = codGrado;
+        this.codAlu = codAlu;
     }
 
-    public void setNRO_COMPROBANTE(String NRO_COMPROBANTE) {
-        this.NRO_COMPROBANTE = NRO_COMPROBANTE;
+    public String getNroComprobante() {
+        return nroComprobante;
     }
 
-    public int getMONTO() {
-        return MONTO;
+    public void setNroComprobante(String nroComprobante) {
+        this.nroComprobante = nroComprobante;
     }
 
-    public void setMONTO(int MONTO) {
-        this.MONTO = MONTO;
+    public double getMonto() {
+        return monto;
     }
 
-    public Date getFECHA_EMISION() {
-        return FECHA_EMISION;
+    public void setMonto(double monto) {
+        this.monto = monto;
     }
 
-    public void setFECHA_EMISION(Date FECHA_EMISION) {
-        this.FECHA_EMISION = FECHA_EMISION;
+    public Date getFechaEmision() {
+        return fechaEmision;
     }
 
-    public int getCOD_SECCION() {
-        return COD_SECCION;
+    public void setFechaEmision(Date fechaEmision) {
+        this.fechaEmision = fechaEmision;
     }
 
-    public void setCOD_SECCION(int COD_SECCION) {
-        this.COD_SECCION = COD_SECCION;
+    public int getCodSeccion() {
+        return codSeccion;
     }
 
-    public int getCOD_GRADO() {
-        return COD_GRADO;
+    public void setCodSeccion(int codSeccion) {
+        this.codSeccion = codSeccion;
     }
 
-    public void setCOD_GRADO(int COD_GRADO) {
-        this.COD_GRADO = COD_GRADO;
+    public int getCodGrado() {
+        return codGrado;
     }
 
-    public int getCOD_ALU() {
-        return COD_ALU;
+    public void setCodGrado(int codGrado) {
+        this.codGrado = codGrado;
     }
 
-    public void setCOD_ALU(int COD_ALU) {
-        this.COD_ALU = COD_ALU;
+    public int getCodAlu() {
+        return codAlu;
     }
 
+    public void setCodAlu(int codAlu) {
+        this.codAlu = codAlu;
+    }
 }

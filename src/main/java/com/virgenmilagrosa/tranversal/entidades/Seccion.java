@@ -1,58 +1,61 @@
 package com.virgenmilagrosa.tranversal.entidades;
 
 public class Seccion {
-    public int COD_SECCION;
-    public int COD_GRADO;
-    public String NOMBRE_SECCION;
-    public int NRO_VACANTES;
-    public int NRO_SALON;   
+    private int codSeccion;
+    private int codGrado;
+    private String nombreSeccion;
+    private int nroVacantes;
+    private int nroSalon;   
 
-    public Seccion(int COD_SECCION, int COD_GRADO, String NOMBRE_SECCION, int NRO_VACANTES, int NRO_SALON) {
-        this.COD_SECCION = COD_SECCION;
-        this.COD_GRADO = COD_GRADO;
-        this.NOMBRE_SECCION = NOMBRE_SECCION;
-        this.NRO_VACANTES = NRO_VACANTES;
-        this.NRO_SALON = NRO_SALON;
+    public Seccion() {
     }
 
-    public int getCOD_SECCION() {
-        return COD_SECCION;
+    public Seccion(int codSeccion, int codGrado, String nombreSeccion, int nroVacantes, int nroSalon) {
+        this.codSeccion = codSeccion;
+        this.codGrado = codGrado;
+        this.nombreSeccion = nombreSeccion;
+        this.nroVacantes = nroVacantes;
+        this.nroSalon = nroSalon;
     }
 
-    public void setCOD_SECCION(int COD_SECCION) {
-        this.COD_SECCION = COD_SECCION;
+    public int getCodSeccion() {
+        return codSeccion;
     }
 
-    public int getCOD_GRADO() {
-        return COD_GRADO;
+    public void setCodSeccion(int codSeccion) {
+        this.codSeccion = codSeccion;
     }
 
-    public void setCOD_GRADO(int COD_GRADO) {
-        this.COD_GRADO = COD_GRADO;
+    public int getCodGrado() {
+        return codGrado;
     }
 
-    public String getNOMBRE_SECCION() {
-        return NOMBRE_SECCION;
+    public void setCodGrado(int codGrado) {
+        this.codGrado = codGrado;
     }
 
-    public void setNOMBRE_SECCION(String NOMBRE_SECCION) {
-        this.NOMBRE_SECCION = NOMBRE_SECCION;
+    public String getNombreSeccion() {
+        return nombreSeccion;
     }
 
-    public int getNRO_VACANTES() {
-        return NRO_VACANTES;
+    public void setNombreSeccion(String nombreSeccion) {
+        this.nombreSeccion = nombreSeccion;
     }
 
-    public void setNRO_VACANTES(int NRO_VACANTES) {
-        this.NRO_VACANTES = NRO_VACANTES;
+    public int getNroVacantes() {
+        return nroVacantes;
     }
 
-    public int getNRO_SALON() {
-        return NRO_SALON;
+    public void setNroVacantes(int nroVacantes) {
+        this.nroVacantes = nroVacantes;
     }
 
-    public void setNRO_SALON(int NRO_SALON) {
-        this.NRO_SALON = NRO_SALON;
+    public int getNroSalon() {
+        return nroSalon;
+    }
+
+    public void setNroSalon(int nroSalon) {
+        this.nroSalon = nroSalon;
     }
 
 }

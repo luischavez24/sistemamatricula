@@ -10,88 +10,100 @@ package com.virgenmilagrosa.tranversal.entidades;
  * @author juanmanuel
  */
 public class Usuario {
-    public int COD_USUARIO;
-    public String APATERNO_USUARIO;
-    public String NOMBRE;
-    public String AMATERNO_USUARIO;
-    public String DNI_USUARIO;
-    public String TELF_USUARIO;
-    public String USERNAME;
-    public String PASSWORD;
+    public int codUsuario;
+    public String aPaternoUsuario;
+    public String nombre;
+    public String aMaternoUsuario;
+    public String dniUsuario;
+    public String telfUsuario;
+    public String username;
+    public String password;
 
-    public Usuario(int COD_USUARIO, String APATERNO_USUARIO, String NOMBRE, String AMATERNO_USUARIO, String DNI_USUARIO, String TELF_USUARIO, String USERNAME, String PASSWORD) {
-        this.COD_USUARIO = COD_USUARIO;
-        this.APATERNO_USUARIO = APATERNO_USUARIO;
-        this.NOMBRE = NOMBRE;
-        this.AMATERNO_USUARIO = AMATERNO_USUARIO;
-        this.DNI_USUARIO = DNI_USUARIO;
-        this.TELF_USUARIO = TELF_USUARIO;
-        this.USERNAME = USERNAME;
-        this.PASSWORD = PASSWORD;
+    public Usuario() {
+    }
+    
+    public Usuario(int codUsuario, String aPaternoUsuario, String nombre, String aMaternoUsuario, String dniUsuario, String telfUsuario, String username) {
+        this.codUsuario = codUsuario;
+        this.aPaternoUsuario = aPaternoUsuario;
+        this.nombre = nombre;
+        this.aMaternoUsuario = aMaternoUsuario;
+        this.dniUsuario = dniUsuario;
+        this.telfUsuario = telfUsuario;
+        this.username = username;
+    }
+    
+    public Usuario(int codUsuario, String aPaternoUsuario, String nombre, String aMaternoUsuario, String dniUsuario, String telfUsuario, String username, String password) {
+        this.codUsuario = codUsuario;
+        this.aPaternoUsuario = aPaternoUsuario;
+        this.nombre = nombre;
+        this.aMaternoUsuario = aMaternoUsuario;
+        this.dniUsuario = dniUsuario;
+        this.telfUsuario = telfUsuario;
+        this.username = username;
+        this.password = password;
     }
 
-    public int getCOD_USUARIO() {
-        return COD_USUARIO;
+    public int getCodUsuario() {
+        return codUsuario;
     }
 
-    public void setCOD_USUARIO(int COD_USUARIO) {
-        this.COD_USUARIO = COD_USUARIO;
+    public void setCodUsuario(int codUsuario) {
+        this.codUsuario = codUsuario;
     }
 
-    public String getAPATERNO_USUARIO() {
-        return APATERNO_USUARIO;
+    public String getaPaternoUsuario() {
+        return aPaternoUsuario;
     }
 
-    public void setAPATERNO_USUARIO(String APATERNO_USUARIO) {
-        this.APATERNO_USUARIO = APATERNO_USUARIO;
+    public void setaPaternoUsuario(String aPaternoUsuario) {
+        this.aPaternoUsuario = aPaternoUsuario;
     }
 
-    public String getNOMBRE() {
-        return NOMBRE;
+    public String getNombre() {
+        return nombre;
     }
 
-    public void setNOMBRE(String NOMBRE) {
-        this.NOMBRE = NOMBRE;
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
     }
 
-    public String getAMATERNO_USUARIO() {
-        return AMATERNO_USUARIO;
+    public String getaMaternoUsuario() {
+        return aMaternoUsuario;
     }
 
-    public void setAMATERNO_USUARIO(String AMATERNO_USUARIO) {
-        this.AMATERNO_USUARIO = AMATERNO_USUARIO;
+    public void setaMaternoUsuario(String aMaternoUsuario) {
+        this.aMaternoUsuario = aMaternoUsuario;
     }
 
-    public String getDNI_USUARIO() {
-        return DNI_USUARIO;
+    public String getDniUsuario() {
+        return dniUsuario;
     }
 
-    public void setDNI_USUARIO(String DNI_USUARIO) {
-        this.DNI_USUARIO = DNI_USUARIO;
+    public void setDniUsuario(String dniUsuario) {
+        this.dniUsuario = dniUsuario;
     }
 
-    public String getTELF_USUARIO() {
-        return TELF_USUARIO;
+    public String getTelfUsuario() {
+        return telfUsuario;
     }
 
-    public void setTELF_USUARIO(String TELF_USUARIO) {
-        this.TELF_USUARIO = TELF_USUARIO;
+    public void setTelfUsuario(String telfUsuario) {
+        this.telfUsuario = telfUsuario;
     }
 
-    public String getUSERNAME() {
-        return USERNAME;
+    public String getUsername() {
+        return username;
     }
 
-    public void setUSERNAME(String USERNAME) {
-        this.USERNAME = USERNAME;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
-    public String getPASSWORD() {
-        return PASSWORD;
+    public String getPassword() {
+        return password;
     }
 
-    public void setPASSWORD(String PASSWORD) {
-        this.PASSWORD = PASSWORD;
-    }
-
+    public void setPassword(String password) {
+        this.password = password;
+    }    
 }

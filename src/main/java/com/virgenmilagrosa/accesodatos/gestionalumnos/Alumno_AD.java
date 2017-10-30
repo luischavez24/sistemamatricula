@@ -15,13 +15,14 @@ import java.util.List;
 import oracle.jdbc.OracleCallableStatement;
 import oracle.jdbc.OracleTypes;
 import com.virgenmilagrosa.tranversal.entidades.*;
+
 /**
  *
  * @author Jose Carlos
  */
 public class Alumno_AD {
 
-    AccesoBD acceso = AccesoBD.getInstance();
+    private AccesoBD acceso = AccesoBD.getInstance();
 
     public List<Alumnos> listarAlumnos() {
 
@@ -68,14 +69,14 @@ public class Alumno_AD {
             Connection conexion = acceso.getConexion();
             conexion.setAutoCommit(false);
             try (CallableStatement consulta = conexion.prepareCall("{CALL SP_REGISTRAR_ALUMNO (?,?,?,?,?,?,?,?)}")) {
-                consulta.setInt(1, alumno.getCodigo());
-                consulta.setString(2, alumno.getAPaterno());
-                consulta.setString(3, alumno.getNombre());
-                consulta.setString(4, alumno.getAMaterno());
-                consulta.setString(5, alumno.getTelefono());
-                consulta.setString(6, alumno.getEmail());
-                consulta.setString(7, alumno.getDireccion());
-                consulta.setInt(8, alumno.getCodigoApoderado());
+                consulta.setInt(1, alumno.getCodAlu());
+                consulta.setString(2, alumno.getaPaternoAlu());
+                consulta.setString(3, alumno.getNombreAlu());
+                consulta.setString(4, alumno.getaMaternoAlu());
+                consulta.setString(5, alumno.getTelefonoAlu());
+                consulta.setString(6, alumno.getEmailAlu());
+                consulta.setString(7, alumno.getDireccionAlu());
+                consulta.setInt(8, alumno.getCodApoderado());
 
                 respuesta = (consulta.executeUpdate() == 0) ? "No se pudo ejecutar la inserción" : "Correcto";
             }
@@ -96,10 +97,10 @@ public class Alumno_AD {
             Connection conexion = acceso.getConexion();
             conexion.setAutoCommit(false);
             try (CallableStatement consulta = conexion.prepareCall("{CALL SP_MODIFICAR_ACTA (?,?,?,?) }")) {
-                consulta.setInt(1, alumno.getCodigo());
-                consulta.setString(2, alumno.getTelefono());
-                consulta.setString(3, alumno.getEmail());
-                consulta.setString(4, alumno.getDireccion());
+                consulta.setInt(1, alumno.getCodAlu());
+                consulta.setString(2, alumno.getTelefonoAlu());
+                consulta.setString(3, alumno.getEmailAlu());
+                consulta.setString(4, alumno.getDireccionAlu());
 
                 respuesta = (consulta.executeUpdate() == 0) ? "No se pudo ejecutar la actualizaron de datos" : "Correcto";
 

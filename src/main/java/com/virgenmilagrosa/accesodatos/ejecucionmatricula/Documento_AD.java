@@ -63,8 +63,8 @@ public class Documento_AD {
             Connection conexion = acceso.getConexion();
             conexion.setAutoCommit(false);
             try (CallableStatement consulta = conexion.prepareCall("{CALL SP_REGISTRAR_DOCUMENTO (?,?,?)}")) {
-                consulta.setInt(1, documento.getCodigo());
-                consulta.setString(2, documento.getDescripcion());
+                consulta.setInt(1, documento.getCodDocumento());
+                consulta.setString(2, documento.getDescripcionDoc());
                 consulta.setInt(3, documento.getGradoImportancia());
                 respuesta = (consulta.executeUpdate() == 0) ? "No se pudo ejecutar la inserción" : "Correcto";
             }
@@ -85,7 +85,7 @@ public class Documento_AD {
             Connection conexion = acceso.getConexion();
             conexion.setAutoCommit(false);
             try (CallableStatement consulta = conexion.prepareCall("{CALL SP_MODIFICAR_DOCUMENTO (?,?) }")) {
-                consulta.setInt(1, documento.getCodigo());
+                consulta.setInt(1, documento.getCodDocumento());
                 consulta.setInt(2, documento.getGradoImportancia());
 
                 respuesta = (consulta.executeUpdate() == 0) ? "No se pudo ejecutar la actualizaron de datos" : "Correcto";
@@ -137,7 +137,7 @@ public class Documento_AD {
                     codDocumento = resultado.getInt(1);
                     descripcionDoc = resultado.getString(2);
                     gradoImportancia = resultado.getInt(3);
-                    documento = new Documento(codDocumento, descripcionDoc, gradoImportancia);
+                    documento = new Documentos(codDocumento, descripcionDoc, gradoImportancia);
                 }
             }
         } catch (SQLException ex) {

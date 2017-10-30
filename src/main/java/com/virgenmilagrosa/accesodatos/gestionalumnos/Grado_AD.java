@@ -21,7 +21,7 @@ import com.virgenmilagrosa.tranversal.entidades.*;
  */
 public class Grado_AD {
     
-   AccesoBD acceso = AccesoBD.getInstance();
+    private AccesoBD acceso = AccesoBD.getInstance();
 
     public List<Grado> listarGrados() {
 
@@ -63,8 +63,8 @@ public class Grado_AD {
             Connection conexion = acceso.getConexion();
             conexion.setAutoCommit(false);
             try (CallableStatement consulta = conexion.prepareCall("{CALL SP_REGISTRAR_GRADO (?,?,?,?,?,?,?)}")) {
-                consulta.setInt(1, grado.getCodigo());
-                consulta.setString(2, grado.getNombre());
+                consulta.setInt(1, grado.getCodGrado());
+                consulta.setString(2, grado.getNomGrado());
                 consulta.setInt(3, grado.getNivel());
 
                 respuesta = (consulta.executeUpdate() == 0) ? "No se pudo ejecutar la inserción" : "Correcto";
@@ -86,8 +86,8 @@ public class Grado_AD {
             Connection conexion = acceso.getConexion();
             conexion.setAutoCommit(false);
             try (CallableStatement consulta = conexion.prepareCall("{CALL SP_MODIFICAR_GRADO (?,?) }")) {
-                consulta.setInt(1, grado.getCodigo());
-                consulta.setString(2, grado.getNivel());
+                consulta.setInt(1, grado.getCodGrado());
+                consulta.setInt(2, grado.getNivel());
 
                 respuesta = (consulta.executeUpdate() == 0) ? "No se pudo ejecutar la actualizaron de datos" : "Correcto";
 

@@ -15,14 +15,18 @@ import java.util.List;
 import oracle.jdbc.OracleCallableStatement;
 import oracle.jdbc.OracleTypes;
 import com.virgenmilagrosa.tranversal.entidades.*;
+import java.sql.Date;
+import java.text.SimpleDateFormat;
 /**
  *
  * @author Jose Carlos
  */
 public class Acta_AD {
 
-    AccesoBD acceso = AccesoBD.getInstance();
-
+    private AccesoBD acceso = AccesoBD.getInstance();
+    
+    private static final SimpleDateFormat FORMATO = new SimpleDateFormat("dd/MM/yy hh:mm:ss");
+    
     public List<Acta> listarActas() {
 
         List<Acta> lista = new ArrayList<>();
@@ -42,7 +46,7 @@ public class Acta_AD {
                         fechaEntrega = resultado.getString(3);
                         codUsuario = resultado.getInt(4);
                         estado = resultado.getInt(5);
-                        temp = new Acta(codDocumento, codAlu, fechaEntrega, codUsuario, estado);
+                        temp = new Acta(codDocumento, codAlu, Date.valueOf(fechaEntrega), codUsuario, estado);
 
                         lista.add(temp);
                     }
@@ -65,12 +69,11 @@ public class Acta_AD {
             Connection conexion = acceso.getConexion();
             conexion.setAutoCommit(false);
             try (CallableStatement consulta = conexion.prepareCall("{CALL SP_REGISTRAR_ACTAS (?,?,?,?,?)}")) {
-                consulta.setInt(1, acta.getCodigoDoc());
-                consulta.setInt(2, acta.getCodigoAlu());
-                consulta.setString(3, acta.getFechaEntrega());
+                consulta.setInt(1, acta.getCodDocumento());
+                consulta.setInt(2, acta.getCodAlu());
+                consulta.setString(3, FORMATO.format(acta.getFechaEntrega()));
                 consulta.setInt(4, acta.getCodUsuario());
                 consulta.setInt(5, acta.getEstado());
-
                 respuesta = (consulta.executeUpdate() == 0) ? "No se pudo ejecutar la inserción" : "Correcto";
             }
             conexion.commit();
@@ -90,8 +93,8 @@ public class Acta_AD {
             Connection conexion = acceso.getConexion();
             conexion.setAutoCommit(false);
             try (CallableStatement consulta = conexion.prepareCall("{CALL SP_MODIFICAR_ACTA (?,?,?) }")) {
-                consulta.setInt(1, acta.getCodigoDoc());
-                consulta.setInt(2, acta.getCodigoAlu());
+                consulta.setInt(1, acta.getCodDocumento());
+                consulta.setInt(2, acta.getCodAlu());
                 consulta.setInt(3, acta.getEstado());
 
                 respuesta = (consulta.executeUpdate() == 0) ? "No se pudo ejecutar la actualizaron de datos" : "Correcto";
@@ -147,11 +150,11 @@ public class Acta_AD {
                     fechaEntrega = resultado.getString(3);
                     codUsuario = resultado.getInt(4);
                     estado = resultado.getInt(5);
-                    acta = new Acta(codDocumento, codAlu, fechaEntrega, codUsuario, estado);
+                    acta = new Acta(codDocumento, codAlu, Date.valueOf(fechaEntrega), codUsuario, estado);
                 }
             }
         } catch (SQLException ex) {
-
+            System.out.println(ex);
         } finally {
             acceso.close();
         }

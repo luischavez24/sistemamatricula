@@ -10,88 +10,90 @@ package com.virgenmilagrosa.tranversal.entidades;
  * @author juanmanuel
  */
 public class Apoderado {
-    public int COD_APODERADO;
-    public String NOMBRE_AP;
-    public String APATERNO_AP;
-    public String AMATERNO_AP;
-    public String DNI_AP;
-    public String EMAIL_AP;
-    public String TELEFONO_AP;
-    public String OCUPACION;
+    public int codApoderado;
+    public String nombreAp;
+    public String aPaternoAp;
+    public String aMaternoAp;
+    public String dniAp;
+    public String emailAp;
+    public String telefonoAp;
+    public String ocupacion;
 
-    public Apoderado(int COD_APODERADO, String NOMBRE_AP, String APATERNO_AP, String AMATERNO_AP, String DNI_AP, String EMAIL_AP, String TELEFONO_AP, String OCUPACION) {
-        this.COD_APODERADO = COD_APODERADO;
-        this.NOMBRE_AP = NOMBRE_AP;
-        this.APATERNO_AP = APATERNO_AP;
-        this.AMATERNO_AP = AMATERNO_AP;
-        this.DNI_AP = DNI_AP;
-        this.EMAIL_AP = EMAIL_AP;
-        this.TELEFONO_AP = TELEFONO_AP;
-        this.OCUPACION = OCUPACION;
+    public Apoderado() {
     }
 
-    public int getCOD_APODERADO() {
-        return COD_APODERADO;
+    public Apoderado(int codApoderado, String nombreAp, String aPaternoAp, String aMaternoAp, String dniAp, String emailAp, String telefonoAp, String ocupacion) {
+        this.codApoderado = codApoderado;
+        this.nombreAp = nombreAp;
+        this.aPaternoAp = aPaternoAp;
+        this.aMaternoAp = aMaternoAp;
+        this.dniAp = dniAp;
+        this.emailAp = emailAp;
+        this.telefonoAp = telefonoAp;
+        this.ocupacion = ocupacion;
     }
 
-    public void setCOD_APODERADO(int COD_APODERADO) {
-        this.COD_APODERADO = COD_APODERADO;
+    public int getCodApoderado() {
+        return codApoderado;
     }
 
-    public String getNOMBRE_AP() {
-        return NOMBRE_AP;
+    public void setCodApoderado(int codApoderado) {
+        this.codApoderado = codApoderado;
     }
 
-    public void setNOMBRE_AP(String NOMBRE_AP) {
-        this.NOMBRE_AP = NOMBRE_AP;
+    public String getNombreAp() {
+        return nombreAp;
     }
 
-    public String getAPATERNO_AP() {
-        return APATERNO_AP;
+    public void setNombreAp(String nombreAp) {
+        this.nombreAp = nombreAp;
     }
 
-    public void setAPATERNO_AP(String APATERNO_AP) {
-        this.APATERNO_AP = APATERNO_AP;
+    public String getaPaternoAp() {
+        return aPaternoAp;
     }
 
-    public String getAMATERNO_AP() {
-        return AMATERNO_AP;
+    public void setaPaternoAp(String aPaternoAp) {
+        this.aPaternoAp = aPaternoAp;
     }
 
-    public void setAMATERNO_AP(String AMATERNO_AP) {
-        this.AMATERNO_AP = AMATERNO_AP;
+    public String getaMaternoAp() {
+        return aMaternoAp;
     }
 
-    public String getDNI_AP() {
-        return DNI_AP;
+    public void setaMaternoAp(String aMaternoAp) {
+        this.aMaternoAp = aMaternoAp;
     }
 
-    public void setDNI_AP(String DNI_AP) {
-        this.DNI_AP = DNI_AP;
+    public String getDniAp() {
+        return dniAp;
     }
 
-    public String getEMAIL_AP() {
-        return EMAIL_AP;
+    public void setDniAp(String dniAp) {
+        this.dniAp = dniAp;
     }
 
-    public void setEMAIL_AP(String EMAIL_AP) {
-        this.EMAIL_AP = EMAIL_AP;
+    public String getEmailAp() {
+        return emailAp;
     }
 
-    public String getTELEFONO_AP() {
-        return TELEFONO_AP;
+    public void setEmailAp(String emailAp) {
+        this.emailAp = emailAp;
     }
 
-    public void setTELEFONO_AP(String TELEFONO_AP) {
-        this.TELEFONO_AP = TELEFONO_AP;
+    public String getTelefonoAp() {
+        return telefonoAp;
     }
 
-    public String getOCUPACION() {
-        return OCUPACION;
+    public void setTelefonoAp(String telefonoAp) {
+        this.telefonoAp = telefonoAp;
     }
 
-    public void setOCUPACION(String OCUPACION) {
-        this.OCUPACION = OCUPACION;
+    public String getOcupacion() {
+        return ocupacion;
     }
 
+    public void setOcupacion(String ocupacion) {
+        this.ocupacion = ocupacion;
+    }
 }

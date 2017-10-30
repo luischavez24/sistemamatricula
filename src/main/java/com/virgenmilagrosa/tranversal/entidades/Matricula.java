@@ -12,59 +12,61 @@ import java.util.Date;
  * @author juanmanuel
  */
 public class Matricula {
-    public int COD_SECCION;
-    public int COD_GRADO;
-    public int COD_ALU;
     
-    public String COD_MATRICULA;
-    public Date FECHA_EJECUCION;
+    private int codSeccion;
+    private int codGrado;
+    private int codAlu;
+    private String codMatricula;
+    private Date fechaEjecucion;
 
-    public Matricula(int COD_SECCION, int COD_GRADO, int COD_ALU, String COD_MATRICULA, Date FECHA_EJECUCION) {
-        this.COD_SECCION = COD_SECCION;
-        this.COD_GRADO = COD_GRADO;
-        this.COD_ALU = COD_ALU;
-        this.COD_MATRICULA = COD_MATRICULA;
-        this.FECHA_EJECUCION = FECHA_EJECUCION;
+    public Matricula() {
     }
 
-    public int getCOD_SECCION() {
-        return COD_SECCION;
+    public Matricula(int codSeccion, int codGrado, int codAlu, String codMatricula, Date fechaEjecucion) {
+        this.codSeccion = codSeccion;
+        this.codGrado = codGrado;
+        this.codAlu = codAlu;
+        this.codMatricula = codMatricula;
+        this.fechaEjecucion = fechaEjecucion;
     }
 
-    public void setCOD_SECCION(int COD_SECCION) {
-        this.COD_SECCION = COD_SECCION;
+    public int getCodSeccion() {
+        return codSeccion;
     }
 
-    public int getCOD_GRADO() {
-        return COD_GRADO;
+    public void setCodSeccion(int codSeccion) {
+        this.codSeccion = codSeccion;
     }
 
-    public void setCOD_GRADO(int COD_GRADO) {
-        this.COD_GRADO = COD_GRADO;
+    public int getCodGrado() {
+        return codGrado;
     }
 
-    public int getCOD_ALU() {
-        return COD_ALU;
+    public void setCodGrado(int codGrado) {
+        this.codGrado = codGrado;
     }
 
-    public void setCOD_ALU(int COD_ALU) {
-        this.COD_ALU = COD_ALU;
+    public int getCodAlu() {
+        return codAlu;
     }
 
-    public String getCOD_MATRICULA() {
-        return COD_MATRICULA;
+    public void setCodAlu(int codAlu) {
+        this.codAlu = codAlu;
     }
 
-    public void setCOD_MATRICULA(String COD_MATRICULA) {
-        this.COD_MATRICULA = COD_MATRICULA;
+    public String getCodMatricula() {
+        return codMatricula;
     }
 
-    public Date getFECHA_EJECUCION() {
-        return FECHA_EJECUCION;
+    public void setCodMatricula(String codMatricula) {
+        this.codMatricula = codMatricula;
     }
 
-    public void setFECHA_EJECUCION(Date FECHA_EJECUCION) {
-        this.FECHA_EJECUCION = FECHA_EJECUCION;
+    public Date getFechaEjecucion() {
+        return fechaEjecucion;
     }
 
+    public void setFechaEjecucion(Date fechaEjecucion) {
+        this.fechaEjecucion = fechaEjecucion;
+    }
 }

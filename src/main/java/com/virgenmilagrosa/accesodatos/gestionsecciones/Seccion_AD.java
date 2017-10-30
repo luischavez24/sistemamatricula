@@ -21,7 +21,7 @@ import com.virgenmilagrosa.tranversal.entidades.*;
  */
 public class Seccion_AD {
 
-    AccesoBD acceso = AccesoBD.getInstance();
+    private AccesoBD acceso = AccesoBD.getInstance();
 
     public List<Seccion> listarSecciones() {
 
@@ -65,11 +65,11 @@ public class Seccion_AD {
             Connection conexion = acceso.getConexion();
             conexion.setAutoCommit(false);
             try (CallableStatement consulta = conexion.prepareCall("{CALL SP_REGISTRAR_SECCION (?,?,?,?,?)}")) {
-                consulta.setInt(1, seccion.getCodigo());
-                consulta.setInt(2, seccion.getCodigoGrado());
-                consulta.setString(3, seccion.getNombre());
-                consulta.setInt(4, seccion.getVacantes());
-                consulta.setInt(5, seccion.getSalon());
+                consulta.setInt(1, seccion.getCodSeccion());
+                consulta.setInt(2, seccion.getCodGrado());
+                consulta.setString(3, seccion.getNombreSeccion());
+                consulta.setInt(4, seccion.getNroVacantes());
+                consulta.setInt(5, seccion.getNroSalon());
 
                 respuesta = (consulta.executeUpdate() == 0) ? "No se pudo ejecutar la inserción" : "Correcto";
             }
@@ -90,9 +90,9 @@ public class Seccion_AD {
             Connection conexion = acceso.getConexion();
             conexion.setAutoCommit(false);
             try (CallableStatement consulta = conexion.prepareCall("{CALL SP_MODIFICAR_SECCION (?,?,?) }")) {
-                consulta.setInt(1, seccion.getCodigo());
-                consulta.setInt(2, seccion.getCodigoGrado());
-                consulta.setInt(3, seccion.getSalon());
+                consulta.setInt(1, seccion.getCodSeccion());
+                consulta.setInt(2, seccion.getCodGrado());
+                consulta.setInt(3, seccion.getNroSalon());
 
                 respuesta = (consulta.executeUpdate() == 0) ? "No se pudo ejecutar la actualizaron de datos" : "Correcto";
 
@@ -166,9 +166,10 @@ public class Seccion_AD {
         try {
             Connection conexion = acceso.getConexion();
             conexion.setAutoCommit(false);
-            try (CallableStatement consulta = conexion.prepareCall("{CALL SP_AMPLIAR_VACANTES (?,?) }")) {
-                consulta.setInt(1, seccion.getCodigo());
-                consulta.setInt(2, vacantes);
+            try (CallableStatement consulta = conexion.prepareCall("{CALL SP_AMPLIAR_VACANTES (?,?,?) }")) {
+                consulta.setInt(1, seccion.getCodSeccion());
+                consulta.setInt(2, seccion.getCodGrado());
+                consulta.setInt(3, vacantes);
 
                 respuesta = (consulta.executeUpdate() == 0) ? "No se pudo ejecutar la ampliacion de vacantes" : "Correcto";
 

@@ -15,14 +15,18 @@ import java.util.List;
 import oracle.jdbc.OracleCallableStatement;
 import oracle.jdbc.OracleTypes;
 import com.virgenmilagrosa.tranversal.entidades.*;
+import java.text.SimpleDateFormat;
+import java.sql.Date;
 /**
  *
  * @author Jose Carlos
  */
 public class ComprobantePago_AD {
 
-    AccesoBD acceso = AccesoBD.getInstance();
-
+    private AccesoBD acceso = AccesoBD.getInstance();
+    
+    private static final SimpleDateFormat FORMATO = new SimpleDateFormat("dd/MM/yy hh:mm:ss");
+    
     public List<Comprobante> listarComprobantes() {
 
         List<Comprobante> lista = new ArrayList<>();
@@ -44,7 +48,7 @@ public class ComprobantePago_AD {
                         codSeccion = resultado.getInt(4);
                         codGrado = resultado.getInt(5);
                         codAlu = resultado.getInt(6);
-                        temp = new Comprobante(nroComprobante, monto, fechaEmision, codSeccion, codGrado, codAlu);
+                        temp = new Comprobante(nroComprobante, monto,Date.valueOf(fechaEmision), codSeccion, codGrado, codAlu);
 
                         lista.add(temp);
                     }
@@ -67,9 +71,9 @@ public class ComprobantePago_AD {
             Connection conexion = acceso.getConexion();
             conexion.setAutoCommit(false);
             try (CallableStatement consulta = conexion.prepareCall("{CALL SP_REGISTRAR_COMPROBANTE (?,?,?,?,?,?)}")) {
-                consulta.setString(1, comprobante.getNumero());
+                consulta.setString(1, comprobante.getNroComprobante());
                 consulta.setDouble(2, comprobante.getMonto());
-                consulta.setString(3, comprobante.getFechaEmision());
+                consulta.setString(3, FORMATO.format(comprobante.getFechaEmision()));
                 consulta.setInt(4, comprobante.getCodSeccion());
                 consulta.setInt(5, comprobante.getCodGrado());
                 consulta.setInt(6, comprobante.getCodAlu());
@@ -93,7 +97,7 @@ public class ComprobantePago_AD {
             Connection conexion = acceso.getConexion();
             conexion.setAutoCommit(false);
             try (CallableStatement consulta = conexion.prepareCall("{CALL SP_MODIFICAR_COMPROBANTE (?, ?) }")) {
-                consulta.setString(1, comprobante.getNumero());
+                consulta.setString(1, comprobante.getNroComprobante());
                 consulta.setDouble(2, comprobante.getMonto());
 
                 respuesta = (consulta.executeUpdate() == 0) ? "No se pudo ejecutar la actualizaron de datos" : "Correcto";
@@ -150,7 +154,7 @@ public class ComprobantePago_AD {
                     codSeccion = resultado.getInt(4);
                     codGrado = resultado.getInt(5);
                     codAlu = resultado.getInt(6);
-                    comprobante = new Comprobante(nroComprobante, monto, fechaEmision, codSeccion, codGrado, codAlu);
+                    comprobante = new Comprobante(nroComprobante, monto, Date.valueOf(fechaEmision), codSeccion, codGrado, codAlu);
                 }
             }
         } catch (SQLException ex) {

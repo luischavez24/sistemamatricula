@@ -21,7 +21,7 @@ import com.virgenmilagrosa.tranversal.entidades.*;
  */
 public class Apoderado_AD {
 
-    AccesoBD acceso = AccesoBD.getInstance();
+    private AccesoBD acceso = AccesoBD.getInstance();
 
     public List<Apoderado> listarApoderados() {
 
@@ -70,12 +70,12 @@ public class Apoderado_AD {
             Connection conexion = acceso.getConexion();
             conexion.setAutoCommit(false);
             try (CallableStatement consulta = conexion.prepareCall("{CALL SP_REGISTRAR_APODERADO (?,?,?,?,?,?,?)}")) {
-                consulta.setString(1, apoderado.getNombre());
-                consulta.setString(2, apoderado.getAPaterno());
-                consulta.setString(3, apoderado.getAMaterno());
-                consulta.setString(4, apoderado.getDni());
-                consulta.setString(5, apoderado.getEmail());
-                consulta.setString(6, apoderado.getTelefono());
+                consulta.setString(1, apoderado.getNombreAp());
+                consulta.setString(2, apoderado.getaPaternoAp());
+                consulta.setString(3, apoderado.getaMaternoAp());
+                consulta.setString(4, apoderado.getDniAp());
+                consulta.setString(5, apoderado.getEmailAp());
+                consulta.setString(6, apoderado.getTelefonoAp());
                 consulta.setString(7, apoderado.getOcupacion());
 
                 respuesta = (consulta.executeUpdate() == 0) ? "No se pudo ejecutar la inserción" : "Correcto";
@@ -97,9 +97,9 @@ public class Apoderado_AD {
             Connection conexion = acceso.getConexion();
             conexion.setAutoCommit(false);
             try (CallableStatement consulta = conexion.prepareCall("{CALL SP_MODIFICAR_APODERADO (?,?,?,?) }")) {
-                consulta.setInt(1, apoderado.getCodigo());
-                consulta.setString(2, apoderado.getEmail());
-                consulta.setString(3, apoderado.getTelefono());
+                consulta.setInt(1, apoderado.getCodApoderado());
+                consulta.setString(2, apoderado.getEmailAp());
+                consulta.setString(3, apoderado.getTelefonoAp());
                 consulta.setString(4, apoderado.getOcupacion());
 
                 respuesta = (consulta.executeUpdate() == 0) ? "No se pudo ejecutar la actualizaron de datos" : "Correcto";

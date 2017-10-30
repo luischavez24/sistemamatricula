@@ -10,60 +10,62 @@ import java.util.Date;
  * @author juanmanuel
  */
 public class Acta {
-    public int COD_DOCUMENTO;
-    public int COD_ALU;
     
-    public Date FECHA_ENTREGA;
-    public int COD_USUARIO;
-    public int ESTADO;
+    private int codDocumento;
+    private int codAlu;
+    private Date fechaEntrega;
+    private int codUsuario;
+    private int estado;
 
-    public Acta(int COD_DOCUMENTO, int COD_ALU, Date FECHA_ENTREGA, int COD_USUARIO, int ESTADO) {
-        this.COD_DOCUMENTO = COD_DOCUMENTO;
-        this.COD_ALU = COD_ALU;
-        this.FECHA_ENTREGA = FECHA_ENTREGA;
-        this.COD_USUARIO = COD_USUARIO;
-        this.ESTADO = ESTADO;
+    public Acta() {
     }
 
-    public int getCOD_DOCUMENTO() {
-        return COD_DOCUMENTO;
+    public Acta(int codDocumento, int codAlu, Date fechaEntrega, int codUsuario, int estado) {
+        this.codDocumento = codDocumento;
+        this.codAlu = codAlu;
+        this.fechaEntrega = fechaEntrega;
+        this.codUsuario = codUsuario;
+        this.estado = estado;
     }
 
-    public void setCOD_DOCUMENTO(int COD_DOCUMENTO) {
-        this.COD_DOCUMENTO = COD_DOCUMENTO;
+    public int getCodDocumento() {
+        return codDocumento;
     }
 
-    public int getCOD_ALU() {
-        return COD_ALU;
+    public void setCodDocumento(int codDocumento) {
+        this.codDocumento = codDocumento;
     }
 
-    public void setCOD_ALU(int COD_ALU) {
-        this.COD_ALU = COD_ALU;
+    public int getCodAlu() {
+        return codAlu;
     }
 
-    public Date getFECHA_ENTREGA() {
-        return FECHA_ENTREGA;
+    public void setCodAlu(int codAlu) {
+        this.codAlu = codAlu;
     }
 
-    public void setFECHA_ENTREGA(Date FECHA_ENTREGA) {
-        this.FECHA_ENTREGA = FECHA_ENTREGA;
+    public Date getFechaEntrega() {
+        return fechaEntrega;
     }
 
-    public int getCOD_USUARIO() {
-        return COD_USUARIO;
+    public void setFechaEntrega(Date fechaEntrega) {
+        this.fechaEntrega = fechaEntrega;
     }
 
-    public void setCOD_USUARIO(int COD_USUARIO) {
-        this.COD_USUARIO = COD_USUARIO;
+    public int getCodUsuario() {
+        return codUsuario;
     }
 
-    public int getESTADO() {
-        return ESTADO;
+    public void setCodUsuario(int codUsuario) {
+        this.codUsuario = codUsuario;
     }
 
-    public void setESTADO(int ESTADO) {
-        this.ESTADO = ESTADO;
+    public int getEstado() {
+        return estado;
     }
 
+    public void setEstado(int estado) {
+        this.estado = estado;
+    }
    
 }
