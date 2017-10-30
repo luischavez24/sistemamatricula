@@ -9,13 +9,13 @@ import java.util.Date;
  *
  * @author juanmanuel
  */
-public class Comprobante_Pago {
+public class Comprobante {
     public String nroComprobante;
     public int monto;
     public Date fechaEmision;
     public Matricula MatriculaComprobante;
 
-    public Comprobante_Pago(String nroComprobante, int monto, Date fechaEmision, Matricula MatriculaComprobante) {
+    public Comprobante(String nroComprobante, int monto, Date fechaEmision, Matricula MatriculaComprobante) {
         this.nroComprobante = nroComprobante;
         this.monto = monto;
         this.fechaEmision = fechaEmision;
