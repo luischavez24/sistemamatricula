@@ -33,14 +33,17 @@ public class ComprobantePago_AD {
 
         try {
             Connection conexion = acceso.getConexion();
+            
             try (CallableStatement consulta = conexion.prepareCall("{ CALL SP_LISTAR_COMPROBANTES (?) }")) {
                 consulta.registerOutParameter(1, OracleTypes.CURSOR);
                 consulta.execute();
                 try (ResultSet resultado = ((OracleCallableStatement) consulta).getCursor(1)) {
+                    
                     Comprobante temp;
                     int codSeccion, codGrado, codAlu;
                     String nroComprobante, fechaEmision;
                     double monto;
+                    
                     while (resultado.next()) {
                         nroComprobante = resultado.getString(1);
                         monto = resultado.getDouble(2);
@@ -48,8 +51,8 @@ public class ComprobantePago_AD {
                         codSeccion = resultado.getInt(4);
                         codGrado = resultado.getInt(5);
                         codAlu = resultado.getInt(6);
+                        
                         temp = new Comprobante(nroComprobante, monto,Date.valueOf(fechaEmision), codSeccion, codGrado, codAlu);
-
                         lista.add(temp);
                     }
                 }
@@ -163,7 +166,6 @@ public class ComprobantePago_AD {
             acceso.close();
         }
         return comprobante;
-
     }
 
 }
