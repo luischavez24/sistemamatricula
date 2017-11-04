@@ -22,6 +22,15 @@ import com.virgenmilagrosa.tranversal.entidades.*;
  */
 public class Usuario_AD {
 
+	private static final Usuario_AD instance = new Usuario_AD();
+
+	private Usuario_AD() {
+	}
+
+	public static Usuario_AD getInstance() {
+		return instance;
+	}
+
     private AccesoBD acceso = AccesoBD.getInstance();
 
     public List<Usuario> listarUsuarios() {
@@ -52,7 +61,7 @@ public class Usuario_AD {
                 }
             }
         } catch (SQLException ex) {
-
+        	return null;
         } finally {
             acceso.close();
         }
@@ -187,7 +196,7 @@ public class Usuario_AD {
 
     }
     
-     public Usuario verificarUsuario (String username, String password) {
+    public Usuario verificarUsuario (String username, String password) {
 
         Usuario usuario = null;
 

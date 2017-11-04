@@ -37,7 +37,7 @@ public class Validaciones {
             
             public void keyTyped(KeyEvent e){
                 char c=e.getKeyChar();
-                int k=(int)e.getKeyChar();
+                //int k = (int) e.getKeyChar();
                 if(!Character.isDigit(c) || Character.isLetter(c) ){
                     //si es un digito
                     e.consume();//no lo digita

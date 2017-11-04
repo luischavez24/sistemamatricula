@@ -23,6 +23,15 @@ import com.virgenmilagrosa.tranversal.entidades.*;
 public class Seccion_AD {
 
     private AccesoBD acceso = AccesoBD.getInstance();
+    
+    private static final Seccion_AD instance = new Seccion_AD();
+
+	private Seccion_AD() {
+	}
+
+	public static Seccion_AD getInstance() {
+		return instance;
+	}
 
     public List<Seccion> listarSecciones() {
 
@@ -50,7 +59,7 @@ public class Seccion_AD {
                 }
             }
         } catch (SQLException ex) {
-
+        	return null;
         } finally {
             acceso.close();
         }

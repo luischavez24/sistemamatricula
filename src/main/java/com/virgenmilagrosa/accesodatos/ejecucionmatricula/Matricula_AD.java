@@ -16,8 +16,17 @@ import com.virgenmilagrosa.tranversal.entidades.*;
  */
 public class Matricula_AD {
     
-    AccesoBD acceso = AccesoBD.getInstance();
+    private AccesoBD acceso = AccesoBD.getInstance();
     
+    private static final Matricula_AD instance = new Matricula_AD();
+
+	private Matricula_AD() {
+	}
+
+	public static Matricula_AD getInstance() {
+		return instance;
+	}
+
     public String ejecutarMatricula(Alumnos alumno, Seccion seccion) {
         
         String respuesta = "Matricula Exitosa";
