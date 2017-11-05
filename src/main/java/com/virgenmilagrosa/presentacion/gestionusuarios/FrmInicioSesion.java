@@ -5,7 +5,11 @@
  */
 package com.virgenmilagrosa.presentacion.gestionusuarios;
 
+import com.virgenmilagrosa.logicanegocio.gestionusuarios.Usuario_LN;
+import com.virgenmilagrosa.presentacion.FrmInterfazPrincipal;
 import com.virgenmilagrosa.tranversal.control.Validaciones;
+import java.awt.EventQueue;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -16,26 +20,30 @@ public class FrmInicioSesion extends javax.swing.JFrame {
     /**
      * Creates new form FrmInicioSesion
      */
+    private Usuario_LN usuarioLN = Usuario_LN.getInstance();
+
     public FrmInicioSesion() {
         initComponents();
         MetodoInicio();
     }
-    
-    public void MetodoInicio(){
-        Validaciones v= new Validaciones();
+
+    private void MetodoInicio() {
+        setLocationRelativeTo(null);
+        Validaciones v = new Validaciones();
         v.LimitarCaracter(txtUsuario, 15);
         v.LimitarCaracter(txtContra, 15);
-        
+
     }
-    
-    public void ValidarIngreso(){
-        String usuario=txtUsuario.getText().trim();
-        String password=txtContra.getText().trim();
-        
-        if(usuario.isEmpty() || password.isEmpty()){
+
+    public void ValidarIngreso() {
+        String usuario = txtUsuario.getText().trim();
+        String password = new String(txtContra.getPassword()).trim();
+
+        if (usuario.isEmpty() || password.isEmpty()) {
             btnIngresar.setEnabled(false);
-        }else
+        } else {
             btnIngresar.setEnabled(true);
+        }
     }
 
     /**
@@ -53,10 +61,10 @@ public class FrmInicioSesion extends javax.swing.JFrame {
         txtUsuario = new javax.swing.JTextField();
         txtContra = new javax.swing.JPasswordField();
         btnIngresar = new javax.swing.JButton();
-        jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Sistema de Gestion de Matricula");
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.setForeground(new java.awt.Color(255, 255, 255));
@@ -90,8 +98,6 @@ public class FrmInicioSesion extends javax.swing.JFrame {
             }
         });
 
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("src/Gui/ClinicaPsicologica.gif"))); // NOI18N
-
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/escudo.jpg"))); // NOI18N
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -101,9 +107,7 @@ public class FrmInicioSesion extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(12, 12, 12)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(contrasena)
@@ -133,10 +137,7 @@ public class FrmInicioSesion extends javax.swing.JFrame {
                             .addComponent(contrasena)
                             .addComponent(txtContra, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(24, 24, 24)
-                        .addComponent(btnIngresar))
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
-                        .addGap(105, 105, 105)
-                        .addComponent(jLabel1)))
+                        .addComponent(btnIngresar)))
                 .addContainerGap(26, Short.MAX_VALUE))
         );
 
@@ -160,9 +161,43 @@ public class FrmInicioSesion extends javax.swing.JFrame {
 
     private void btnIngresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIngresarActionPerformed
         // TODO add your handling code here:
-       
+        String user = txtUsuario.getText();
+        String pass = new String(txtContra.getPassword());
+        String mensaje;
+        int iconBox;
+        
+        int verificacion = usuarioLN.verificarUsuario(user, pass);
+        switch (verificacion) {
+            case 0:
+                mensaje = "El usuario o la contraseña no son correctos";
+                iconBox = JOptionPane.WARNING_MESSAGE;
+                break;
+            case 1:
+            case 2:
+                mensaje = "Bienvenido!";
+                iconBox = JOptionPane.INFORMATION_MESSAGE;
+                break;
+            default:
+                mensaje = "Ups! Esto es vergonzoso, ha ocurrido un error grave.\n"
+                        + "Contacte con su proveedor de software";
+                iconBox = JOptionPane.ERROR_MESSAGE;
+                break;
+        }
+        
+        JOptionPane.showMessageDialog(rootPane, mensaje, "Mensaje", iconBox);
+        if(verificacion > 0) {
+            abrirVentanaPrincipal(verificacion);
+        }
+        
+        
     }//GEN-LAST:event_btnIngresarActionPerformed
 
+    private void abrirVentanaPrincipal(int rol) {
+        this.dispose();
+        EventQueue.invokeLater(() -> {
+            new FrmInterfazPrincipal(rol).setVisible(true);
+        });
+    }
     private void txtUsuarioCaretUpdate(javax.swing.event.CaretEvent evt) {//GEN-FIRST:event_txtUsuarioCaretUpdate
         // TODO add your handling code here:
         this.ValidarIngreso();
@@ -173,45 +208,9 @@ public class FrmInicioSesion extends javax.swing.JFrame {
         this.ValidarIngreso();
     }//GEN-LAST:event_txtContraCaretUpdate
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(FrmInicioSesion.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(FrmInicioSesion.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(FrmInicioSesion.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(FrmInicioSesion.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new FrmInicioSesion().setVisible(true);
-            }
-        });
-    }
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnIngresar;
     private javax.swing.JLabel contrasena;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPasswordField txtContra;

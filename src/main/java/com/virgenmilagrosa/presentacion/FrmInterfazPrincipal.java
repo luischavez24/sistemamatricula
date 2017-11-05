@@ -14,8 +14,15 @@ public class FrmInterfazPrincipal extends javax.swing.JFrame {
     /**
      * Creates new form FrmInterfazPrincipal
      */
-    public FrmInterfazPrincipal() {
+    
+    private int rol; 
+    
+    public FrmInterfazPrincipal(int rol) {
+        this.rol = rol;
         initComponents();
+        desactivarBotones(rol);
+        setLocationRelativeTo(null);
+        
     }
 
     /**
@@ -49,16 +56,18 @@ public class FrmInterfazPrincipal extends javax.swing.JFrame {
         jButton4 = new javax.swing.JButton();
         jButton5 = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
-        jMenu1 = new javax.swing.JMenu();
-        jMenuItem1 = new javax.swing.JMenuItem();
+        menuAlumnos = new javax.swing.JMenu();
+        btnMostrarAlumnos = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
-        jMenuItem2 = new javax.swing.JMenuItem();
-        jMenu5 = new javax.swing.JMenu();
-        jMenuItem3 = new javax.swing.JMenuItem();
-        jMenuItem4 = new javax.swing.JMenuItem();
-        jMenuItem5 = new javax.swing.JMenuItem();
+        btnMostrarSecciones = new javax.swing.JMenuItem();
+        btnAumentarVac = new javax.swing.JMenuItem();
+        menuMatricula = new javax.swing.JMenu();
+        btnGenerarComprobante = new javax.swing.JMenuItem();
+        btnGenerarMatricula = new javax.swing.JMenuItem();
+        btnGenerarActa = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Sistema de Gestion de Matricula");
         setBackground(new java.awt.Color(255, 255, 255));
 
         jLayeredPane1.setLayout(new java.awt.CardLayout());
@@ -237,22 +246,22 @@ public class FrmInterfazPrincipal extends javax.swing.JFrame {
 
         jLayeredPane1.add(pnlSecciones, "card3");
 
-        jMenu1.setText("Gestion de Alumnos");
-        jMenu1.addActionListener(new java.awt.event.ActionListener() {
+        menuAlumnos.setText("Gestion de Alumnos");
+        menuAlumnos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenu1ActionPerformed(evt);
+                menuAlumnosActionPerformed(evt);
             }
         });
 
-        jMenuItem1.setText("Mostrar alumnos");
-        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+        btnMostrarAlumnos.setText("Mostrar alumnos");
+        btnMostrarAlumnos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem1ActionPerformed(evt);
+                btnMostrarAlumnosActionPerformed(evt);
             }
         });
-        jMenu1.add(jMenuItem1);
+        menuAlumnos.add(btnMostrarAlumnos);
 
-        jMenuBar1.add(jMenu1);
+        jMenuBar1.add(menuAlumnos);
 
         jMenu2.setText("Gestión de Secciones");
         jMenu2.addActionListener(new java.awt.event.ActionListener() {
@@ -261,28 +270,31 @@ public class FrmInterfazPrincipal extends javax.swing.JFrame {
             }
         });
 
-        jMenuItem2.setText("Mostrar Secciones");
-        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
+        btnMostrarSecciones.setText("Mostrar Secciones");
+        btnMostrarSecciones.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem2ActionPerformed(evt);
+                btnMostrarSeccionesActionPerformed(evt);
             }
         });
-        jMenu2.add(jMenuItem2);
+        jMenu2.add(btnMostrarSecciones);
+
+        btnAumentarVac.setText("Aumentar Vacantes");
+        jMenu2.add(btnAumentarVac);
 
         jMenuBar1.add(jMenu2);
 
-        jMenu5.setText("Matricula");
+        menuMatricula.setText("Matricula");
 
-        jMenuItem3.setText("Generar Comprobante");
-        jMenu5.add(jMenuItem3);
+        btnGenerarComprobante.setText("Generar Comprobante");
+        menuMatricula.add(btnGenerarComprobante);
 
-        jMenuItem4.setText("Generar Matrícula");
-        jMenu5.add(jMenuItem4);
+        btnGenerarMatricula.setText("Generar Matrícula");
+        menuMatricula.add(btnGenerarMatricula);
 
-        jMenuItem5.setText("Generar Acta de Compromiso");
-        jMenu5.add(jMenuItem5);
+        btnGenerarActa.setText("Generar Acta de Compromiso");
+        menuMatricula.add(btnGenerarActa);
 
-        jMenuBar1.add(jMenu5);
+        jMenuBar1.add(menuMatricula);
 
         setJMenuBar(jMenuBar1);
 
@@ -300,33 +312,48 @@ public class FrmInterfazPrincipal extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jMenu1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenu1ActionPerformed
+    private void menuAlumnosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuAlumnosActionPerformed
         // TODO add your handling code here:
 
-    }//GEN-LAST:event_jMenu1ActionPerformed
+    }//GEN-LAST:event_menuAlumnosActionPerformed
 
     private void jMenu2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenu2ActionPerformed
         // TODO add your handling code here:
 
     }//GEN-LAST:event_jMenu2ActionPerformed
-
-    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+    
+    private void desactivarBotones (int rol) {
+        if(rol == 1) {
+            btnAumentarVac.setVisible(false);
+        } else if (rol == 2){
+            menuAlumnos.setVisible(false);
+            menuMatricula.setVisible(false);
+            btnMostrarSecciones.setVisible(false);
+        }
+    }
+    private void btnMostrarAlumnosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMostrarAlumnosActionPerformed
         // TODO add your handling code here:
         pnlAlumnos.setVisible(false);
         pnlPagos.setVisible(false);
         pnlSecciones.setVisible(true);
         pnlUsuarios.setVisible(false);
-    }//GEN-LAST:event_jMenuItem1ActionPerformed
+    }//GEN-LAST:event_btnMostrarAlumnosActionPerformed
 
-    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
+    private void btnMostrarSeccionesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMostrarSeccionesActionPerformed
         // TODO add your handling code here:
         pnlAlumnos.setVisible(true);
         pnlPagos.setVisible(false);
         pnlSecciones.setVisible(false);
         pnlUsuarios.setVisible(false);
-    }//GEN-LAST:event_jMenuItem2ActionPerformed
+    }//GEN-LAST:event_btnMostrarSeccionesActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JMenuItem btnAumentarVac;
+    private javax.swing.JMenuItem btnGenerarActa;
+    private javax.swing.JMenuItem btnGenerarComprobante;
+    private javax.swing.JMenuItem btnGenerarMatricula;
+    private javax.swing.JMenuItem btnMostrarAlumnos;
+    private javax.swing.JMenuItem btnMostrarSecciones;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
@@ -337,21 +364,16 @@ public class FrmInterfazPrincipal extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLayeredPane jLayeredPane1;
-    private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
-    private javax.swing.JMenu jMenu5;
     private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JMenuItem jMenuItem1;
-    private javax.swing.JMenuItem jMenuItem2;
-    private javax.swing.JMenuItem jMenuItem3;
-    private javax.swing.JMenuItem jMenuItem4;
-    private javax.swing.JMenuItem jMenuItem5;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable jTable1;
     private javax.swing.JTable jTable2;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField2;
+    private javax.swing.JMenu menuAlumnos;
+    private javax.swing.JMenu menuMatricula;
     private javax.swing.JPanel pnlAlumnos;
     private javax.swing.JPanel pnlPagos;
     private javax.swing.JPanel pnlPrincipal;

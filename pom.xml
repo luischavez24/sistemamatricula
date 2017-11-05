@@ -17,32 +17,25 @@
             <version>12.1.0.2</version>
             <type>jar</type>
         </dependency>
-                <dependency>
-            <groupId>unknown.binary</groupId>
+        <dependency>
+            <groupId>org.netbeans.external</groupId>
             <artifactId>AbsoluteLayout</artifactId>
-            <version>SNAPSHOT</version>
+            <version>RELEASE74</version>
         </dependency>
-        <dependency>
-            <groupId>unknown.binary</groupId>
-            <artifactId>PlaceHolder</artifactId>
-            <version>SNAPSHOT</version>
-        </dependency>
-        <dependency>
-            <groupId>unknown.binary</groupId>
-            <artifactId>TimingFramework</artifactId>
-            <version>SNAPSHOT</version>
-        </dependency>
-        <dependency>
-            <groupId>org.jdesktop</groupId>
-            <artifactId>beansbinding</artifactId>
-            <version>1.2.1</version>
-        </dependency>
-        <dependency>
-            <groupId>unknown.binary</groupId>
-            <artifactId>swing-layout-1.0.4</artifactId>
-            <version>SNAPSHOT</version>
-        </dependency>
+
     </dependencies>
+    <!-- Repositorio del driver de oracle -->
+    <repositories>
+        <repository>
+            <id>codelds</id>
+            <url>https://code.lds.org/nexus/content/groups/main-repo</url>
+        </repository>
+        <repository>
+            <id>netbeans</id>
+            <name>Netbeans rep</name>
+            <url>http://bits.netbeans.org/maven2/</url>
+        </repository>
+    </repositories>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.source>1.8</maven.compiler.source>
