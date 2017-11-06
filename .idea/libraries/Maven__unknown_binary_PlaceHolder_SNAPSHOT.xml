@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="Maven: unknown.binary:PlaceHolder:SNAPSHOT">
+    <CLASSES>
+      <root url="jar://$MAVEN_REPOSITORY$/unknown/binary/PlaceHolder/SNAPSHOT/PlaceHolder-SNAPSHOT.jar!/" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$MAVEN_REPOSITORY$/unknown/binary/PlaceHolder/SNAPSHOT/PlaceHolder-SNAPSHOT-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$MAVEN_REPOSITORY$/unknown/binary/PlaceHolder/SNAPSHOT/PlaceHolder-SNAPSHOT-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

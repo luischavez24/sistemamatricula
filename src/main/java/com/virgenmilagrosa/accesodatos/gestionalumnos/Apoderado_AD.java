@@ -23,6 +23,15 @@ import com.virgenmilagrosa.tranversal.entidades.*;
 public class Apoderado_AD {
 
     private AccesoBD acceso = AccesoBD.getInstance();
+    
+    private static final Apoderado_AD instance = new Apoderado_AD();
+
+	private Apoderado_AD() {
+	}
+
+	public static Apoderado_AD getInstance() {
+		return instance;
+	}
 
     public List<Apoderado> listarApoderados() {
 

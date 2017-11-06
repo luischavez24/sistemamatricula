@@ -23,6 +23,15 @@ import com.virgenmilagrosa.tranversal.entidades.*;
 public class Alumno_AD {
 
     private AccesoBD acceso = AccesoBD.getInstance();
+    
+    private static final Alumno_AD instance = new Alumno_AD();
+
+	private Alumno_AD() {
+	}
+
+	public static Alumno_AD getInstance() {
+		return instance;
+	}
 
     public List<Alumnos> listarAlumnos() {
 

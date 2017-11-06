@@ -150,7 +150,7 @@ public class FrmEmitirComprobante extends javax.swing.JFrame {
 
     private void btnVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVolverActionPerformed
         // TODO add your handling code here:
-        FrmInterfazPrincipal principal = new FrmInterfazPrincipal();
+        FrmInterfazPrincipal principal = new FrmInterfazPrincipal(0);
         principal.setVisible(true);
     }//GEN-LAST:event_btnVolverActionPerformed
 

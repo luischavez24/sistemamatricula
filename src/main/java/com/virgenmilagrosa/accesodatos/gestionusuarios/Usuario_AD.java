@@ -15,12 +15,22 @@ import java.util.List;
 import oracle.jdbc.OracleCallableStatement;
 import oracle.jdbc.OracleTypes;
 import com.virgenmilagrosa.tranversal.entidades.*;
+import java.sql.Types;
 
 /**
  *
  * @author Jose Carlos
  */
 public class Usuario_AD {
+
+    private static final Usuario_AD INSTANCE = new Usuario_AD();
+
+    private Usuario_AD() {
+    }
+
+    public static Usuario_AD getInstance() {
+        return INSTANCE;
+    }
 
     private AccesoBD acceso = AccesoBD.getInstance();
 
@@ -30,12 +40,16 @@ public class Usuario_AD {
 
         try {
             Connection conexion = acceso.getConexion();
+            
             try (CallableStatement consulta = conexion.prepareCall("{ CALL SP_LISTAR_USUARIO (?) }")) {
+                
                 consulta.registerOutParameter(1, OracleTypes.CURSOR);
                 consulta.execute();
+                
                 try (ResultSet resultado = ((OracleCallableStatement) consulta).getCursor(1)) {
+                    
                     Usuario temp;
-                    int codUsuario;
+                    int codUsuario, rol;
                     String apaternoUsuario, nombre, amaternoUsuario, dniUsuario, telfUsuario, username;
                     while (resultado.next()) {
                         codUsuario = resultado.getInt(1);
@@ -45,14 +59,17 @@ public class Usuario_AD {
                         dniUsuario = resultado.getString(5);
                         telfUsuario = resultado.getString(6);
                         username = resultado.getString(7);
-                        temp = new Usuario(codUsuario, apaternoUsuario, nombre, amaternoUsuario, dniUsuario, telfUsuario, username);
+                        rol = resultado.getInt(8);
+                        temp = new Usuario(codUsuario, apaternoUsuario, nombre,
+                                amaternoUsuario, dniUsuario, telfUsuario,
+                                username, rol);
 
                         lista.add(temp);
                     }
                 }
             }
         } catch (SQLException ex) {
-
+            lista = null;
         } finally {
             acceso.close();
         }
@@ -76,7 +93,7 @@ public class Usuario_AD {
                 consulta.setString(6, usuario.getTelfUsuario());
                 consulta.setString(7, usuario.getUsername());
                 consulta.setString(8, usuario.getPassword());
-
+                consulta.setInt(9, usuario.getRol());
                 consulta.execute();
             }
             conexion.commit();
@@ -168,14 +185,18 @@ public class Usuario_AD {
                 try (ResultSet resultado = ((OracleCallableStatement) consulta).getCursor(1)) {
 
                     String apaternoUsuario, nombre, amaternoUsuario, dniUsuario, telfUsuario, username;
-                    codUsuario = resultado.getInt(1);
+                    int codU, rol;
+                    codU = resultado.getInt(1);
                     apaternoUsuario = resultado.getString(2);
                     nombre = resultado.getString(3);
                     amaternoUsuario = resultado.getString(4);
                     dniUsuario = resultado.getString(5);
                     telfUsuario = resultado.getString(6);
                     username = resultado.getString(7);
-                    usuario = new Usuario(codUsuario, apaternoUsuario, nombre, amaternoUsuario, dniUsuario, telfUsuario, username);
+                    rol = resultado.getInt(8);
+                    usuario = new Usuario(codU, apaternoUsuario, nombre,
+                            amaternoUsuario, dniUsuario, telfUsuario,
+                            username, rol);
                 }
             }
         } catch (SQLException ex) {
@@ -186,38 +207,29 @@ public class Usuario_AD {
         return usuario;
 
     }
-    
-     public Usuario verificarUsuario (String username, String password) {
 
-        Usuario usuario = null;
+    public int verificarUsuario(String username, String password) {
+
+        int verificacion = 0;
 
         try {
             Connection conexion = acceso.getConexion();
-            try (CallableStatement consulta = conexion.prepareCall("{ CALL SP_VERIFICAR_USUARIO (?,?) }")) {
-                consulta.registerOutParameter(1, OracleTypes.CURSOR);
-                consulta.setString(1, username);
-                consulta.setString(2, password);
-                consulta.execute();
-                try (ResultSet resultado = ((OracleCallableStatement) consulta).getCursor(1)) {
+            try (CallableStatement consulta = conexion.prepareCall("{ ? = call FN_VERIFICAR_USUARIO (?,?) }")) {
 
-                    int codUsuario;
-                    String apaternoUsuario, nombre, amaternoUsuario, dniUsuario, telfUsuario;
-                    codUsuario = resultado.getInt(1);
-                    apaternoUsuario = resultado.getString(2);
-                    nombre = resultado.getString(3);
-                    amaternoUsuario = resultado.getString(4);
-                    dniUsuario = resultado.getString(5);
-                    telfUsuario = resultado.getString(6);
-                    usuario = new Usuario(codUsuario, apaternoUsuario, nombre, amaternoUsuario, dniUsuario, telfUsuario, username);
-                }
+                consulta.registerOutParameter(1, Types.NUMERIC);
+                consulta.setString(2, username);
+                consulta.setString(3, password);
+                consulta.execute();
+
+                verificacion = consulta.getInt(1);
             }
         } catch (SQLException ex) {
-            System.out.println(ex);
+            verificacion = -1;
         } finally {
             acceso.close();
         }
-        return usuario;
+        return verificacion;
 
     }
-    
+
 }

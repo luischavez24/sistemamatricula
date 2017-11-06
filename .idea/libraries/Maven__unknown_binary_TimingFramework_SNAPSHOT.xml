@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="Maven: unknown.binary:TimingFramework:SNAPSHOT">
+    <CLASSES>
+      <root url="jar://$MAVEN_REPOSITORY$/unknown/binary/TimingFramework/SNAPSHOT/TimingFramework-SNAPSHOT.jar!/" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$MAVEN_REPOSITORY$/unknown/binary/TimingFramework/SNAPSHOT/TimingFramework-SNAPSHOT-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$MAVEN_REPOSITORY$/unknown/binary/TimingFramework/SNAPSHOT/TimingFramework-SNAPSHOT-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

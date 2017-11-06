@@ -22,8 +22,18 @@ import com.virgenmilagrosa.tranversal.entidades.*;
  */
 public class Documento_AD {
 
-    AccesoBD acceso = AccesoBD.getInstance();
+    private AccesoBD acceso = AccesoBD.getInstance();
+    
+    private static final Documento_AD instance = new Documento_AD();
 
+	private Documento_AD() {
+	}
+
+	public static Documento_AD getInstance() {
+		return instance;
+	}
+
+    
     public List<Documentos> listarDocumentos() {
 
         List<Documentos> lista = new ArrayList<>();

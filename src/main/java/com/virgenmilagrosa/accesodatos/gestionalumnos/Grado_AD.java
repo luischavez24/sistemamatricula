@@ -23,6 +23,15 @@ import com.virgenmilagrosa.tranversal.entidades.*;
 public class Grado_AD {
 
     private AccesoBD acceso = AccesoBD.getInstance();
+    
+    private static final Grado_AD instance = new Grado_AD();
+
+	private Grado_AD() {
+	}
+
+	public static Grado_AD getInstance() {
+		return instance;
+	}
 
     public List<Grado> listarGrados() {
 
@@ -48,7 +57,7 @@ public class Grado_AD {
                 }
             }
         } catch (SQLException ex) {
-
+        	return null;
         } finally {
             acceso.close();
         }

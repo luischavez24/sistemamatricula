@@ -27,6 +27,15 @@ public class Acta_AD {
     private AccesoBD acceso = AccesoBD.getInstance();
 
     private static final SimpleDateFormat FORMATO = new SimpleDateFormat("dd/MM/yy hh:mm:ss");
+    
+    private static final Acta_AD instance = new Acta_AD();
+
+	private Acta_AD() {
+	}
+
+	public static Acta_AD getInstance() {
+		return instance;
+	}
 
     public List<Acta> listarActas() {
 
@@ -149,7 +158,7 @@ public class Acta_AD {
                     fechaEntrega = resultado.getString(3);
                     codUsuario = resultado.getInt(4);
                     estado = resultado.getInt(5);
-                    acta = new Acta(codDocumento, codAlu, Date.valueOf(fechaEntrega), codUsuario, estado);
+                    acta = new Acta(codDocumento, codAlumno, Date.valueOf(fechaEntrega), codUsuario, estado);
                 }
             }
         } catch (SQLException ex) {

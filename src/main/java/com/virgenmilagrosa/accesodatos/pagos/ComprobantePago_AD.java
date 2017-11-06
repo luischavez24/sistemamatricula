@@ -22,6 +22,15 @@ import java.sql.Date;
  * @author Jose Carlos
  */
 public class ComprobantePago_AD {
+	
+	private static final ComprobantePago_AD instance = new ComprobantePago_AD();
+
+	private ComprobantePago_AD() {
+	}
+
+	public static ComprobantePago_AD getInstance() {
+		return instance;
+	}
 
     private AccesoBD acceso = AccesoBD.getInstance();
     
@@ -58,7 +67,7 @@ public class ComprobantePago_AD {
                 }
             }
         } catch (SQLException ex) {
-
+        	lista = null;
         } finally {
             acceso.close();
         }
@@ -135,7 +144,7 @@ public class ComprobantePago_AD {
 
     }
 
-    public Comprobante buscarActa(String nroComprobante) {
+    public Comprobante buscarComprobante(String nroComprobante) {
 
         Comprobante comprobante = null;
 

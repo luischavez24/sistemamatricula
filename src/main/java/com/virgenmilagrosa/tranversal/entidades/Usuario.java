@@ -18,11 +18,14 @@ public class Usuario {
     public String telfUsuario;
     public String username;
     public String password;
-
+    public int rol;
+    
     public Usuario() {
     }
     
-    public Usuario(int codUsuario, String aPaternoUsuario, String nombre, String aMaternoUsuario, String dniUsuario, String telfUsuario, String username) {
+    public Usuario(int codUsuario, String aPaternoUsuario, String nombre, 
+            String aMaternoUsuario, String dniUsuario, String telfUsuario, 
+            String username, int rol) {
         this.codUsuario = codUsuario;
         this.aPaternoUsuario = aPaternoUsuario;
         this.nombre = nombre;
@@ -30,9 +33,12 @@ public class Usuario {
         this.dniUsuario = dniUsuario;
         this.telfUsuario = telfUsuario;
         this.username = username;
+        this.rol = rol;
     }
     
-    public Usuario(int codUsuario, String aPaternoUsuario, String nombre, String aMaternoUsuario, String dniUsuario, String telfUsuario, String username, String password) {
+    public Usuario(int codUsuario, String aPaternoUsuario, String nombre, 
+            String aMaternoUsuario, String dniUsuario, String telfUsuario, 
+            String username, String password, int rol) {
         this.codUsuario = codUsuario;
         this.aPaternoUsuario = aPaternoUsuario;
         this.nombre = nombre;
@@ -41,6 +47,7 @@ public class Usuario {
         this.telfUsuario = telfUsuario;
         this.username = username;
         this.password = password;
+        this.rol = rol;
     }
 
     public int getCodUsuario() {
@@ -106,4 +113,12 @@ public class Usuario {
     public void setPassword(String password) {
         this.password = password;
     }    
+
+    public int getRol() {
+        return rol;
+    }
+
+    public void setRol(int rol) {
+        this.rol = rol;
+    }
 }
