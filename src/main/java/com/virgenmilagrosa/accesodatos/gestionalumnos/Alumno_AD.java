@@ -169,7 +169,7 @@ public class Alumno_AD {
                 }
             }
         } catch (SQLException ex) {
-
+            System.out.println(ex);
         } finally {
             acceso.close();
         }

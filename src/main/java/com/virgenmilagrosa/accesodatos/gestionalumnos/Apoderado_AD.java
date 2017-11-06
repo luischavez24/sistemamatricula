@@ -23,15 +23,15 @@ import com.virgenmilagrosa.tranversal.entidades.*;
 public class Apoderado_AD {
 
     private AccesoBD acceso = AccesoBD.getInstance();
-    
+
     private static final Apoderado_AD instance = new Apoderado_AD();
 
-	private Apoderado_AD() {
-	}
+    private Apoderado_AD() {
+    }
 
-	public static Apoderado_AD getInstance() {
-		return instance;
-	}
+    public static Apoderado_AD getInstance() {
+        return instance;
+    }
 
     public List<Apoderado> listarApoderados() {
 
@@ -142,6 +142,40 @@ public class Apoderado_AD {
         }
         return respuesta;
 
+    }
+
+    public Apoderado buscarApoderado(int codApoderado) {
+        Apoderado apoderado = new Apoderado();
+
+        try {
+            Connection conexion = acceso.getConexion();
+            try (CallableStatement consulta = conexion.prepareCall("{ CALL SP_BUSCAR_APODERADO(?, ?) }")) {
+                consulta.registerOutParameter(2, OracleTypes.CURSOR);
+                consulta.setInt(1, codApoderado);
+                consulta.execute();
+                try (ResultSet resultado = ((OracleCallableStatement) consulta).getCursor(1)) {
+
+                    if (resultado.next()) {
+                        apoderado.setCodApoderado(resultado.getInt("COD_APODERADO"));
+                        apoderado.setNombreAp(resultado.getString("NOMBRE_AP"));
+                        apoderado.setaPaternoAp(resultado.getString("APATERNO_AP"));
+                        apoderado.setaMaternoAp(resultado.getString("AMATERNO_AP"));
+                        apoderado.setDniAp(resultado.getString("DNI_AP"));
+                        apoderado.setEmailAp(resultado.getString("EMAIL_AP"));
+                        apoderado.setTelefonoAp(resultado.getString("TELEFONO_AP"));
+                        apoderado.setOcupacion(resultado.getString("OCUPACIN"));
+                    } else {
+                        apoderado = null;
+                    }
+
+                }
+            }
+        } catch (SQLException ex) {
+            apoderado = null;
+        } finally {
+            acceso.close();
+        }
+        return apoderado;
     }
 
 }

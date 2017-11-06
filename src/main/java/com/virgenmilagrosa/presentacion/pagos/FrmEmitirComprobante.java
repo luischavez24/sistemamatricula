@@ -7,7 +7,6 @@ package com.virgenmilagrosa.presentacion.pagos;
 
 import com.virgenmilagrosa.presentacion.FrmInterfazPrincipal;
 import com.virgenmilagrosa.tranversal.control.Validaciones;
-import java.sql.Connection;
 
 /**
  *
@@ -23,7 +22,7 @@ public class FrmEmitirComprobante extends javax.swing.JFrame {
         MetodoInicio();
     }
     
-    public void MetodoInicio(){
+    private void MetodoInicio(){
         Validaciones v= new Validaciones();
         v.LimitarCaracter(txtCodigo, 4);
         v.ValidarSoloNumeros(txtCodigo);
@@ -193,10 +192,8 @@ public class FrmEmitirComprobante extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new FrmEmitirComprobante().setVisible(true);
-            }
+        java.awt.EventQueue.invokeLater(() -> {
+            new FrmEmitirComprobante().setVisible(true);
         });
     }
 
