@@ -64,9 +64,9 @@ public class FrmGenerarMatricula extends javax.swing.JFrame {
         txtNombreApod = new javax.swing.JTextField();
         jPanel3 = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
-        cbxSeccion = new javax.swing.JComboBox<>();
+        cbxSeccion = new javax.swing.JComboBox<String>();
         jLabel8 = new javax.swing.JLabel();
-        cbxGrado = new javax.swing.JComboBox<>();
+        cbxGrado = new javax.swing.JComboBox<String>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -85,6 +85,11 @@ public class FrmGenerarMatricula extends javax.swing.JFrame {
         jLabel2.setText("Codigo de Alumno");
 
         btnConsultar.setText("Consultar");
+        btnConsultar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnConsultarActionPerformed(evt);
+            }
+        });
 
         btnEjecutar.setText("Ejecutar Matricula");
         btnEjecutar.setEnabled(false);
@@ -154,12 +159,12 @@ public class FrmGenerarMatricula extends javax.swing.JFrame {
 
         jLabel4.setText("Seccion");
 
-        cbxSeccion.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "-- Seleccione Seccion --", "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cbxSeccion.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "-- Seleccione Seccion --", "Item 1", "Item 2", "Item 3", "Item 4" }));
         cbxSeccion.setToolTipText("");
 
         jLabel8.setText("Grado");
 
-        cbxGrado.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "-- Seleccione Grado --", "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cbxGrado.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "-- Seleccione Grado --", "Item 1", "Item 2", "Item 3", "Item 4" }));
         cbxGrado.setToolTipText("");
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
@@ -272,6 +277,10 @@ public class FrmGenerarMatricula extends javax.swing.JFrame {
         // TODO add your handling code here:
         this.EjecutarMatricula();
     }//GEN-LAST:event_txtCodigoCaretUpdate
+
+    private void btnConsultarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConsultarActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnConsultarActionPerformed
 
     /**
      * @param args the command line arguments

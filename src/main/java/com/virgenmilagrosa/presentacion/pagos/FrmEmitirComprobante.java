@@ -5,7 +5,9 @@
  */
 package com.virgenmilagrosa.presentacion.pagos;
 
+import com.virgenmilagrosa.presentacion.FrmInterfazPrincipal;
 import com.virgenmilagrosa.tranversal.control.Validaciones;
+import java.sql.Connection;
 
 /**
  *
@@ -53,10 +55,20 @@ public class FrmEmitirComprobante extends javax.swing.JFrame {
         jLabel1.setText("Emitir comprobante");
 
         btnVolver.setText("Volver");
+        btnVolver.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnVolverActionPerformed(evt);
+            }
+        });
 
         jLabel2.setText("Codigo de Alumno");
 
         btnBuscar.setText("Buscar");
+        btnBuscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBuscarActionPerformed(evt);
+            }
+        });
 
         txtAreaComprobante.setColumns(20);
         txtAreaComprobante.setRows(5);
@@ -64,6 +76,11 @@ public class FrmEmitirComprobante extends javax.swing.JFrame {
         jScrollPane1.setViewportView(txtAreaComprobante);
 
         btnImprimir.setText("Imprimir Comprobante");
+        btnImprimir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnImprimirActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -130,6 +147,23 @@ public class FrmEmitirComprobante extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVolverActionPerformed
+        // TODO add your handling code here:
+        FrmInterfazPrincipal principal = new FrmInterfazPrincipal();
+        principal.setVisible(true);
+    }//GEN-LAST:event_btnVolverActionPerformed
+
+    private void btnImprimirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnImprimirActionPerformed
+        // Impprimir comprobante, levantar impresora.
+                
+        
+    }//GEN-LAST:event_btnImprimirActionPerformed
+
+    private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
+        // TODO add your handling code here:
+        
+    }//GEN-LAST:event_btnBuscarActionPerformed
 
     /**
      * @param args the command line arguments

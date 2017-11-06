@@ -5,6 +5,8 @@
  */
 package com.virgenmilagrosa.presentacion;
 
+import com.virgenmilagrosa.presentacion.pagos.FrmEmitirComprobante;
+
 /**
  *
  * @author lucho
@@ -274,6 +276,11 @@ public class FrmInterfazPrincipal extends javax.swing.JFrame {
         jMenu5.setText("Matricula");
 
         jMenuItem3.setText("Generar Comprobante");
+        jMenuItem3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem3ActionPerformed(evt);
+            }
+        });
         jMenu5.add(jMenuItem3);
 
         jMenuItem4.setText("Generar Matrícula");
@@ -325,6 +332,12 @@ public class FrmInterfazPrincipal extends javax.swing.JFrame {
         pnlSecciones.setVisible(false);
         pnlUsuarios.setVisible(false);
     }//GEN-LAST:event_jMenuItem2ActionPerformed
+
+    private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
+        // TODO add your handling code here:
+        FrmEmitirComprobante ventana = new FrmEmitirComprobante();
+        ventana.setVisible(true);
+    }//GEN-LAST:event_jMenuItem3ActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
