@@ -5,6 +5,7 @@
  */
 package com.virgenmilagrosa.accesodatos.gestionusuarios;
 
+import com.virgenmilagrosa.accesodatos.gestionalumnos.Grado_AD;
 import com.virgenmilagrosa.tranversal.conexion.*;
 import java.sql.CallableStatement;
 import java.sql.Connection;
@@ -16,6 +17,8 @@ import oracle.jdbc.OracleCallableStatement;
 import oracle.jdbc.OracleTypes;
 import com.virgenmilagrosa.tranversal.entidades.*;
 import java.sql.Types;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 /**
  *
@@ -23,6 +26,8 @@ import java.sql.Types;
  */
 public class Usuario_AD {
 
+    private static final Log LOG = LogFactory.getLog(Usuario_AD.class);
+    
     private static final Usuario_AD INSTANCE = new Usuario_AD();
 
     private Usuario_AD() {
@@ -40,14 +45,14 @@ public class Usuario_AD {
 
         try {
             Connection conexion = acceso.getConexion();
-            
+
             try (CallableStatement consulta = conexion.prepareCall("{ CALL SP_LISTAR_USUARIO (?) }")) {
-                
+
                 consulta.registerOutParameter(1, OracleTypes.CURSOR);
                 consulta.execute();
-                
+
                 try (ResultSet resultado = ((OracleCallableStatement) consulta).getCursor(1)) {
-                    
+
                     Usuario temp;
                     int codUsuario, rol;
                     String apaternoUsuario, nombre, amaternoUsuario, dniUsuario, telfUsuario, username;
@@ -177,31 +182,45 @@ public class Usuario_AD {
         Usuario usuario = null;
 
         try {
+            LOG.info("Abriendo conexion");
             Connection conexion = acceso.getConexion();
-            try (CallableStatement consulta = conexion.prepareCall("{ CALL SP_BUSCAR_USUARIO (?) }")) {
-                consulta.registerOutParameter(1, OracleTypes.CURSOR);
-                consulta.setInt(1, codUsuario);
-                consulta.execute();
-                try (ResultSet resultado = ((OracleCallableStatement) consulta).getCursor(1)) {
+            LOG.info("Llamando procedimiento 'SP_BUSCAR_USUARIO'");
+            
+            try (CallableStatement consulta = conexion.prepareCall("{ CALL SP_BUSCAR_USUARIO (?,?) }")) {
 
-                    String apaternoUsuario, nombre, amaternoUsuario, dniUsuario, telfUsuario, username;
-                    int codU, rol;
-                    codU = resultado.getInt(1);
-                    apaternoUsuario = resultado.getString(2);
-                    nombre = resultado.getString(3);
-                    amaternoUsuario = resultado.getString(4);
-                    dniUsuario = resultado.getString(5);
-                    telfUsuario = resultado.getString(6);
-                    username = resultado.getString(7);
-                    rol = resultado.getInt(8);
-                    usuario = new Usuario(codU, apaternoUsuario, nombre,
-                            amaternoUsuario, dniUsuario, telfUsuario,
-                            username, rol);
+                consulta.setInt(1, codUsuario);
+                consulta.registerOutParameter(2, OracleTypes.CURSOR);
+                
+                LOG.info("Ejecuntado procedimiento");
+                consulta.execute();
+                
+                try (ResultSet resultado = ((OracleCallableStatement) consulta).getCursor(2)) {
+                    
+                    
+                    if (resultado.next()) {
+                        String apaternoUsuario, nombre, amaternoUsuario, dniUsuario, telfUsuario, username;
+                        int codU, rol;
+                        codU = resultado.getInt(1);
+                        apaternoUsuario = resultado.getString(2);
+                        nombre = resultado.getString(3);
+                        amaternoUsuario = resultado.getString(4);
+                        dniUsuario = resultado.getString(5);
+                        telfUsuario = resultado.getString(6);
+                        username = resultado.getString(7);
+                        rol = resultado.getInt(8);
+                        usuario = new Usuario(codU, apaternoUsuario, nombre,
+                                amaternoUsuario, dniUsuario, telfUsuario,
+                                username, rol);
+                        
+                        LOG.info("Añadiendo el objeto=" + usuario);
+                    }
+
                 }
             }
         } catch (SQLException ex) {
-
+            LOG.info("Ha ocurrido una excepcion=" + ex);
         } finally {
+            LOG.info("Cerrando conexion");
             acceso.close();
         }
         return usuario;

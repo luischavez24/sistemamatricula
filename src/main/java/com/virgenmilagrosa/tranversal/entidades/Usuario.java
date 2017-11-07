@@ -10,6 +10,7 @@ package com.virgenmilagrosa.tranversal.entidades;
  * @author juanmanuel
  */
 public class Usuario {
+
     public int codUsuario;
     public String aPaternoUsuario;
     public String nombre;
@@ -19,12 +20,12 @@ public class Usuario {
     public String username;
     public String password;
     public int rol;
-    
+
     public Usuario() {
     }
-    
-    public Usuario(int codUsuario, String aPaternoUsuario, String nombre, 
-            String aMaternoUsuario, String dniUsuario, String telfUsuario, 
+
+    public Usuario(int codUsuario, String aPaternoUsuario, String nombre,
+            String aMaternoUsuario, String dniUsuario, String telfUsuario,
             String username, int rol) {
         this.codUsuario = codUsuario;
         this.aPaternoUsuario = aPaternoUsuario;
@@ -35,9 +36,9 @@ public class Usuario {
         this.username = username;
         this.rol = rol;
     }
-    
-    public Usuario(int codUsuario, String aPaternoUsuario, String nombre, 
-            String aMaternoUsuario, String dniUsuario, String telfUsuario, 
+
+    public Usuario(int codUsuario, String aPaternoUsuario, String nombre,
+            String aMaternoUsuario, String dniUsuario, String telfUsuario,
             String username, String password, int rol) {
         this.codUsuario = codUsuario;
         this.aPaternoUsuario = aPaternoUsuario;
@@ -112,7 +113,7 @@ public class Usuario {
 
     public void setPassword(String password) {
         this.password = password;
-    }    
+    }
 
     public int getRol() {
         return rol;
@@ -121,4 +122,11 @@ public class Usuario {
     public void setRol(int rol) {
         this.rol = rol;
     }
+
+    @Override
+    public String toString() {
+        return "Usuario{" + "codUsuario=" + codUsuario + ", aPaternoUsuario=" + aPaternoUsuario + ", nombre=" + nombre + ", aMaternoUsuario=" + aMaternoUsuario + ", dniUsuario=" + dniUsuario + ", telfUsuario=" + telfUsuario + ", username=" + username + ", password=" + password + ", rol=" + rol + '}';
+    }
+    
+    
 }

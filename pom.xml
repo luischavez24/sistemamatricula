@@ -22,6 +22,13 @@
             <artifactId>AbsoluteLayout</artifactId>
             <version>RELEASE74</version>
         </dependency>
+        <!-- https://mvnrepository.com/artifact/org.apache.directory.studio/org.apache.commons.logging -->
+        <dependency>
+            <groupId>org.apache.directory.studio</groupId>
+            <artifactId>org.apache.commons.logging</artifactId>
+            <version>1.1.1</version>
+        </dependency>
+
 
     </dependencies>
     <!-- Repositorio del driver de oracle -->

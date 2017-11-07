@@ -7,6 +7,7 @@ package com.virgenmilagrosa.presentacion.generarmatricula;
 
 import com.virgenmilagrosa.tranversal.control.Validaciones;
 
+
 /**
  *
  * @author lucho
@@ -16,12 +17,13 @@ public class FrmGenerarMatricula extends javax.swing.JFrame {
     /**
      * Creates new form FrmGenerarMatricula
      */
+    
     public FrmGenerarMatricula() {
         initComponents();
         MetodoInicio();
     }
 
-    public void MetodoInicio(){
+    private void MetodoInicio(){
         Validaciones v= new Validaciones();
         v.LimitarCaracter(txtCodigo, 4);
         v.ValidarSoloNumeros(txtCodigo);

@@ -22,7 +22,7 @@ public class ComprobantePago_LN {
 		return comprobantePagoAD.listarComprobantes();
 	}
 
-	public String registrarComprobante(Comprobante comprobante) {
+	public int registrarComprobante(Comprobante comprobante) {
 		return comprobantePagoAD.registrarComprobante(comprobante);
 	}
 
@@ -30,11 +30,11 @@ public class ComprobantePago_LN {
 		return comprobantePagoAD.modificarComprobante(comprobante);
 	}
 
-	public String eliminarComprobante(String nroComprobante) {
+	public String eliminarComprobante(int nroComprobante) {
 		return comprobantePagoAD.eliminarComprobante(nroComprobante);
 	}
 
-	public Comprobante buscarComprobante(String nroComprobante) {
+	public Comprobante buscarComprobante(int nroComprobante) {
 		return comprobantePagoAD.buscarComprobante(nroComprobante);
 	}
 

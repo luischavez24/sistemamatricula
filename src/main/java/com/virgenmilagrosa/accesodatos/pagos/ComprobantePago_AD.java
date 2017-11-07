@@ -17,57 +17,59 @@ import oracle.jdbc.OracleTypes;
 import com.virgenmilagrosa.tranversal.entidades.*;
 import java.text.SimpleDateFormat;
 import java.sql.Date;
+import java.sql.Types;
+
 /**
  *
  * @author Jose Carlos
  */
 public class ComprobantePago_AD {
-	
-	private static final ComprobantePago_AD instance = new ComprobantePago_AD();
 
-	private ComprobantePago_AD() {
-	}
+    private static final ComprobantePago_AD instance = new ComprobantePago_AD();
 
-	public static ComprobantePago_AD getInstance() {
-		return instance;
-	}
+    private ComprobantePago_AD() {
+    }
+
+    public static ComprobantePago_AD getInstance() {
+        return instance;
+    }
 
     private AccesoBD acceso = AccesoBD.getInstance();
-    
+
     private static final SimpleDateFormat FORMATO = new SimpleDateFormat("dd/MM/yy hh:mm:ss");
-    
+
     public List<Comprobante> listarComprobantes() {
 
         List<Comprobante> lista = new ArrayList<>();
 
         try {
             Connection conexion = acceso.getConexion();
-            
+
             try (CallableStatement consulta = conexion.prepareCall("{ CALL SP_LISTAR_COMPROBANTES (?) }")) {
                 consulta.registerOutParameter(1, OracleTypes.CURSOR);
                 consulta.execute();
                 try (ResultSet resultado = ((OracleCallableStatement) consulta).getCursor(1)) {
-                    
+
                     Comprobante temp;
-                    int codSeccion, codGrado, codAlu;
-                    String nroComprobante, fechaEmision;
+                    int codSeccion, codGrado, codAlu, nroComprobante;
+                    String fechaEmision;
                     double monto;
-                    
+
                     while (resultado.next()) {
-                        nroComprobante = resultado.getString(1);
+                        nroComprobante = resultado.getInt(1);
                         monto = resultado.getDouble(2);
                         fechaEmision = resultado.getString(3);
                         codSeccion = resultado.getInt(4);
                         codGrado = resultado.getInt(5);
                         codAlu = resultado.getInt(6);
-                        
-                        temp = new Comprobante(nroComprobante, monto,Date.valueOf(fechaEmision), codSeccion, codGrado, codAlu);
+
+                        temp = new Comprobante(nroComprobante, monto, Date.valueOf(fechaEmision), codSeccion, codGrado, codAlu);
                         lista.add(temp);
                     }
                 }
             }
         } catch (SQLException ex) {
-        	lista = null;
+            lista = null;
         } finally {
             acceso.close();
         }
@@ -75,27 +77,30 @@ public class ComprobantePago_AD {
 
     }
 
-    public String registrarComprobante(Comprobante comprobante) {
+    public int registrarComprobante(Comprobante comprobante) {
 
-        String respuesta = "Insercion Completada";
+        int respuesta;
 
         try {
             Connection conexion = acceso.getConexion();
             conexion.setAutoCommit(false);
-            try (CallableStatement consulta = conexion.prepareCall("{CALL SP_REGISTRAR_COMPROBANTE (?,?,?,?,?,?)}")) {
-                consulta.setString(1, comprobante.getNroComprobante());
+            try (CallableStatement consulta = conexion.prepareCall("{?=call SF_REGISTRAR_COMPROBANTE (?,?,?,?)}")) {
+                consulta.registerOutParameter(1, Types.NUMERIC);
                 consulta.setDouble(2, comprobante.getMonto());
-                consulta.setString(3, FORMATO.format(comprobante.getFechaEmision()));
-                consulta.setInt(4, comprobante.getCodSeccion());
-                consulta.setInt(5, comprobante.getCodGrado());
-                consulta.setInt(6, comprobante.getCodAlu());
+                consulta.setInt(3, comprobante.getCodSeccion());
+                consulta.setInt(4, comprobante.getCodGrado());
+                consulta.setInt(5, comprobante.getCodAlu());
 
                 consulta.execute();
+                respuesta = consulta.getInt(1);
             }
             conexion.commit();
+
             acceso.close();
         } catch (SQLException ex) {
-            respuesta = ex.getMessage();
+            System.out.println("Error registrando");
+            System.out.println(ex);
+            respuesta = -1;
         }
         return respuesta;
 
@@ -109,7 +114,7 @@ public class ComprobantePago_AD {
             Connection conexion = acceso.getConexion();
             conexion.setAutoCommit(false);
             try (CallableStatement consulta = conexion.prepareCall("{CALL SP_MODIFICAR_COMPROBANTE (?, ?) }")) {
-                consulta.setString(1, comprobante.getNroComprobante());
+                consulta.setInt(1, comprobante.getNroComprobante());
                 consulta.setDouble(2, comprobante.getMonto());
 
                 consulta.execute();
@@ -124,7 +129,7 @@ public class ComprobantePago_AD {
 
     }
 
-    public String eliminarComprobante(String nroComprobante) {
+    public String eliminarComprobante(int nroComprobante) {
 
         String respuesta = "Eliminacion Completada";
 
@@ -132,7 +137,7 @@ public class ComprobantePago_AD {
             Connection conn = acceso.getConexion();
             conn.setAutoCommit(false);
             try (CallableStatement consulta = conn.prepareCall("{ CALL SP_ELIMINAR_COMPROBANTE (?)}")) {
-                consulta.setString(1, nroComprobante);
+                consulta.setInt(1, nroComprobante);
                 consulta.execute();
             }
             conn.commit();
@@ -144,32 +149,36 @@ public class ComprobantePago_AD {
 
     }
 
-    public Comprobante buscarComprobante(String nroComprobante) {
+    public Comprobante buscarComprobante(int nroComprobante) {
 
         Comprobante comprobante = null;
 
         try {
             Connection conexion = acceso.getConexion();
-            try (CallableStatement consulta = conexion.prepareCall("{ CALL SP_BUSCAR_USUARIO (?,?) }")) {
-                consulta.registerOutParameter(1, OracleTypes.CURSOR);
-                consulta.setString(1, nroComprobante);
+            try (CallableStatement consulta = conexion.prepareCall("{ CALL SP_BUSCAR_COMPROBANTE (?,?) }")) {
+                consulta.setInt(1, nroComprobante);
+                consulta.registerOutParameter(2, OracleTypes.CURSOR);
+
                 consulta.execute();
-                try (ResultSet resultado = ((OracleCallableStatement) consulta).getCursor(1)) {
+                try (ResultSet resultado = ((OracleCallableStatement) consulta).getCursor(2)) {
+                    if (resultado.next()) {
+                        int codSeccion, codGrado, codAlu;
+                        Date fechaEmision;
+                        double monto;
 
-                    int codSeccion, codGrado, codAlu;
-                    String fechaEmision;
-                    double monto;
+                        nroComprobante = resultado.getInt(1);
+                        monto = resultado.getDouble(2);
+                        fechaEmision = new Date(resultado.getDate(3).getTime());
+                        codSeccion = resultado.getInt(4);
+                        codGrado = resultado.getInt(5);
+                        codAlu = resultado.getInt(6);
+                        comprobante = new Comprobante(nroComprobante, monto, fechaEmision, codSeccion, codGrado, codAlu);
+                    }
 
-                    nroComprobante = resultado.getString(1);
-                    monto = resultado.getDouble(2);
-                    fechaEmision = resultado.getString(3);
-                    codSeccion = resultado.getInt(4);
-                    codGrado = resultado.getInt(5);
-                    codAlu = resultado.getInt(6);
-                    comprobante = new Comprobante(nroComprobante, monto, Date.valueOf(fechaEmision), codSeccion, codGrado, codAlu);
                 }
             }
         } catch (SQLException ex) {
+            System.out.println("Error buscando comprobante");
             System.out.println(ex);
         } finally {
             acceso.close();

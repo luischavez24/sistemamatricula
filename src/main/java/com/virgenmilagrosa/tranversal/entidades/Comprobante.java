@@ -10,17 +10,17 @@ import java.util.Date;
  * @author juanmanuel
  */
 public class Comprobante {
-    public String nroComprobante;
-    public double monto;
-    public Date fechaEmision;
-    public int codSeccion;
-    public int codGrado;
-    public int codAlu;
+    private int nroComprobante;
+    private double monto;
+    private Date fechaEmision;
+    private int codSeccion;
+    private int codGrado;
+    private int codAlu;
 
     public Comprobante() {
     }
 
-    public Comprobante(String nroComprobante, double monto, Date fechaEmision, int codSeccion, int codGrado, int codAlu) {
+    public Comprobante(int nroComprobante, double monto, Date fechaEmision, int codSeccion, int codGrado, int codAlu) {
         this.nroComprobante = nroComprobante;
         this.monto = monto;
         this.fechaEmision = fechaEmision;
@@ -29,11 +29,11 @@ public class Comprobante {
         this.codAlu = codAlu;
     }
 
-    public String getNroComprobante() {
+    public int getNroComprobante() {
         return nroComprobante;
     }
 
-    public void setNroComprobante(String nroComprobante) {
+    public void setNroComprobante(int nroComprobante) {
         this.nroComprobante = nroComprobante;
     }
 

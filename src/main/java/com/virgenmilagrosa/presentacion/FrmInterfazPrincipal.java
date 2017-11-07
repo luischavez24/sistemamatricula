@@ -5,7 +5,17 @@
  */
 package com.virgenmilagrosa.presentacion;
 
-import com.virgenmilagrosa.presentacion.pagos.FrmEmitirComprobante;
+import com.virgenmilagrosa.logicanegocio.gestionalumnos.Alumno_LN;
+import com.virgenmilagrosa.logicanegocio.gestionalumnos.Apoderado_LN;
+import com.virgenmilagrosa.presentacion.gestionalumnos.FrmModificarAlumno;
+import com.virgenmilagrosa.presentacion.gestionalumnos.FrmRegistroAlumnos;
+import com.virgenmilagrosa.tranversal.control.Validaciones;
+import com.virgenmilagrosa.tranversal.entidades.Alumnos;
+import java.util.Collections;
+import java.util.List;
+import javax.swing.JOptionPane;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -16,15 +26,14 @@ public class FrmInterfazPrincipal extends javax.swing.JFrame {
     /**
      * Creates new form FrmInterfazPrincipal
      */
-    
-    private int rol; 
-    
+    private int rol;
+
     public FrmInterfazPrincipal(int rol) {
         this.rol = rol;
         initComponents();
         desactivarBotones(rol);
-        setLocationRelativeTo(null);
         
+        init();
     }
 
     /**
@@ -36,12 +45,15 @@ public class FrmInterfazPrincipal extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        menuOpciones = new javax.swing.JPopupMenu();
+        btnActualizar = new javax.swing.JMenuItem();
+        btnEliminar = new javax.swing.JMenuItem();
         jLayeredPane1 = new javax.swing.JLayeredPane();
         pnlUsuarios = new javax.swing.JPanel();
         pnlPagos = new javax.swing.JPanel();
         pnlPrincipal = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
-        pnlAlumnos = new javax.swing.JPanel();
+        pnlSecciones = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
@@ -49,11 +61,11 @@ public class FrmInterfazPrincipal extends javax.swing.JFrame {
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jButton6 = new javax.swing.JButton();
-        pnlSecciones = new javax.swing.JPanel();
+        pnlAlumnos = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jTable2 = new javax.swing.JTable();
-        jTextField2 = new javax.swing.JTextField();
+        tbltabla = new javax.swing.JTable();
+        txtBuscar = new javax.swing.JTextField();
         jButton3 = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
         jButton5 = new javax.swing.JButton();
@@ -64,9 +76,24 @@ public class FrmInterfazPrincipal extends javax.swing.JFrame {
         btnMostrarSecciones = new javax.swing.JMenuItem();
         btnAumentarVac = new javax.swing.JMenuItem();
         menuMatricula = new javax.swing.JMenu();
-        btnGenerarComprobante = new javax.swing.JMenuItem();
         btnGenerarMatricula = new javax.swing.JMenuItem();
         btnGenerarActa = new javax.swing.JMenuItem();
+
+        btnActualizar.setText("Modificar Alumno");
+        btnActualizar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnActualizarActionPerformed(evt);
+            }
+        });
+        menuOpciones.add(btnActualizar);
+
+        btnEliminar.setText("Eliminar Alumno");
+        btnEliminar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEliminarActionPerformed(evt);
+            }
+        });
+        menuOpciones.add(btnEliminar);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Sistema de Gestion de Matricula");
@@ -143,39 +170,39 @@ public class FrmInterfazPrincipal extends javax.swing.JFrame {
 
         jButton6.setText("Volver al Menu Principal");
 
-        javax.swing.GroupLayout pnlAlumnosLayout = new javax.swing.GroupLayout(pnlAlumnos);
-        pnlAlumnos.setLayout(pnlAlumnosLayout);
-        pnlAlumnosLayout.setHorizontalGroup(
-            pnlAlumnosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pnlAlumnosLayout.createSequentialGroup()
+        javax.swing.GroupLayout pnlSeccionesLayout = new javax.swing.GroupLayout(pnlSecciones);
+        pnlSecciones.setLayout(pnlSeccionesLayout);
+        pnlSeccionesLayout.setHorizontalGroup(
+            pnlSeccionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlSeccionesLayout.createSequentialGroup()
                 .addGap(29, 29, 29)
-                .addGroup(pnlAlumnosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, pnlAlumnosLayout.createSequentialGroup()
+                .addGroup(pnlSeccionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, pnlSeccionesLayout.createSequentialGroup()
                         .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 362, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(37, 37, 37)
                         .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(59, 59, 59))
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, pnlAlumnosLayout.createSequentialGroup()
-                        .addGroup(pnlAlumnosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, pnlSeccionesLayout.createSequentialGroup()
+                        .addGroup(pnlSeccionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 676, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, pnlAlumnosLayout.createSequentialGroup()
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, pnlSeccionesLayout.createSequentialGroup()
                                 .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 545, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
                                 .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
-        pnlAlumnosLayout.setVerticalGroup(
-            pnlAlumnosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pnlAlumnosLayout.createSequentialGroup()
+        pnlSeccionesLayout.setVerticalGroup(
+            pnlSeccionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlSeccionesLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(pnlAlumnosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(pnlSeccionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(11, 11, 11)
-                .addGroup(pnlAlumnosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(pnlSeccionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jTextField1, javax.swing.GroupLayout.DEFAULT_SIZE, 30, Short.MAX_VALUE)
                     .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(18, 18, 18)
@@ -183,13 +210,13 @@ public class FrmInterfazPrincipal extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jLayeredPane1.add(pnlAlumnos, "card2");
+        jLayeredPane1.add(pnlSecciones, "card2");
 
         jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel2.setText("Listado de alumnos");
 
-        jTable2.setModel(new javax.swing.table.DefaultTableModel(
+        tbltabla.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -197,7 +224,15 @@ public class FrmInterfazPrincipal extends javax.swing.JFrame {
                 "Codigo", "Nombre", "Apellido", "Grado", "Datos del apoderado", "Actualizar", "Eliminar"
             }
         ));
-        jScrollPane2.setViewportView(jTable2);
+        tbltabla.setComponentPopupMenu(menuOpciones);
+        tbltabla.setRowHeight(25);
+        jScrollPane2.setViewportView(tbltabla);
+
+        txtBuscar.addCaretListener(new javax.swing.event.CaretListener() {
+            public void caretUpdate(javax.swing.event.CaretEvent evt) {
+                txtBuscarCaretUpdate(evt);
+            }
+        });
 
         jButton3.setText("Buscar");
 
@@ -205,48 +240,44 @@ public class FrmInterfazPrincipal extends javax.swing.JFrame {
 
         jButton5.setText("Volver al Menu Principal");
 
-        javax.swing.GroupLayout pnlSeccionesLayout = new javax.swing.GroupLayout(pnlSecciones);
-        pnlSecciones.setLayout(pnlSeccionesLayout);
-        pnlSeccionesLayout.setHorizontalGroup(
-            pnlSeccionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pnlSeccionesLayout.createSequentialGroup()
+        javax.swing.GroupLayout pnlAlumnosLayout = new javax.swing.GroupLayout(pnlAlumnos);
+        pnlAlumnos.setLayout(pnlAlumnosLayout);
+        pnlAlumnosLayout.setHorizontalGroup(
+            pnlAlumnosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlAlumnosLayout.createSequentialGroup()
                 .addGap(29, 29, 29)
-                .addGroup(pnlSeccionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 676, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(pnlSeccionesLayout.createSequentialGroup()
-                        .addGroup(pnlSeccionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(pnlSeccionesLayout.createSequentialGroup()
-                                .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 378, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 552, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(pnlSeccionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(58, Short.MAX_VALUE))
+                .addGroup(pnlAlumnosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 709, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlAlumnosLayout.createSequentialGroup()
+                        .addComponent(txtBuscar)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(pnlAlumnosLayout.createSequentialGroup()
+                        .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 378, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jButton4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addContainerGap(27, Short.MAX_VALUE))
         );
-        pnlSeccionesLayout.setVerticalGroup(
-            pnlSeccionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pnlSeccionesLayout.createSequentialGroup()
+        pnlAlumnosLayout.setVerticalGroup(
+            pnlAlumnosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlAlumnosLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(pnlSeccionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(pnlAlumnosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, 33, Short.MAX_VALUE)
-                    .addComponent(jButton4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButton5, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGroup(pnlSeccionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(pnlSeccionesLayout.createSequentialGroup()
-                        .addGap(19, 19, 19)
-                        .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(pnlSeccionesLayout.createSequentialGroup()
-                        .addGap(18, 18, 18)
-                        .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addComponent(jButton5, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jButton4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(19, 19, 19)
+                .addGroup(pnlAlumnosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 378, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(19, Short.MAX_VALUE))
+                .addContainerGap(18, Short.MAX_VALUE))
         );
 
-        jLayeredPane1.add(pnlSecciones, "card3");
+        jLayeredPane1.add(pnlAlumnos, "card3");
 
         menuAlumnos.setText("Gestion de Alumnos");
         menuAlumnos.addActionListener(new java.awt.event.ActionListener() {
@@ -287,11 +318,6 @@ public class FrmInterfazPrincipal extends javax.swing.JFrame {
 
         menuMatricula.setText("Matricula");
 
-
-        btnGenerarComprobante.setText("Generar Comprobante");
-        menuMatricula.add(btnGenerarComprobante);
-
-
         btnGenerarMatricula.setText("Generar Matrícula");
         menuMatricula.add(btnGenerarMatricula);
 
@@ -325,11 +351,11 @@ public class FrmInterfazPrincipal extends javax.swing.JFrame {
         // TODO add your handling code here:
 
     }//GEN-LAST:event_jMenu2ActionPerformed
-    
-    private void desactivarBotones (int rol) {
-        if(rol == 1) {
+
+    private void desactivarBotones(int rol) {
+        if (rol == 1) {
             btnAumentarVac.setVisible(false);
-        } else if (rol == 2){
+        } else if (rol == 2) {
             menuAlumnos.setVisible(false);
             menuMatricula.setVisible(false);
             btnMostrarSecciones.setVisible(false);
@@ -337,30 +363,138 @@ public class FrmInterfazPrincipal extends javax.swing.JFrame {
     }
     private void btnMostrarAlumnosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMostrarAlumnosActionPerformed
         // TODO add your handling code here:
-        pnlAlumnos.setVisible(false);
+        pnlSecciones.setVisible(false);
         pnlPagos.setVisible(false);
-        pnlSecciones.setVisible(true);
+        pnlAlumnos.setVisible(true);
         pnlUsuarios.setVisible(false);
     }//GEN-LAST:event_btnMostrarAlumnosActionPerformed
 
     private void btnMostrarSeccionesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMostrarSeccionesActionPerformed
         // TODO add your handling code here:
-        pnlAlumnos.setVisible(true);
+        pnlSecciones.setVisible(true);
         pnlPagos.setVisible(false);
-        pnlSecciones.setVisible(false);
+        pnlAlumnos.setVisible(false);
         pnlUsuarios.setVisible(false);
     }//GEN-LAST:event_btnMostrarSeccionesActionPerformed
 
-    private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
+    private void txtBuscarCaretUpdate(javax.swing.event.CaretEvent evt) {//GEN-FIRST:event_txtBuscarCaretUpdate
         // TODO add your handling code here:
-        FrmEmitirComprobante ventana = new FrmEmitirComprobante();
-        ventana.setVisible(true);
-    }//GEN-LAST:event_jMenuItem3ActionPerformed
+        buscar();
+    }//GEN-LAST:event_txtBuscarCaretUpdate
+
+    private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
+
+    }//GEN-LAST:event_btnEliminarActionPerformed
+
+    private void btnActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarActionPerformed
+        // TODO add your handling code here:
+         int fila = tbltabla.getSelectedRow();
+        if (fila > -1) {
+            
+            int codAlumno = (Integer) tbltabla.getValueAt(fila, 0);
+            Alumnos alumno = Alumno_LN.getInstance().buscarAlumno(codAlumno);
+            
+            java.awt.EventQueue.invokeLater(() -> {
+                new FrmModificarAlumno(alumno).setVisible(true);
+            });
+
+        } else {
+            JOptionPane.showMessageDialog(null, "Debe elegir un elemento de la tabla", "Incorrecto", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_btnActualizarActionPerformed
+
+    // <editor-fold defaultstate="collapsed" desc="Panel Alumnos">  
+    
+    private DefaultTableModel modelo;
+    private Alumno_LN alumno= Alumno_LN.getInstance();
+    private Apoderado_LN apad= Apoderado_LN.getInstance();
+    private boolean consultar= false;
+    private FrmRegistroAlumnos registro;
+    private int id = 0;
+    
+    public void CargarTabla(DefaultTableModel modelo, List<Alumnos> total, JTable tabla) {
+
+        total = this.alumno.listarAlumnos();
+        Object fila[] = new Object[8];
+
+        for (int i = 0; i < total.size(); i++) {
+            fila[0] = total.get(i).getCodAlu();
+            fila[1] = total.get(i).getaPaternoAlu();
+            fila[2] = total.get(i).getNombreAlu();
+            fila[3] = total.get(i).getaMaternoAlu();
+            fila[4] = total.get(i).getTelefonoAlu();
+            fila[5] = total.get(i).getEmailAlu();
+            fila[6] = total.get(i).getDireccionAlu();
+            fila[7] = total.get(i).getCodApoderado();
+            modelo.addRow(fila);
+        }
+        tabla.updateUI();
+    }
+
+    public void buscar() {
+        String buscar = txtBuscar.getText();
+
+        if (buscar.isEmpty()) {
+            actualizarTabla();
+        } else if (!buscar.isEmpty()) {
+
+            while (modelo.getRowCount() > 0) {
+                modelo.removeRow(0);
+            }
+
+            Alumnos alu = alumno.buscarAlumno(Integer.parseInt(buscar));
+            List<Alumnos> lista = Collections.singletonList(alu);
+            CargarTabla(modelo, lista, tbltabla);
+        }
+
+    }
+
+    public void MostrarLista(DefaultTableModel modelo, JTable tabla) {
+        List<Alumnos> lista = alumno.listarAlumnos();
+        CargarTabla(modelo, lista, tabla);
+    }
+
+    public void actualizarTabla() {
+        //limpiar tabla
+
+        while (modelo.getRowCount() > 0) {
+            modelo.removeRow(0);
+        }
+        //actualiza y cargando
+        MostrarLista(modelo, tbltabla);
+    }
+    
+    private void init() {
+        setLocationRelativeTo(null);
+        Validaciones validaciones = new Validaciones();
+        validaciones.ValidarSoloNumeros(txtBuscar);
+        
+        modelo= new DefaultTableModel(){
+            //para que las columnas y filas no se editen
+            @Override
+            public boolean isCellEditable(int fila, int columna) {
+                return false;
+            }
+        };
+        this.tbltabla.setModel(modelo);
+        modelo.addColumn("CODIGO");
+        modelo.addColumn("AP. PATERNO");
+        modelo.addColumn("NOMBRE");
+        modelo.addColumn("AP. MATERNO");
+        modelo.addColumn("TELEFONO");
+        modelo.addColumn("EMAIL");
+        modelo.addColumn("DIRECCION");
+        modelo.addColumn("APODERADO");
+        MostrarLista(modelo,tbltabla);
+        tbltabla.getTableHeader().setReorderingAllowed(false);
+    }
+    //</editor-fold>
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JMenuItem btnActualizar;
     private javax.swing.JMenuItem btnAumentarVac;
+    private javax.swing.JMenuItem btnEliminar;
     private javax.swing.JMenuItem btnGenerarActa;
-    private javax.swing.JMenuItem btnGenerarComprobante;
     private javax.swing.JMenuItem btnGenerarMatricula;
     private javax.swing.JMenuItem btnMostrarAlumnos;
     private javax.swing.JMenuItem btnMostrarSecciones;
@@ -379,15 +513,16 @@ public class FrmInterfazPrincipal extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable jTable1;
-    private javax.swing.JTable jTable2;
     private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
     private javax.swing.JMenu menuAlumnos;
     private javax.swing.JMenu menuMatricula;
+    private javax.swing.JPopupMenu menuOpciones;
     private javax.swing.JPanel pnlAlumnos;
     private javax.swing.JPanel pnlPagos;
     private javax.swing.JPanel pnlPrincipal;
     private javax.swing.JPanel pnlSecciones;
     private javax.swing.JPanel pnlUsuarios;
+    private javax.swing.JTable tbltabla;
+    private javax.swing.JTextField txtBuscar;
     // End of variables declaration//GEN-END:variables
 }

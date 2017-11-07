@@ -47,4 +47,10 @@ public class Grado {
     public void setNivel(int nivel) {
         this.nivel = nivel;
     }
+
+    @Override
+    public String toString() {
+        return "Grado{" + "codGrado=" + codGrado + ", nomGrado=" + nomGrado + ", nivel=" + nivel + '}';
+    }
+    
 }

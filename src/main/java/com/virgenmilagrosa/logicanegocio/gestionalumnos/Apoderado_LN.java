@@ -9,8 +9,7 @@ public class Apoderado_LN {
 
     private static final Apoderado_LN instance = new Apoderado_LN();
 
-    private Apoderado_LN() {
-    }
+    private Apoderado_LN() { }
 
     public static Apoderado_LN getInstance() {
         return instance;

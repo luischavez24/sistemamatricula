@@ -143,12 +143,15 @@ public class Seccion_AD {
 
         try {
             Connection conexion = acceso.getConexion();
-            try (CallableStatement consulta = conexion.prepareCall("{ CALL SP_BUSCAR_SECCION (?,?) }")) {
-                consulta.registerOutParameter(1, OracleTypes.CURSOR);
+            try (CallableStatement consulta = conexion.prepareCall("{ CALL SP_BUSCAR_SECCION (?,?,?) }")) {
+                
                 consulta.setInt(1, codSeccion);
-                consulta.setInt(1, codGrado);
+                consulta.setInt(2, codGrado);
+                consulta.registerOutParameter(3, OracleTypes.CURSOR);
+                
                 consulta.execute();
-                try (ResultSet resultado = ((OracleCallableStatement) consulta).getCursor(1)) {
+                
+                try (ResultSet resultado = ((OracleCallableStatement) consulta).getCursor(3)) {
 
                     int nroVacantes, nroSalon;
                     String nombreSeccion;

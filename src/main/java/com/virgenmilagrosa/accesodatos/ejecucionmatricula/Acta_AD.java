@@ -137,7 +137,8 @@ public class Acta_AD {
         return respuesta;
 
     }
-
+    
+    @Deprecated
     public Acta buscarActa(int codDoc, int codAlu) {
 
         Acta acta = null;

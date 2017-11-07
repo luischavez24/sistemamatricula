@@ -5,10 +5,11 @@
  */
 package com.virgenmilagrosa.presentacion.gestionalumnos;
 
+import com.virgenmilagrosa.logicanegocio.gestionalumnos.*;
 import com.virgenmilagrosa.tranversal.control.Validaciones;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
+import com.virgenmilagrosa.tranversal.entidades.*;
 /**
  *
  * @author lucho
@@ -17,13 +18,20 @@ public class FrmModificarAlumno extends javax.swing.JFrame {
 
     /**
      * Creates new form FrmModificarInformación
+     * @param alumno
      */
-    public FrmModificarAlumno() {
+    public FrmModificarAlumno(Alumnos alumno) {
         initComponents();
         MetodoInicio();
-
+        this.alumno = alumno;
+        llenarDatos(alumno);
     }
-
+    
+    private Alumnos alumno;
+    private Apoderado apoderado;
+    private Seccion seccion;
+    
+    
     public void MetodoInicio() {
         Validaciones v = new Validaciones();
         v.LimitarCaracter(txtNombre, 30);
@@ -38,11 +46,8 @@ public class FrmModificarAlumno extends javax.swing.JFrame {
         v.ValidarSoloLetras(txtApellApod);
         v.LimitarCaracter(txtDNIApod, 8);
         v.ValidarSoloNumeros(txtDNIApod);
-        v.LimitarCaracter(txtanio, 4);
-        v.ValidarSoloNumeros(txtanio);
         v.LimitarCaracter(txtTelefono, 9);
         v.ValidarSoloNumeros(txtTelefono);
-        v.LimitarCaracter(txtseccion, 10);
         v.LimitarCaracter(txtTelefonoApod, 9);
         v.ValidarSoloNumeros(txtTelefonoApod);
         v.ValidarSoloLetras(txtOcupApod);
@@ -90,13 +95,6 @@ public class FrmModificarAlumno extends javax.swing.JFrame {
         txtTelefonoApod = new javax.swing.JTextField();
         jLabel18 = new javax.swing.JLabel();
         txtOcupApod = new javax.swing.JTextField();
-        jPanel4 = new javax.swing.JPanel();
-        jLabel10 = new javax.swing.JLabel();
-        jLabel11 = new javax.swing.JLabel();
-        txtanio = new javax.swing.JTextField();
-        txtgrado = new javax.swing.JTextField();
-        jLabel12 = new javax.swing.JLabel();
-        txtseccion = new javax.swing.JTextField();
         btnVolver = new javax.swing.JButton();
         btnCancelar = new javax.swing.JButton();
         btnGuardar = new javax.swing.JButton();
@@ -331,71 +329,6 @@ public class FrmModificarAlumno extends javax.swing.JFrame {
                     .addComponent(jLabel18)))
         );
 
-        jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder("Información Académica"));
-
-        jLabel10.setText("Año Escolar");
-
-        jLabel11.setText("Grado");
-
-        txtanio.addCaretListener(new javax.swing.event.CaretListener() {
-            public void caretUpdate(javax.swing.event.CaretEvent evt) {
-                txtanioCaretUpdate(evt);
-            }
-        });
-
-        txtgrado.addCaretListener(new javax.swing.event.CaretListener() {
-            public void caretUpdate(javax.swing.event.CaretEvent evt) {
-                txtgradoCaretUpdate(evt);
-            }
-        });
-
-        jLabel12.setText("Sección");
-
-        txtseccion.addCaretListener(new javax.swing.event.CaretListener() {
-            public void caretUpdate(javax.swing.event.CaretEvent evt) {
-                txtseccionCaretUpdate(evt);
-            }
-        });
-
-        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
-        jPanel4.setLayout(jPanel4Layout);
-        jPanel4Layout.setHorizontalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel11, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel12, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
-                        .addComponent(txtanio, javax.swing.GroupLayout.PREFERRED_SIZE, 509, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(45, 45, 45))
-                    .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtgrado, javax.swing.GroupLayout.PREFERRED_SIZE, 509, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtseccion, javax.swing.GroupLayout.PREFERRED_SIZE, 509, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addContainerGap())))
-        );
-        jPanel4Layout.setVerticalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel4Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtanio))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtgrado))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtseccion)
-                    .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(22, Short.MAX_VALUE))
-        );
-
         btnVolver.setText("Volver");
         btnVolver.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -409,15 +342,13 @@ public class FrmModificarAlumno extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(12, 12, 12)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(btnVolver, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(48, 48, 48)
                         .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 430, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(19, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -431,12 +362,15 @@ public class FrmModificarAlumno extends javax.swing.JFrame {
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 244, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(18, 18, 18)
-                .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
 
         btnCancelar.setText("Cancelar");
+        btnCancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCancelarActionPerformed(evt);
+            }
+        });
 
         btnGuardar.setText("Guardar Cambios");
         btnGuardar.setEnabled(false);
@@ -464,7 +398,7 @@ public class FrmModificarAlumno extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -496,13 +430,9 @@ public class FrmModificarAlumno extends javax.swing.JFrame {
         boolean estcorreoapod = Validarformatocorreo(correoapod);
         String ocup = txtOcupApod.getText().trim();
 
-        String anioacad = txtanio.getText().trim();
-        String grado = txtgrado.getText().trim();
-        String seccion = txtseccion.getText().trim();
-
         if (nombre.isEmpty() || apellidos.isEmpty() || Dni != 8 || fechanac.isEmpty() || lugar.isEmpty()
                 || nombapod.isEmpty() || apellapod.isEmpty() || dniapod.isEmpty() || tlfapod != 9 || estcorreoapod == false
-                || ocup.isEmpty() || anioacad.isEmpty() || estado == false || telef != 9 || grado.isEmpty() || seccion.isEmpty()) {
+                || ocup.isEmpty()  || estado == false || telef != 9) {
             btnGuardar.setEnabled(false);
         } else {
             btnGuardar.setEnabled(true);
@@ -510,26 +440,68 @@ public class FrmModificarAlumno extends javax.swing.JFrame {
     }
 
     public boolean Validarformatocorreo(String correo) {
-        Pattern pat = null;
-        Matcher mat = null;
-
+        Pattern pat;
+        Matcher mat;
+        
         //formato del correo electronico
         pat = Pattern.compile("^([0-9a-zA-Z]([_.w]*[0-9a-zA-Z])*@([0-9a-zA-Z][-w]*[0-9a-zA-Z].)+([a-zA-Z]{2,9}.)+[a-zA-Z]{2,3})$");
         mat = pat.matcher(correo);
 
-        if (mat.find()) {
-            return true;
-        } else {
-            return false;
-        }
+        return mat.find();
+    }
+    
+    public void llenarDatos(Alumnos alumno)
+    {
+        txtNombre.setText(alumno.getNombreAlu());
+        txtApellido.setText(alumno.getaPaternoAlu() + alumno.getaMaternoAlu());
+        txtDNI.setText("Aun no tiene DNI");
+        txtCorreo.setText(alumno.getEmailAlu());
+        txtTelefono.setText(alumno.getTelefonoAlu());
+        
+        apoderado = Apoderado_LN.getInstance().buscarApoderado(alumno.getCodApoderado());
+        
+        txtNomApod.setText(apoderado.getNombreAp());
+        txtApellApod.setText(apoderado.getaPaternoAp() + apoderado.getaMaternoAp());
+        txtDNIApod.setText(apoderado.getDniAp());
+        txtCorreoApod.setText(apoderado.getEmailAp());
+        txtTelefonoApod.setText(apoderado.getTelefonoAp());
+        txtOcupApod.setText(apoderado.getOcupacion());
+    
+    }
+    
+    public void actualizarDatos()
+    {
+        String[] apellidos;
+        
+        alumno.setNombreAlu(txtNombre.getText());
+        apellidos = txtApellido.getText().split(" ");
+        alumno.setaPaternoAlu(apellidos[0]);
+        alumno.setaMaternoAlu(apellidos[1]);
+        alumno.setDireccionAlu("");
+        alumno.setEmailAlu(txtCorreo.getText());
+        alumno.setTelefonoAlu(txtTelefono.getText());
+        
+        apoderado.setNombreAp(txtNomApod.getText());
+        apellidos = txtApellApod.getText().split(" ");
+        apoderado.setaPaternoAp(apellidos[0]);
+        apoderado.setaMaternoAp(apellidos[1]);
+        apoderado.setDniAp(txtDNIApod.getText());
+        apoderado.setEmailAp(txtCorreoApod.getText());
+        apoderado.setTelefonoAp(txtTelefonoApod.getText());
+        apoderado.setOcupacion(txtOcupApod.getText());
+        
     }
 
     private void btnVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVolverActionPerformed
         // TODO add your handling code here:
+        this.setVisible(false);
     }//GEN-LAST:event_btnVolverActionPerformed
 
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
         // TODO add your handling code here:
+        actualizarDatos();
+        Alumno_LN.getInstance().modificarAlumno(alumno);
+        Apoderado_LN.getInstance().modificarApoderado(apoderado);
     }//GEN-LAST:event_btnGuardarActionPerformed
 
     private void txtNombreCaretUpdate(javax.swing.event.CaretEvent evt) {//GEN-FIRST:event_txtNombreCaretUpdate
@@ -562,21 +534,6 @@ public class FrmModificarAlumno extends javax.swing.JFrame {
         this.ValidarIngreso();
     }//GEN-LAST:event_txtDNIApodCaretUpdate
 
-    private void txtanioCaretUpdate(javax.swing.event.CaretEvent evt) {//GEN-FIRST:event_txtanioCaretUpdate
-        // TODO add your handling code here:
-        this.ValidarIngreso();
-    }//GEN-LAST:event_txtanioCaretUpdate
-
-    private void txtgradoCaretUpdate(javax.swing.event.CaretEvent evt) {//GEN-FIRST:event_txtgradoCaretUpdate
-        // TODO add your handling code here:
-        this.ValidarIngreso();
-    }//GEN-LAST:event_txtgradoCaretUpdate
-
-    private void txtseccionCaretUpdate(javax.swing.event.CaretEvent evt) {//GEN-FIRST:event_txtseccionCaretUpdate
-        // TODO add your handling code here:
-        this.ValidarIngreso();
-    }//GEN-LAST:event_txtseccionCaretUpdate
-
     private void txtCorreoCaretUpdate(javax.swing.event.CaretEvent evt) {//GEN-FIRST:event_txtCorreoCaretUpdate
         // TODO add your handling code here:
         this.ValidarIngreso();
@@ -602,41 +559,10 @@ public class FrmModificarAlumno extends javax.swing.JFrame {
         this.ValidarIngreso();
     }//GEN-LAST:event_txtOcupApodCaretUpdate
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(FrmModificarAlumno.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(FrmModificarAlumno.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(FrmModificarAlumno.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(FrmModificarAlumno.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new FrmModificarAlumno().setVisible(true);
-            }
-        });
-    }
+    private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
+        // TODO add your handling code here:
+        this.setVisible(false);
+    }//GEN-LAST:event_btnCancelarActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCancelar;
@@ -644,9 +570,6 @@ public class FrmModificarAlumno extends javax.swing.JFrame {
     private javax.swing.JButton btnVolver;
     private javax.swing.JComboBox<String> cbxLugar;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel10;
-    private javax.swing.JLabel jLabel11;
-    private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
@@ -664,7 +587,6 @@ public class FrmModificarAlumno extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
-    private javax.swing.JPanel jPanel4;
     private javax.swing.JSpinner spnFecha;
     private javax.swing.JSpinner spnFechaApod;
     private javax.swing.JTextField txtApellApod;
@@ -678,8 +600,5 @@ public class FrmModificarAlumno extends javax.swing.JFrame {
     private javax.swing.JTextField txtOcupApod;
     private javax.swing.JTextField txtTelefono;
     private javax.swing.JTextField txtTelefonoApod;
-    private javax.swing.JTextField txtanio;
-    private javax.swing.JTextField txtgrado;
-    private javax.swing.JTextField txtseccion;
     // End of variables declaration//GEN-END:variables
 }

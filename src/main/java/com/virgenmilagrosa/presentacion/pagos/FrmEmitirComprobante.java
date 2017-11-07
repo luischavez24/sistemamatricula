@@ -5,8 +5,18 @@
  */
 package com.virgenmilagrosa.presentacion.pagos;
 
+import com.virgenmilagrosa.logicanegocio.ejecucionmatricula.Matricula_LN;
+import com.virgenmilagrosa.logicanegocio.gestionalumnos.Alumno_LN;
+import com.virgenmilagrosa.logicanegocio.gestionalumnos.Apoderado_LN;
+import com.virgenmilagrosa.logicanegocio.pagos.ComprobantePago_LN;
 import com.virgenmilagrosa.presentacion.FrmInterfazPrincipal;
-import com.virgenmilagrosa.tranversal.control.Validaciones;
+import com.virgenmilagrosa.tranversal.entidades.Alumnos;
+import com.virgenmilagrosa.tranversal.entidades.Apoderado;
+import com.virgenmilagrosa.tranversal.entidades.Comprobante;
+import com.virgenmilagrosa.tranversal.entidades.Matricula;
+import com.virgenmilagrosa.tranversal.entidades.Seccion;
+import java.text.SimpleDateFormat;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -17,15 +27,63 @@ public class FrmEmitirComprobante extends javax.swing.JFrame {
     /**
      * Creates new form FrmEmitirComprobante
      */
-    public FrmEmitirComprobante() {
+    private Matricula matricula;
+    private Comprobante comprobante;
+    private ComprobantePago_LN comprobanteLN = ComprobantePago_LN.getInstance();
+    private Alumno_LN alumnoLN = Alumno_LN.getInstance();
+    private Apoderado_LN apoderadoLN = Apoderado_LN.getInstance();
+    private static final SimpleDateFormat FORMATO = new SimpleDateFormat("dd/MM/yy hh:mm:ss");
+
+    public FrmEmitirComprobante(Matricula matricula) {
+        this.matricula = matricula;
         initComponents();
         MetodoInicio();
     }
-    
-    private void MetodoInicio(){
-        Validaciones v= new Validaciones();
-        v.LimitarCaracter(txtCodigo, 4);
-        v.ValidarSoloNumeros(txtCodigo);
+
+    private void MetodoInicio() {
+        setLocationRelativeTo(null);
+        int monto = 120;
+        comprobante = new Comprobante();
+        comprobante.setMonto(monto);
+        comprobante.setCodAlu(matricula.getCodAlu());
+        comprobante.setCodGrado(matricula.getCodGrado());
+        comprobante.setCodSeccion(matricula.getCodSeccion());
+
+        int codComprobante = comprobanteLN.registrarComprobante(comprobante);
+
+        comprobante = comprobanteLN.buscarComprobante(codComprobante);
+        if (comprobante != null) {
+            Alumnos alumno = alumnoLN.buscarAlumno(comprobante.getCodAlu());
+
+            Apoderado apoderado = apoderadoLN.buscarApoderado(alumno.getCodApoderado());
+
+            if (codComprobante > 0) {
+                String format = "########### INSTITUCION EDUCATIVA VIRGEN MILAGROSA ############\n"
+                        + "CODIGO: %s\n"
+                        + "APELLIDOS Y NOMBRES: %s\n"
+                        + "APODERADO: %s     DNI: %s\n"
+                        + "\n"
+                        + "CONCEPTO  | DETALLE                      | MONTO   \n"
+                        + "---------------------------------------------------\n"
+                        + "       01 |                    MATRICULA |  %.2f   \n"
+                        + "---------------------------------------------------\n"
+                        + "FECHA: %s		          TOTAL:S./%.2f ";
+
+                String salida = String.format(format,
+                        alumno.getCodAlu(),
+                        alumno.getNombreAlu() + " " + alumno.getaPaternoAlu() + " " + alumno.getaMaternoAlu(),
+                        apoderado.getNombreAp() + " " + apoderado.getaPaternoAp() + " " + apoderado.getaMaternoAp(),
+                        apoderado.getDniAp(),
+                        comprobante.getMonto(),
+                        FORMATO.format(comprobante.getFechaEmision()),
+                        comprobante.getMonto()
+                );
+
+                txtAreaComprobante.setText(salida);
+            } else {
+                JOptionPane.showMessageDialog(null, "Ha ocurrido un problema", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        }
     }
 
     /**
@@ -40,14 +98,12 @@ public class FrmEmitirComprobante extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         btnVolver = new javax.swing.JButton();
-        txtCodigo = new javax.swing.JTextField();
-        jLabel2 = new javax.swing.JLabel();
-        btnBuscar = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         txtAreaComprobante = new javax.swing.JTextArea();
         btnImprimir = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Emitir Comprobante");
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -60,18 +116,10 @@ public class FrmEmitirComprobante extends javax.swing.JFrame {
             }
         });
 
-        jLabel2.setText("Codigo de Alumno");
-
-        btnBuscar.setText("Buscar");
-        btnBuscar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnBuscarActionPerformed(evt);
-            }
-        });
-
         txtAreaComprobante.setColumns(20);
         txtAreaComprobante.setRows(5);
         txtAreaComprobante.setText("########### INSTITUCION EDUCATIVA VIRGEN MILAGROSA ############\nCODIGO: 15200138\nAPELLIDOS Y NOMBRES: PALPAN FLORES, YUDELY GUADALUPE\nAPODERADO: CHAVEZ ALIAGA, LUIS RICARDO     DNI: 73332125\n\nCONCEPTO  | DETALLE                      | MONTO\n---------------------------------------------------------------\n\n\n\n---------------------------------------------------------------\nFECHA: 16/10/2017\t\t          TOTAL: S/.   ");
+        txtAreaComprobante.setEnabled(false);
         jScrollPane1.setViewportView(txtAreaComprobante);
 
         btnImprimir.setText("Imprimir Comprobante");
@@ -85,28 +133,20 @@ public class FrmEmitirComprobante extends javax.swing.JFrame {
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btnImprimir, javax.swing.GroupLayout.PREFERRED_SIZE, 258, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(130, 130, 130))
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(btnVolver, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addContainerGap()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 543, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(btnVolver, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
-                                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 304, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                                .addGap(5, 5, 5)
-                                .addComponent(txtCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 317, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnBuscar, javax.swing.GroupLayout.DEFAULT_SIZE, 82, Short.MAX_VALUE)
-                        .addContainerGap())))
+                                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 304, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(151, 151, 151)
+                        .addComponent(btnImprimir, javax.swing.GroupLayout.PREFERRED_SIZE, 258, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(22, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -115,16 +155,11 @@ public class FrmEmitirComprobante extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(btnVolver, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnBuscar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(txtCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 252, Short.MAX_VALUE)
-                .addGap(18, 18, 18)
+                .addGap(29, 29, 29)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 245, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnImprimir, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addGap(17, 17, 17))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -133,8 +168,7 @@ public class FrmEmitirComprobante extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(22, 22, 22))
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -155,14 +189,9 @@ public class FrmEmitirComprobante extends javax.swing.JFrame {
 
     private void btnImprimirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnImprimirActionPerformed
         // Impprimir comprobante, levantar impresora.
-                
-        
-    }//GEN-LAST:event_btnImprimirActionPerformed
 
-    private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
-        // TODO add your handling code here:
-        
-    }//GEN-LAST:event_btnBuscarActionPerformed
+
+    }//GEN-LAST:event_btnImprimirActionPerformed
 
     /**
      * @param args the command line arguments
@@ -175,37 +204,36 @@ public class FrmEmitirComprobante extends javax.swing.JFrame {
          */
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
+                if ("Windows".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
                 }
             }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(FrmEmitirComprobante.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(FrmEmitirComprobante.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(FrmEmitirComprobante.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(FrmEmitirComprobante.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(() -> {
-            new FrmEmitirComprobante().setVisible(true);
+
+            Matricula matricula = new Matricula();
+            matricula.setCodAlu(1);
+            matricula.setCodSeccion(1);
+            matricula.setCodGrado(1);
+
+            new FrmEmitirComprobante(matricula).setVisible(true);
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnBuscar;
     private javax.swing.JButton btnImprimir;
     private javax.swing.JButton btnVolver;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextArea txtAreaComprobante;
-    private javax.swing.JTextField txtCodigo;
     // End of variables declaration//GEN-END:variables
 }

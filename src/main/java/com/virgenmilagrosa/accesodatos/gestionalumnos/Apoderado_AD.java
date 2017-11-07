@@ -64,7 +64,7 @@ public class Apoderado_AD {
                 }
             }
         } catch (SQLException ex) {
-
+            lista = null;
         } finally {
             acceso.close();
         }
@@ -150,10 +150,11 @@ public class Apoderado_AD {
         try {
             Connection conexion = acceso.getConexion();
             try (CallableStatement consulta = conexion.prepareCall("{ CALL SP_BUSCAR_APODERADO(?, ?) }")) {
-                consulta.registerOutParameter(2, OracleTypes.CURSOR);
                 consulta.setInt(1, codApoderado);
+                consulta.registerOutParameter(2, OracleTypes.CURSOR);
+
                 consulta.execute();
-                try (ResultSet resultado = ((OracleCallableStatement) consulta).getCursor(1)) {
+                try (ResultSet resultado = ((OracleCallableStatement) consulta).getCursor(2)) {
 
                     if (resultado.next()) {
                         apoderado.setCodApoderado(resultado.getInt("COD_APODERADO"));

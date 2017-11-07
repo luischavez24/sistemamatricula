@@ -129,7 +129,7 @@ public class Documento_AD {
         return respuesta;
 
     }
-
+    @Deprecated
     public Documentos buscarDocumento(int codDocumento) {
 
         Documentos documento = null;

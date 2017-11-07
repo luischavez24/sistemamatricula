@@ -23,15 +23,15 @@ import com.virgenmilagrosa.tranversal.entidades.*;
 public class Alumno_AD {
 
     private AccesoBD acceso = AccesoBD.getInstance();
-    
+
     private static final Alumno_AD instance = new Alumno_AD();
 
-	private Alumno_AD() {
-	}
+    private Alumno_AD() {
+    }
 
-	public static Alumno_AD getInstance() {
-		return instance;
-	}
+    public static Alumno_AD getInstance() {
+        return instance;
+    }
 
     public List<Alumnos> listarAlumnos() {
 
@@ -62,7 +62,7 @@ public class Alumno_AD {
                 }
             }
         } catch (SQLException ex) {
-
+            lista = null;
         } finally {
             acceso.close();
         }
@@ -149,22 +149,23 @@ public class Alumno_AD {
         try {
             Connection conexion = acceso.getConexion();
             try (CallableStatement consulta = conexion.prepareCall("{ CALL SP_BUSCAR_ALUMNO (?, ?) }")) {
-                consulta.registerOutParameter(1, OracleTypes.CURSOR);
+                consulta.registerOutParameter(2, OracleTypes.CURSOR);
                 consulta.setInt(1, codAlumno);
                 consulta.execute();
-                try (ResultSet resultado = ((OracleCallableStatement) consulta).getCursor(1)) {
-
-                    int codApoderado;
-                    String apaternoAlu, nombreAlu, amaternoAlu, telefonoAlu, emailAlu, direccionAlu;
-                    codAlumno = resultado.getInt(1);
-                    apaternoAlu = resultado.getString(2);
-                    nombreAlu = resultado.getString(3);
-                    amaternoAlu = resultado.getString(4);
-                    telefonoAlu = resultado.getString(5);
-                    emailAlu = resultado.getString(6);
-                    direccionAlu = resultado.getString(7);
-                    codApoderado = resultado.getInt(8);
-                    alumno = new Alumnos(codAlumno, apaternoAlu, nombreAlu, amaternoAlu, telefonoAlu, emailAlu, direccionAlu, codApoderado);
+                try (ResultSet resultado = ((OracleCallableStatement) consulta).getCursor(2)) {
+                    if (resultado.next()) {
+                        int codApoderado;
+                        String apaternoAlu, nombreAlu, amaternoAlu, telefonoAlu, emailAlu, direccionAlu;
+                        codAlumno = resultado.getInt(1);
+                        apaternoAlu = resultado.getString(2);
+                        nombreAlu = resultado.getString(3);
+                        amaternoAlu = resultado.getString(4);
+                        telefonoAlu = resultado.getString(5);
+                        emailAlu = resultado.getString(6);
+                        direccionAlu = resultado.getString(7);
+                        codApoderado = resultado.getInt(8);
+                        alumno = new Alumnos(codAlumno, apaternoAlu, nombreAlu, amaternoAlu, telefonoAlu, emailAlu, direccionAlu, codApoderado);
+                    } 
 
                 }
             }

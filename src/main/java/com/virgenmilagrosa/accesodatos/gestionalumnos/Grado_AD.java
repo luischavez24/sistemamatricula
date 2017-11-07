@@ -15,50 +15,70 @@ import java.util.List;
 import oracle.jdbc.OracleCallableStatement;
 import oracle.jdbc.OracleTypes;
 import com.virgenmilagrosa.tranversal.entidades.*;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 
 /**
  *
  * @author Jose Carlos
  */
 public class Grado_AD {
-
-    private AccesoBD acceso = AccesoBD.getInstance();
     
+    private AccesoBD acceso = AccesoBD.getInstance();
+
     private static final Grado_AD instance = new Grado_AD();
+    
+    private static final Log LOG = LogFactory.getLog(Grado_AD.class);
+    
+    private Grado_AD() {
+    }
 
-	private Grado_AD() {
-	}
-
-	public static Grado_AD getInstance() {
-		return instance;
-	}
+    public static Grado_AD getInstance() {
+        return instance;
+    }
 
     public List<Grado> listarGrados() {
 
         List<Grado> lista = new ArrayList<>();
 
         try {
+            
+            LOG.info("Accediendo a la base de datos");
+            
             Connection conexion = acceso.getConexion();
-            try (CallableStatement consulta = conexion.prepareCall("{ CALL SP_LISTAR_GRADOS (?) }")) {
+            
+            LOG.info("Llamando a SP_LISTAR_GRADO");
+            
+            try (CallableStatement consulta = conexion.prepareCall("{ CALL SP_LISTAR_GRADO (?) }")) {
                 consulta.registerOutParameter(1, OracleTypes.CURSOR);
                 consulta.execute();
+                
+                LOG.info("Llamando a recibiendo el resultado");
+                
                 try (ResultSet resultado = ((OracleCallableStatement) consulta).getCursor(1)) {
+                    
                     Grado temp;
                     int codGrado, nivel;
                     String nombreGrado;
+                    
                     while (resultado.next()) {
+                        
                         codGrado = resultado.getInt(1);
                         nombreGrado = resultado.getString(2);
                         nivel = resultado.getInt(3);
                         temp = new Grado(codGrado, nombreGrado, nivel);
-
+                        
+                        LOG.info("Añadiendo a la lista el objeto grado=" + temp);
                         lista.add(temp);
                     }
                 }
             }
         } catch (SQLException ex) {
-        	return null;
+            LOG.error("Ha ocurrido el siguiente error: " + ex);
+            lista = null;
         } finally {
+            LOG.info("Cerrado conexion");
             acceso.close();
         }
         return lista;
@@ -137,27 +157,27 @@ public class Grado_AD {
 
         try {
             Connection conexion = acceso.getConexion();
-            try (CallableStatement consulta = conexion.prepareCall("{ CALL SP_BUSCAR_GRADO (?) }")) {
+            try (CallableStatement consulta = conexion.prepareCall("{ CALL SP_BUSCAR_GRADO (?, ?) }")) {
                 consulta.registerOutParameter(1, OracleTypes.CURSOR);
-                consulta.setInt(1, codGrado);
+                consulta.setInt(2, codGrado);
                 consulta.execute();
-                try (ResultSet resultado = ((OracleCallableStatement) consulta).getCursor(1)) {
 
-                    String nombreGrado;
-                    int nivel;
-                    codGrado = resultado.getInt(1);
-                    nombreGrado = resultado.getString(2);
-                    nivel = resultado.getInt(3);
-                    grado = new Grado(codGrado, nombreGrado, nivel);
+                try (ResultSet resultado = ((OracleCallableStatement) consulta).getCursor(1)) {
+                    if (resultado.next()) {
+                        String nombreGrado;
+                        int nivel;
+                        codGrado = resultado.getInt(1);
+                        nombreGrado = resultado.getString(2);
+                        nivel = resultado.getInt(3);
+                        grado = new Grado(codGrado, nombreGrado, nivel);
+                    } 
                 }
             }
         } catch (SQLException ex) {
-
+            
         } finally {
             acceso.close();
         }
         return grado;
-
     }
-
 }

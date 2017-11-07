@@ -41,7 +41,8 @@ public class Acta_LN {
     public String eliminarActa(int codDocumento, int codAlumno) {
         return actaAD.eliminarActa(codDocumento, codAlumno);
     }
-
+    
+    @Deprecated
     public Acta buscarActa(int codDoc, int codAlu) {
         return actaAD.buscarActa(codDoc, codAlu);
     }
