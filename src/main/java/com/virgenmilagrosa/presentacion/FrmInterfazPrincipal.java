@@ -67,7 +67,7 @@ public class FrmInterfazPrincipal extends javax.swing.JFrame {
         tbltabla = new javax.swing.JTable();
         txtBuscar = new javax.swing.JTextField();
         jButton3 = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
+        btnAddAlumno = new javax.swing.JButton();
         jButton5 = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
         menuAlumnos = new javax.swing.JMenu();
@@ -236,7 +236,12 @@ public class FrmInterfazPrincipal extends javax.swing.JFrame {
 
         jButton3.setText("Buscar");
 
-        jButton4.setText("Añadir Alumno");
+        btnAddAlumno.setText("Añadir Alumno");
+        btnAddAlumno.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAddAlumnoActionPerformed(evt);
+            }
+        });
 
         jButton5.setText("Volver al Menu Principal");
 
@@ -257,7 +262,7 @@ public class FrmInterfazPrincipal extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 378, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addComponent(btnAddAlumno, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addContainerGap(27, Short.MAX_VALUE))
         );
         pnlAlumnosLayout.setVerticalGroup(
@@ -267,7 +272,7 @@ public class FrmInterfazPrincipal extends javax.swing.JFrame {
                 .addGroup(pnlAlumnosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, 33, Short.MAX_VALUE)
                     .addComponent(jButton5, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButton4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(btnAddAlumno, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(19, 19, 19)
                 .addGroup(pnlAlumnosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -403,6 +408,32 @@ public class FrmInterfazPrincipal extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnActualizarActionPerformed
 
+    private void btnAddAlumnoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddAlumnoActionPerformed
+        // TODO add your handling code here:
+        /* Set the Nimbus look and feel */
+        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+         */
+        try {
+            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+                if ("Windows".equals(info.getName())) {
+                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                    break;
+                }
+            }
+        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | javax.swing.UnsupportedLookAndFeelException ex) {
+            java.util.logging.Logger.getLogger(FrmRegistroAlumnos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        }
+        //</editor-fold>
+       
+
+        /* Create and display the form */
+        java.awt.EventQueue.invokeLater(() -> {
+            new FrmRegistroAlumnos().setVisible(true);
+        });
+    }//GEN-LAST:event_btnAddAlumnoActionPerformed
+
     // <editor-fold defaultstate="collapsed" desc="Panel Alumnos">  
     
     private DefaultTableModel modelo;
@@ -492,6 +523,7 @@ public class FrmInterfazPrincipal extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuItem btnActualizar;
+    private javax.swing.JButton btnAddAlumno;
     private javax.swing.JMenuItem btnAumentarVac;
     private javax.swing.JMenuItem btnEliminar;
     private javax.swing.JMenuItem btnGenerarActa;
@@ -501,7 +533,6 @@ public class FrmInterfazPrincipal extends javax.swing.JFrame {
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton6;
     private javax.swing.JLabel jLabel1;

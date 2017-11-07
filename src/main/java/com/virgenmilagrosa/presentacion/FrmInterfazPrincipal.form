@@ -346,7 +346,7 @@
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="jLabel2" min="-2" pref="378" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
-                              <Component id="jButton4" max="32767" attributes="0"/>
+                              <Component id="btnAddAlumno" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                       <EmptySpace pref="27" max="32767" attributes="0"/>
@@ -360,7 +360,7 @@
                       <Group type="103" groupAlignment="0" max="-2" attributes="0">
                           <Component id="jLabel2" alignment="0" pref="33" max="32767" attributes="0"/>
                           <Component id="jButton5" alignment="1" max="32767" attributes="0"/>
-                          <Component id="jButton4" max="32767" attributes="0"/>
+                          <Component id="btnAddAlumno" max="32767" attributes="0"/>
                       </Group>
                       <EmptySpace min="-2" pref="19" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
@@ -422,10 +422,13 @@
                 <Property name="text" type="java.lang.String" value="Buscar"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JButton" name="jButton4">
+            <Component class="javax.swing.JButton" name="btnAddAlumno">
               <Properties>
                 <Property name="text" type="java.lang.String" value="A&#xf1;adir Alumno"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnAddAlumnoActionPerformed"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JButton" name="jButton5">
               <Properties>
