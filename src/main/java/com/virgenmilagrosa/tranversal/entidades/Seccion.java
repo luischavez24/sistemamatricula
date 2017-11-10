@@ -3,6 +3,7 @@ package com.virgenmilagrosa.tranversal.entidades;
 public class Seccion {
     private int codSeccion;
     private int codGrado;
+    private String nombreGrado;
     private String nombreSeccion;
     private int nroVacantes;
     private int nroSalon;   
@@ -58,4 +59,19 @@ public class Seccion {
         this.nroSalon = nroSalon;
     }
 
+    public String getNombreGrado() {
+        return nombreGrado;
+    }
+
+    public void setNombreGrado(String nombreGrado) {
+        this.nombreGrado = nombreGrado;
+    }
+
+    @Override
+    public String toString() {
+        return "Grado:" + nombreGrado + ", Seccion:" + nombreSeccion + ", Vacantes:" + nroVacantes + ", Salon:" + nroSalon;
+    }
+    
+    
+    
 }

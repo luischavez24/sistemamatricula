@@ -6,40 +6,39 @@ import com.virgenmilagrosa.accesodatos.gestionsecciones.Seccion_AD;
 import com.virgenmilagrosa.tranversal.entidades.Seccion;
 
 public class Seccion_LN {
-	
-	private static final Seccion_LN instance = new Seccion_LN();
 
-	private Seccion_LN() {
-	}
+    private static final Seccion_LN instance = new Seccion_LN();
 
-	public static Seccion_LN getInstance() {
-		return instance;
-	}
+    private Seccion_LN() {
+    }
 
-	private Seccion_AD seccionAD = Seccion_AD.getInstance();
-	
-	public List<Seccion> listarSecciones() {
-		return seccionAD.listarSecciones();
-	}
+    public static Seccion_LN getInstance() {
+        return instance;
+    }
 
-	public String registrarSeccion(Seccion seccion) {
-		return seccionAD.registrarSeccion(seccion);
-	}
+    private Seccion_AD seccionAD = Seccion_AD.getInstance();
 
-	public String modificarSeccion(Seccion seccion) {
-		return seccionAD.modificarSeccion(seccion);
-	}
+    public List<Seccion> listarSecciones() {
+        return seccionAD.listarSecciones();
+    }
 
-	public String eliminarSeccion(int codSeccion, int codGrado) {
-		return seccionAD.eliminarSeccion(codSeccion, codGrado);
-	}
+    public String registrarSeccion(Seccion seccion) {
+        return seccionAD.registrarSeccion(seccion);
+    }
 
-	public Seccion buscarActa(int codSeccion, int codGrado) {
-		return seccionAD.buscarActa(codSeccion, codGrado);
-	}
-	
-	public String ampliarVacantes(Seccion seccion, int vacantes) {
-		return seccionAD.ampliarVacantes(seccion, vacantes);
-	}
+    public String modificarSeccion(Seccion seccion) {
+        return seccionAD.modificarSeccion(seccion);
+    }
 
+    public String eliminarSeccion(int codSeccion, int codGrado) {
+        return seccionAD.eliminarSeccion(codSeccion, codGrado);
+    }
+
+    public Seccion buscarSeccion(int codSeccion, int codGrado) {
+        return seccionAD.buscarSeccion(codSeccion, codGrado);
+    }
+
+    public String ampliarVacantes(Seccion seccion, int vacantes) {
+        return seccionAD.ampliarVacantes(seccion, vacantes);
+    }
 }

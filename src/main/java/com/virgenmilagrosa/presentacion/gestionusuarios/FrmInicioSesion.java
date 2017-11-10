@@ -7,6 +7,8 @@ package com.virgenmilagrosa.presentacion.gestionusuarios;
 
 import com.virgenmilagrosa.logicanegocio.gestionusuarios.Usuario_LN;
 import com.virgenmilagrosa.presentacion.FrmInterfazPrincipal;
+import com.virgenmilagrosa.presentacion.generarmatricula.FrmGenerarMatricula;
+import com.virgenmilagrosa.tranversal.control.Credencial;
 import com.virgenmilagrosa.tranversal.control.Validaciones;
 import java.awt.EventQueue;
 import javax.swing.JOptionPane;
@@ -165,7 +167,7 @@ public class FrmInicioSesion extends javax.swing.JFrame {
         String pass = new String(txtContra.getPassword());
         String mensaje;
         int iconBox;
-        
+
         int verificacion = usuarioLN.verificarUsuario(user, pass);
         switch (verificacion) {
             case 0:
@@ -183,18 +185,37 @@ public class FrmInicioSesion extends javax.swing.JFrame {
                 iconBox = JOptionPane.ERROR_MESSAGE;
                 break;
         }
-        
+
         JOptionPane.showMessageDialog(rootPane, mensaje, "Mensaje", iconBox);
-        if(verificacion > 0) {
+        if (verificacion > 0) {
+
+            Credencial.getInstance().setUsername(user);
+            Credencial.getInstance().setRol(verificacion);
+
             abrirVentanaPrincipal(verificacion);
         }
-        
-        
+
+
     }//GEN-LAST:event_btnIngresarActionPerformed
 
     private void abrirVentanaPrincipal(int rol) {
         this.dispose();
         EventQueue.invokeLater(() -> {
+            //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+            /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+             */
+            try {
+                for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+                    if ("Windows".equals(info.getName())) {
+                        javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                        break;
+                    }
+                }
+            } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | javax.swing.UnsupportedLookAndFeelException ex) {
+                java.util.logging.Logger.getLogger(FrmGenerarMatricula.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            }
+            //</editor-fold>
             new FrmInterfazPrincipal(rol).setVisible(true);
         });
     }

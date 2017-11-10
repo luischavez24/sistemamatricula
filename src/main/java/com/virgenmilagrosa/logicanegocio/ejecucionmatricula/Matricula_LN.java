@@ -2,6 +2,7 @@ package com.virgenmilagrosa.logicanegocio.ejecucionmatricula;
 
 import com.virgenmilagrosa.accesodatos.ejecucionmatricula.Matricula_AD;
 import com.virgenmilagrosa.tranversal.entidades.Alumnos;
+import com.virgenmilagrosa.tranversal.entidades.Matricula;
 import com.virgenmilagrosa.tranversal.entidades.Seccion;
 
 public class Matricula_LN {
@@ -21,4 +22,11 @@ public class Matricula_LN {
         return matriculaAD.ejecutarMatricula(alumno, seccion);
     }
 
+    public Matricula buscarMatricula(String codMatricula) {
+        return matriculaAD.buscarMatricula(codMatricula);
+    }
+    
+    public int verificarMatricula(String dniAlu) {
+        return matriculaAD.verificarMatricula(dniAlu);
+    }
 }

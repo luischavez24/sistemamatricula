@@ -7,6 +7,7 @@ package com.virgenmilagrosa.presentacion;
 
 import com.virgenmilagrosa.logicanegocio.gestionalumnos.Alumno_LN;
 import com.virgenmilagrosa.logicanegocio.gestionalumnos.Apoderado_LN;
+import com.virgenmilagrosa.presentacion.generarmatricula.FrmGenerarMatricula;
 import com.virgenmilagrosa.presentacion.gestionalumnos.FrmModificarAlumno;
 import com.virgenmilagrosa.presentacion.gestionalumnos.FrmRegistroAlumnos;
 import com.virgenmilagrosa.tranversal.control.Validaciones;
@@ -32,7 +33,6 @@ public class FrmInterfazPrincipal extends javax.swing.JFrame {
         this.rol = rol;
         initComponents();
         desactivarBotones(rol);
-        
         init();
     }
 
@@ -324,6 +324,11 @@ public class FrmInterfazPrincipal extends javax.swing.JFrame {
         menuMatricula.setText("Matricula");
 
         btnGenerarMatricula.setText("Generar Matrícula");
+        btnGenerarMatricula.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnGenerarMatriculaActionPerformed(evt);
+            }
+        });
         menuMatricula.add(btnGenerarMatricula);
 
         btnGenerarActa.setText("Generar Acta de Compromiso");
@@ -393,12 +398,12 @@ public class FrmInterfazPrincipal extends javax.swing.JFrame {
 
     private void btnActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarActionPerformed
         // TODO add your handling code here:
-         int fila = tbltabla.getSelectedRow();
+        int fila = tbltabla.getSelectedRow();
         if (fila > -1) {
-            
+
             int codAlumno = (Integer) tbltabla.getValueAt(fila, 0);
             Alumnos alumno = Alumno_LN.getInstance().buscarAlumno(codAlumno);
-            
+
             java.awt.EventQueue.invokeLater(() -> {
                 new FrmModificarAlumno(alumno).setVisible(true);
             });
@@ -426,7 +431,7 @@ public class FrmInterfazPrincipal extends javax.swing.JFrame {
             java.util.logging.Logger.getLogger(FrmRegistroAlumnos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
-       
+
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(() -> {
@@ -434,15 +439,37 @@ public class FrmInterfazPrincipal extends javax.swing.JFrame {
         });
     }//GEN-LAST:event_btnAddAlumnoActionPerformed
 
+    private void btnGenerarMatriculaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGenerarMatriculaActionPerformed
+        // TODO add your handling code here:
+        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+         */
+        try {
+            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+                if ("Windows".equals(info.getName())) {
+                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                    break;
+                }
+            }
+        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | javax.swing.UnsupportedLookAndFeelException ex) {
+            java.util.logging.Logger.getLogger(FrmGenerarMatricula.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        }
+        //</editor-fold>
+        /* Create and display the form */
+        java.awt.EventQueue.invokeLater(() -> {
+            new FrmGenerarMatricula().setVisible(true);
+        });
+    }//GEN-LAST:event_btnGenerarMatriculaActionPerformed
+
     // <editor-fold defaultstate="collapsed" desc="Panel Alumnos">  
-    
     private DefaultTableModel modelo;
-    private Alumno_LN alumno= Alumno_LN.getInstance();
-    private Apoderado_LN apad= Apoderado_LN.getInstance();
-    private boolean consultar= false;
+    private Alumno_LN alumno = Alumno_LN.getInstance();
+    private Apoderado_LN apad = Apoderado_LN.getInstance();
+    private boolean consultar = false;
     private FrmRegistroAlumnos registro;
     private int id = 0;
-    
+
     public void CargarTabla(DefaultTableModel modelo, List<Alumnos> total, JTable tabla) {
 
         total = this.alumno.listarAlumnos();
@@ -494,13 +521,13 @@ public class FrmInterfazPrincipal extends javax.swing.JFrame {
         //actualiza y cargando
         MostrarLista(modelo, tbltabla);
     }
-    
+
     private void init() {
         setLocationRelativeTo(null);
         Validaciones validaciones = new Validaciones();
         validaciones.ValidarSoloNumeros(txtBuscar);
-        
-        modelo= new DefaultTableModel(){
+
+        modelo = new DefaultTableModel() {
             //para que las columnas y filas no se editen
             @Override
             public boolean isCellEditable(int fila, int columna) {
@@ -516,7 +543,7 @@ public class FrmInterfazPrincipal extends javax.swing.JFrame {
         modelo.addColumn("EMAIL");
         modelo.addColumn("DIRECCION");
         modelo.addColumn("APODERADO");
-        MostrarLista(modelo,tbltabla);
+        MostrarLista(modelo, tbltabla);
         tbltabla.getTableHeader().setReorderingAllowed(false);
     }
     //</editor-fold>

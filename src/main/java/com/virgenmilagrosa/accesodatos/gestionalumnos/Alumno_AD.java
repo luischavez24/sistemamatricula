@@ -39,13 +39,15 @@ public class Alumno_AD {
 
         try {
             Connection conexion = acceso.getConexion();
-            try (CallableStatement consulta = conexion.prepareCall("{ CALL SP_LISTAR_ALUMNOS (?) }")) {
+            try (CallableStatement consulta
+                    = conexion.prepareCall("{ CALL SP_LISTAR_ALUMNOS (?) }")) {
                 consulta.registerOutParameter(1, OracleTypes.CURSOR);
                 consulta.execute();
                 try (ResultSet resultado = ((OracleCallableStatement) consulta).getCursor(1)) {
                     Alumnos temp;
                     int codAlu, codApoderado;
-                    String apaternoAlu, nombreAlu, amaternoAlu, telefonoAlu, emailAlu, direccionAlu;
+                    String apaternoAlu, nombreAlu, amaternoAlu,
+                            telefonoAlu, emailAlu, direccionAlu, dniAlumno;
                     while (resultado.next()) {
                         codAlu = resultado.getInt(1);
                         apaternoAlu = resultado.getString(2);
@@ -55,13 +57,18 @@ public class Alumno_AD {
                         emailAlu = resultado.getString(6);
                         direccionAlu = resultado.getString(7);
                         codApoderado = resultado.getInt(8);
-                        temp = new Alumnos(codAlu, apaternoAlu, nombreAlu, amaternoAlu, telefonoAlu, emailAlu, direccionAlu, codApoderado);
+                        dniAlumno = resultado.getString(9);
+                        
+                        temp = new Alumnos(codAlu, apaternoAlu, nombreAlu,
+                                amaternoAlu, telefonoAlu, emailAlu,
+                                direccionAlu, codApoderado, dniAlumno);
 
                         lista.add(temp);
                     }
                 }
             }
         } catch (SQLException ex) {
+            System.out.println(ex);
             lista = null;
         } finally {
             acceso.close();
@@ -77,7 +84,7 @@ public class Alumno_AD {
         try {
             Connection conexion = acceso.getConexion();
             conexion.setAutoCommit(false);
-            try (CallableStatement consulta = conexion.prepareCall("{CALL SP_REGISTRAR_ALUMNO (?,?,?,?,?,?,?,?)}")) {
+            try (CallableStatement consulta = conexion.prepareCall("{CALL SP_REGISTRAR_ALUMNO (?,?,?,?,?,?,?,?,?)}")) {
                 consulta.setInt(1, alumno.getCodAlu());
                 consulta.setString(2, alumno.getaPaternoAlu());
                 consulta.setString(3, alumno.getNombreAlu());
@@ -86,6 +93,7 @@ public class Alumno_AD {
                 consulta.setString(6, alumno.getEmailAlu());
                 consulta.setString(7, alumno.getDireccionAlu());
                 consulta.setInt(8, alumno.getCodApoderado());
+                consulta.setString(9, alumno.getDniAlumno());
 
                 consulta.execute();
             }
@@ -142,21 +150,23 @@ public class Alumno_AD {
 
     }
 
-    public Alumnos buscarAlumno(int codAlumno) {
+    public Alumnos buscarAlumno(String dniAlu) {
 
         Alumnos alumno = null;
 
         try {
             Connection conexion = acceso.getConexion();
             try (CallableStatement consulta = conexion.prepareCall("{ CALL SP_BUSCAR_ALUMNO (?, ?) }")) {
+                consulta.setString(1, dniAlu);
                 consulta.registerOutParameter(2, OracleTypes.CURSOR);
-                consulta.setInt(1, codAlumno);
                 consulta.execute();
                 try (ResultSet resultado = ((OracleCallableStatement) consulta).getCursor(2)) {
                     if (resultado.next()) {
-                        int codApoderado;
-                        String apaternoAlu, nombreAlu, amaternoAlu, telefonoAlu, emailAlu, direccionAlu;
-                        codAlumno = resultado.getInt(1);
+                        int codApoderado, codAlu;
+                        String apaternoAlu, nombreAlu, amaternoAlu, telefonoAlu,
+                                emailAlu, direccionAlu, dniAlumno;
+
+                        codAlu = resultado.getInt(1);
                         apaternoAlu = resultado.getString(2);
                         nombreAlu = resultado.getString(3);
                         amaternoAlu = resultado.getString(4);
@@ -164,8 +174,12 @@ public class Alumno_AD {
                         emailAlu = resultado.getString(6);
                         direccionAlu = resultado.getString(7);
                         codApoderado = resultado.getInt(8);
-                        alumno = new Alumnos(codAlumno, apaternoAlu, nombreAlu, amaternoAlu, telefonoAlu, emailAlu, direccionAlu, codApoderado);
-                    } 
+                        dniAlumno = resultado.getString(9);
+
+                        alumno = new Alumnos(codAlu, apaternoAlu, nombreAlu,
+                                amaternoAlu, telefonoAlu, emailAlu,
+                                direccionAlu, codApoderado, dniAlumno);
+                    }
 
                 }
             }
@@ -178,4 +192,45 @@ public class Alumno_AD {
 
     }
 
+    public Alumnos buscarAlumno(int codAlu) {
+
+        Alumnos alumno = null;
+
+        try {
+            Connection conexion = acceso.getConexion();
+            try (CallableStatement consulta = conexion.prepareCall("{ CALL SP_BUSCAR_ALUMNO_COD (?, ?) }")) {
+                consulta.setInt(1, codAlu);
+                consulta.registerOutParameter(2, OracleTypes.CURSOR);
+                consulta.execute();
+                try (ResultSet resultado = ((OracleCallableStatement) consulta).getCursor(2)) {
+                    if (resultado.next()) {
+                        int codApoderado, codAlumno;
+                        String apaternoAlu, nombreAlu, amaternoAlu, telefonoAlu,
+                                emailAlu, direccionAlu, dniAlumno;
+
+                        codAlumno = resultado.getInt(1);
+                        apaternoAlu = resultado.getString(2);
+                        nombreAlu = resultado.getString(3);
+                        amaternoAlu = resultado.getString(4);
+                        telefonoAlu = resultado.getString(5);
+                        emailAlu = resultado.getString(6);
+                        direccionAlu = resultado.getString(7);
+                        codApoderado = resultado.getInt(8);
+                        dniAlumno = resultado.getString(9);
+
+                        alumno = new Alumnos(codAlumno, apaternoAlu, nombreAlu,
+                                amaternoAlu, telefonoAlu, emailAlu,
+                                direccionAlu, codApoderado, dniAlumno);
+                    }
+
+                }
+            }
+        } catch (SQLException ex) {
+            System.out.println(ex);
+        } finally {
+            acceso.close();
+        }
+        return alumno;
+
+    }
 }

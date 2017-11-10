@@ -23,15 +23,15 @@ import com.virgenmilagrosa.tranversal.entidades.*;
 public class Seccion_AD {
 
     private AccesoBD acceso = AccesoBD.getInstance();
-    
+
     private static final Seccion_AD instance = new Seccion_AD();
 
-	private Seccion_AD() {
-	}
+    private Seccion_AD() {
+    }
 
-	public static Seccion_AD getInstance() {
-		return instance;
-	}
+    public static Seccion_AD getInstance() {
+        return instance;
+    }
 
     public List<Seccion> listarSecciones() {
 
@@ -53,13 +53,13 @@ public class Seccion_AD {
                         nroVacantes = resultado.getInt(4);
                         nroSalon = resultado.getInt(5);
                         temp = new Seccion(codSeccion, codGrado, nombreSeccion, nroVacantes, nroSalon);
-
+                        temp.setNombreGrado(resultado.getString("NOMBRE_GRADO"));
                         lista.add(temp);
                     }
                 }
             }
         } catch (SQLException ex) {
-        	return null;
+            return null;
         } finally {
             acceso.close();
         }
@@ -137,20 +137,20 @@ public class Seccion_AD {
 
     }
 
-    public Seccion buscarActa(int codSeccion, int codGrado) {
+    public Seccion buscarSeccion(int codSeccion, int codGrado) {
 
         Seccion seccion = null;
 
         try {
             Connection conexion = acceso.getConexion();
             try (CallableStatement consulta = conexion.prepareCall("{ CALL SP_BUSCAR_SECCION (?,?,?) }")) {
-                
+
                 consulta.setInt(1, codSeccion);
                 consulta.setInt(2, codGrado);
                 consulta.registerOutParameter(3, OracleTypes.CURSOR);
-                
+
                 consulta.execute();
-                
+
                 try (ResultSet resultado = ((OracleCallableStatement) consulta).getCursor(3)) {
 
                     int nroVacantes, nroSalon;
@@ -161,6 +161,7 @@ public class Seccion_AD {
                     nroVacantes = resultado.getInt(4);
                     nroSalon = resultado.getInt(5);
                     seccion = new Seccion(codSeccion, codGrado, nombreSeccion, nroVacantes, nroSalon);
+                    seccion.setNombreGrado(resultado.getString("NOMBRE_GRADO"));
                 }
             }
         } catch (SQLException ex) {

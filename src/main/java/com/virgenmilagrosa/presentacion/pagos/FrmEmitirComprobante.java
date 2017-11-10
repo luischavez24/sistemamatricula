@@ -5,16 +5,18 @@
  */
 package com.virgenmilagrosa.presentacion.pagos;
 
-import com.virgenmilagrosa.logicanegocio.ejecucionmatricula.Matricula_LN;
 import com.virgenmilagrosa.logicanegocio.gestionalumnos.Alumno_LN;
 import com.virgenmilagrosa.logicanegocio.gestionalumnos.Apoderado_LN;
 import com.virgenmilagrosa.logicanegocio.pagos.ComprobantePago_LN;
 import com.virgenmilagrosa.presentacion.FrmInterfazPrincipal;
+import com.virgenmilagrosa.presentacion.generarmatricula.FrmGenerarMatricula;
+import com.virgenmilagrosa.presentacion.gestionusuarios.FrmInicioSesion;
+import com.virgenmilagrosa.tranversal.control.Credencial;
 import com.virgenmilagrosa.tranversal.entidades.Alumnos;
 import com.virgenmilagrosa.tranversal.entidades.Apoderado;
 import com.virgenmilagrosa.tranversal.entidades.Comprobante;
 import com.virgenmilagrosa.tranversal.entidades.Matricula;
-import com.virgenmilagrosa.tranversal.entidades.Seccion;
+
 import java.text.SimpleDateFormat;
 import javax.swing.JOptionPane;
 
@@ -41,9 +43,12 @@ public class FrmEmitirComprobante extends javax.swing.JFrame {
     }
 
     private void MetodoInicio() {
+
         setLocationRelativeTo(null);
         int monto = 120;
+
         comprobante = new Comprobante();
+
         comprobante.setMonto(monto);
         comprobante.setCodAlu(matricula.getCodAlu());
         comprobante.setCodGrado(matricula.getCodGrado());
@@ -52,7 +57,9 @@ public class FrmEmitirComprobante extends javax.swing.JFrame {
         int codComprobante = comprobanteLN.registrarComprobante(comprobante);
 
         comprobante = comprobanteLN.buscarComprobante(codComprobante);
+
         if (comprobante != null) {
+
             Alumnos alumno = alumnoLN.buscarAlumno(comprobante.getCodAlu());
 
             Apoderado apoderado = apoderadoLN.buscarApoderado(alumno.getCodApoderado());
@@ -183,50 +190,31 @@ public class FrmEmitirComprobante extends javax.swing.JFrame {
 
     private void btnVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVolverActionPerformed
         // TODO add your handling code here:
-        FrmInterfazPrincipal principal = new FrmInterfazPrincipal(0);
-        principal.setVisible(true);
+        java.awt.EventQueue.invokeLater(() -> {
+            //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+            /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+             */
+            try {
+                for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+                    if ("Windows".equals(info.getName())) {
+                        javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                        break;
+                    }
+                }
+            } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | javax.swing.UnsupportedLookAndFeelException ex) {
+                java.util.logging.Logger.getLogger(FrmGenerarMatricula.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            }
+            //</editor-fold>
+            FrmInterfazPrincipal principal = new FrmInterfazPrincipal(Credencial.getInstance().getRol());
+            principal.setVisible(true);
+        });
+
     }//GEN-LAST:event_btnVolverActionPerformed
 
     private void btnImprimirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnImprimirActionPerformed
         // Impprimir comprobante, levantar impresora.
-
-
     }//GEN-LAST:event_btnImprimirActionPerformed
-
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Windows".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(FrmEmitirComprobante.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-        
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(() -> {
-
-            Matricula matricula = new Matricula();
-            matricula.setCodAlu(1);
-            matricula.setCodSeccion(1);
-            matricula.setCodGrado(1);
-
-            new FrmEmitirComprobante(matricula).setVisible(true);
-        });
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnImprimir;

@@ -212,13 +212,13 @@ public class Usuario_AD {
                                 amaternoUsuario, dniUsuario, telfUsuario,
                                 username, rol);
                         
-                        LOG.info("Añadiendo el objeto=" + usuario);
+                        LOG.info("Listando el objeto=" + usuario);
                     }
 
                 }
             }
         } catch (SQLException ex) {
-            LOG.info("Ha ocurrido una excepcion=" + ex);
+            LOG.error("Ha ocurrido una excepcion=" + ex);
         } finally {
             LOG.info("Cerrando conexion");
             acceso.close();

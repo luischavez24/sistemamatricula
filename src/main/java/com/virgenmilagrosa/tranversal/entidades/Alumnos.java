@@ -17,11 +17,12 @@ public class Alumnos {
     private String emailAlu;
     private String direccionAlu;
     private int codApoderado;
+    private String dniAlumno;
 
     public Alumnos() {
     }
 
-    public Alumnos(int codAlu, String aPaternoAlu, String nombreAlu, String aMaternoAlu, String telefonoAlu, String emailAlu, String direccionAlu, int codApoderado) {
+    public Alumnos(int codAlu, String aPaternoAlu, String nombreAlu, String aMaternoAlu, String telefonoAlu, String emailAlu, String direccionAlu, int codApoderado, String dniAlumno) {
         this.codAlu = codAlu;
         this.aPaternoAlu = aPaternoAlu;
         this.nombreAlu = nombreAlu;
@@ -30,6 +31,7 @@ public class Alumnos {
         this.emailAlu = emailAlu;
         this.direccionAlu = direccionAlu;
         this.codApoderado = codApoderado;
+        this.dniAlumno = dniAlumno;
     }
 
     public int getCodAlu() {
@@ -94,5 +96,13 @@ public class Alumnos {
 
     public void setCodApoderado(int codApoderado) {
         this.codApoderado = codApoderado;
+    }
+
+    public String getDniAlumno() {
+        return dniAlumno;
+    }
+
+    public void setDniAlumno(String dniAlumno) {
+        this.dniAlumno = dniAlumno;
     }
 }

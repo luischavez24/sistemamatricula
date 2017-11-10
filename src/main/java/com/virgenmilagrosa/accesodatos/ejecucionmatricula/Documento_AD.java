@@ -138,7 +138,7 @@ public class Documento_AD {
             Connection conexion = acceso.getConexion();
             try (CallableStatement consulta = conexion.prepareCall("{ CALL SP_BUSCAR_DOCUMENTO (?) }")) {
                 consulta.registerOutParameter(1, OracleTypes.CURSOR);
-                consulta.setInt(1, codDocumento);
+                consulta.setInt(2, codDocumento);
                 consulta.execute();
                 try (ResultSet resultado = ((OracleCallableStatement) consulta).getCursor(1)) {
 

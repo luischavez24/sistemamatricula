@@ -18,16 +18,16 @@ public class Matricula {
     private int codAlu;
     private String codMatricula;
     private Date fechaEjecucion;
+    private int pAcademico;
+    public Matricula() { }
 
-    public Matricula() {
-    }
-
-    public Matricula(int codSeccion, int codGrado, int codAlu, String codMatricula, Date fechaEjecucion) {
+    public Matricula(int codSeccion, int codGrado, int codAlu, String codMatricula, Date fechaEjecucion, int pAcademico) {
         this.codSeccion = codSeccion;
         this.codGrado = codGrado;
         this.codAlu = codAlu;
         this.codMatricula = codMatricula;
         this.fechaEjecucion = fechaEjecucion;
+        this.pAcademico = pAcademico;
     }
 
     public int getCodSeccion() {
@@ -68,5 +68,13 @@ public class Matricula {
 
     public void setFechaEjecucion(Date fechaEjecucion) {
         this.fechaEjecucion = fechaEjecucion;
+    }
+
+    public int getpAcademico() {
+        return pAcademico;
+    }
+
+    public void setpAcademico(int pAcademico) {
+        this.pAcademico = pAcademico;
     }
 }
