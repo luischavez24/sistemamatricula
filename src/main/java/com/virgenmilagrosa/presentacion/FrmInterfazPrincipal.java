@@ -11,6 +11,7 @@ import com.virgenmilagrosa.logicanegocio.gestionsecciones.Seccion_LN;
 import com.virgenmilagrosa.presentacion.generarmatricula.FrmGenerarMatricula;
 import com.virgenmilagrosa.presentacion.gestionalumnos.FrmModificarAlumno;
 import com.virgenmilagrosa.presentacion.gestionalumnos.FrmRegistroAlumnos;
+import com.virgenmilagrosa.presentacion.gestionsecciones.FrmAumentarVacante;
 import com.virgenmilagrosa.presentacion.gestionsecciones.FrmRegistroSeccion;
 import com.virgenmilagrosa.tranversal.control.Validaciones;
 import com.virgenmilagrosa.tranversal.entidades.Alumnos;
@@ -23,7 +24,7 @@ import javax.swing.table.DefaultTableModel;
 
 /**
  *
- * @author lucho
+ * @author lucho y lupe :v
  */
 public class FrmInterfazPrincipal extends javax.swing.JFrame {
 
@@ -37,6 +38,7 @@ public class FrmInterfazPrincipal extends javax.swing.JFrame {
         initComponents();
         desactivarBotones(rol);
         init();
+        init0();
     }
 
     /**
@@ -47,12 +49,14 @@ public class FrmInterfazPrincipal extends javax.swing.JFrame {
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
+        bindingGroup = new org.jdesktop.beansbinding.BindingGroup();
 
         menuOpcionesAlumnos = new javax.swing.JPopupMenu();
         btnActualizarAlumno = new javax.swing.JMenuItem();
         btnEliminarAlumno = new javax.swing.JMenuItem();
         menuOpcionesSeccion = new javax.swing.JPopupMenu();
         ActualizarSeccion = new javax.swing.JMenuItem();
+        EliminarSeccion = new javax.swing.JMenuItem();
         jLayeredPane1 = new javax.swing.JLayeredPane();
         pnlUsuarios = new javax.swing.JPanel();
         pnlPagos = new javax.swing.JPanel();
@@ -91,20 +95,14 @@ public class FrmInterfazPrincipal extends javax.swing.JFrame {
         menuOpcionesAlumnos.add(btnActualizarAlumno);
 
         btnEliminarAlumno.setText("Eliminar Alumno");
-        btnEliminarAlumno.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                //btnEliminarAlumnoActionPerformed(evt);
-            }
-        });
         menuOpcionesAlumnos.add(btnEliminarAlumno);
 
-        ActualizarSeccion.setText("jMenuItem1");
-        ActualizarSeccion.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-               // ActualizarSeccionActionPerformed(evt);
-            }
-        });
+        ActualizarSeccion.setText("Actualizar Seccion");
+        ActualizarSeccion.setActionCommand("Actualizar ");
         menuOpcionesSeccion.add(ActualizarSeccion);
+
+        EliminarSeccion.setText("Eliminar Seccion");
+        menuOpcionesSeccion.add(EliminarSeccion);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Sistema de Gestion de Matricula");
@@ -165,30 +163,24 @@ public class FrmInterfazPrincipal extends javax.swing.JFrame {
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("Listado de Secciones");
 
+        tblSeccion.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         tblSeccion.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "Codigo", "Nombre", "Tutor", "Grado", "Salon", "Actualizar", "Eliminar"
+                "CODIGO", "SECCION", "GRADO", "NRO_SALON", "NRO_VACANTES"
             }
         ));
-        tblSeccion.setComponentPopupMenu(menuOpcionesSeccion);
+
+        org.jdesktop.beansbinding.Binding binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, menuOpcionesSeccion, org.jdesktop.beansbinding.ObjectProperty.create(), tblSeccion, org.jdesktop.beansbinding.BeanProperty.create("componentPopupMenu"));
+        bindingGroup.addBinding(binding);
+
         jScrollPane1.setViewportView(tblSeccion);
 
         btnAddSeccion.setText("Añadir Seccion");
-        btnAddSeccion.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-               // btnAddSeccionActionPerformed(evt);
-            }
-        });
 
         btnVolverS.setText("Volver al Menu Principal");
-        btnVolverS.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-              //  btnVolverSActionPerformed(evt);
-            }
-        });
 
         javax.swing.GroupLayout pnlSeccionesLayout = new javax.swing.GroupLayout(pnlSecciones);
         pnlSecciones.setLayout(pnlSeccionesLayout);
@@ -288,11 +280,6 @@ public class FrmInterfazPrincipal extends javax.swing.JFrame {
         jLayeredPane1.add(pnlAlumnos, "card3");
 
         menuAlumnos.setText("Gestion de Alumnos");
-        menuAlumnos.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-              //  menuAlumnosActionPerformed(evt);
-            }
-        });
 
         btnMostrarAlumnos.setText("Mostrar alumnos");
         btnMostrarAlumnos.addActionListener(new java.awt.event.ActionListener() {
@@ -305,11 +292,6 @@ public class FrmInterfazPrincipal extends javax.swing.JFrame {
         jMenuBar1.add(menuAlumnos);
 
         menuSeccion.setText("Gestión de Secciones");
-        menuSeccion.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                //menuSeccionActionPerformed(evt);
-            }
-        });
 
         btnMostrarSecciones.setText("Mostrar Secciones");
         btnMostrarSecciones.addActionListener(new java.awt.event.ActionListener() {
@@ -320,6 +302,11 @@ public class FrmInterfazPrincipal extends javax.swing.JFrame {
         menuSeccion.add(btnMostrarSecciones);
 
         btnAumentarVac.setText("Aumentar Vacantes");
+        btnAumentarVac.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAumentarVacActionPerformed(evt);
+            }
+        });
         menuSeccion.add(btnAumentarVac);
 
         jMenuBar1.add(menuSeccion);
@@ -335,11 +322,6 @@ public class FrmInterfazPrincipal extends javax.swing.JFrame {
         menuMatricula.add(btnGenerarMatricula);
 
         btnGenerarActa.setText("Generar Acta de Compromiso");
-        btnGenerarActa.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-              //  btnGenerarActaActionPerformed(evt);
-            }
-        });
         menuMatricula.add(btnGenerarActa);
 
         jMenuBar1.add(menuMatricula);
@@ -356,6 +338,8 @@ public class FrmInterfazPrincipal extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jLayeredPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 508, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
+
+        bindingGroup.bind();
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -392,7 +376,7 @@ public class FrmInterfazPrincipal extends javax.swing.JFrame {
 
             int codAlumno = (Integer) tblAlumnos.getValueAt(fila, 0);
             Alumnos alumno = Alumno_LN.getInstance().buscarAlumno(codAlumno);
-            
+
             java.awt.EventQueue.invokeLater(() -> {
                 new FrmModificarAlumno(alumno).setVisible(true);
             });
@@ -420,7 +404,6 @@ public class FrmInterfazPrincipal extends javax.swing.JFrame {
             java.util.logging.Logger.getLogger(FrmRegistroAlumnos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
-
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(() -> {
@@ -450,42 +433,61 @@ public class FrmInterfazPrincipal extends javax.swing.JFrame {
             new FrmGenerarMatricula().setVisible(true);
         });
     }//GEN-LAST:event_btnGenerarMatriculaActionPerformed
-   /**
-    * Autor: Yudely Palpán
-    * semana 3 cus implmentado, por corregir.
-    */
-    
+
+    private void btnAumentarVacActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAumentarVacActionPerformed
+        // TODO add your handling code here:
+        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+         */
+        try {
+            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+                if ("Windows".equals(info.getName())) {
+                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                    break;
+                }
+            }
+        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | javax.swing.UnsupportedLookAndFeelException ex) {
+            java.util.logging.Logger.getLogger(FrmGenerarMatricula.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        }
+        //</editor-fold>
+        /* Create and display the form */
+        java.awt.EventQueue.invokeLater(() -> {
+            new FrmAumentarVacante().setVisible(true);
+        });
+
+    }//GEN-LAST:event_btnAumentarVacActionPerformed
+    /**
+     * Autor: Yudely Palpán semana 3 cus implmentado, por corregir.
+     */
+
     // <editor-fold defaultstate="collapsed" desc="Panel Seccion">  
     private DefaultTableModel modelo1;
     private Seccion_LN seccion = Seccion_LN.getInstance();
-    //private Docente_LN = docente = Docente_LN.getInstance();   //añadir creo :'v
-    private int id0 = 0;
-    private boolean consultar0 = false;
-    private FrmRegistroSeccion registro0;
-    
+
     public void CargarTablaSeccion(DefaultTableModel modelo1, List<Seccion> total, JTable tabla1) {
 
         total = this.seccion.listarSecciones();
-        Object fila[] = new Object[6];
+        Object fila[] = new Object[5];
 
         for (int i = 0; i < total.size(); i++) {
             fila[0] = total.get(i).getCodSeccion();
-            fila[1] = total.get(i).getCodGrado();
+            fila[1] = total.get(i).getNombreSeccion();
             fila[2] = total.get(i).getNombreGrado();
-            fila[3] = total.get(i).getNombreSeccion();
+            fila[3] = total.get(i).getNroSalon();
             fila[4] = total.get(i).getNroVacantes();
-            fila[5] = total.get(i).getNroSalon();
+
             modelo1.addRow(fila);
         }
         tabla1.updateUI();
     }
-        
+
     public void MostrarListaSeccion(DefaultTableModel modelo1, JTable tabla1) {
         List<Seccion> lista0 = seccion.listarSecciones();
         CargarTablaSeccion(modelo1, lista0, tabla1);
-    
+
     }
-    
+
     public void actualizarTablaSeccion() {
         //limpiar tabla1
 
@@ -493,9 +495,9 @@ public class FrmInterfazPrincipal extends javax.swing.JFrame {
             modelo1.removeRow(0);
         }
         //actualiza y cargando
-        MostrarLista(modelo1, tblSeccion);
+        MostrarListaSeccion(modelo1, tblSeccion);
     }
-    
+
     private void init0() {
         setLocationRelativeTo(null);
 
@@ -508,21 +510,18 @@ public class FrmInterfazPrincipal extends javax.swing.JFrame {
         };
         this.tblSeccion.setModel(modelo1);
         modelo1.addColumn("CODIGO");
+        modelo1.addColumn("SECCION");
         modelo1.addColumn("GRADO");
-        modelo1.addColumn("TUTOR");
-        modelo1.addColumn("GRADO");
-        modelo1.addColumn("SALON");
-        MostrarLista(modelo1, tblSeccion);
+        modelo1.addColumn("NRO_SALON");
+        modelo1.addColumn("NRO_VACANTES");
+        MostrarListaSeccion(modelo1, tblSeccion);
         tblSeccion.getTableHeader().setReorderingAllowed(false);
     }
-    
+
     //</editor-fold>
-    
     /**
-    * Autor: Andrés Espinoza
-    * semana 2 cus implmentado.
-    */
-    
+     * Autor: Andrés Espinoza semana 2 cus implmentado.
+     */
     // <editor-fold defaultstate="collapsed" desc="Panel Alumnos">  
     private DefaultTableModel modelo2;
     private Alumno_LN alumno = Alumno_LN.getInstance();
@@ -611,6 +610,7 @@ public class FrmInterfazPrincipal extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuItem ActualizarSeccion;
+    private javax.swing.JMenuItem EliminarSeccion;
     private javax.swing.JMenuItem btnActualizarAlumno;
     private javax.swing.JButton btnAddAlumno;
     private javax.swing.JButton btnAddSeccion;
@@ -643,5 +643,6 @@ public class FrmInterfazPrincipal extends javax.swing.JFrame {
     private javax.swing.JTable tblAlumnos;
     private javax.swing.JTable tblSeccion;
     private javax.swing.JTextField txtBuscarAlumno;
+    private org.jdesktop.beansbinding.BindingGroup bindingGroup;
     // End of variables declaration//GEN-END:variables
 }

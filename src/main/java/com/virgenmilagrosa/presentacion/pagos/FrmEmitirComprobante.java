@@ -26,6 +26,8 @@ public class FrmEmitirComprobante extends javax.swing.JFrame {
 
     private Matricula matricula;
     private Comprobante comprobante;
+    private Alumnos alumno;
+    private Apoderado apoderado;
     private ComprobantePago_LN comprobanteLN = ComprobantePago_LN.getInstance();
     private Alumno_LN alumnoLN = Alumno_LN.getInstance();
     private Apoderado_LN apoderadoLN = Apoderado_LN.getInstance();
@@ -35,69 +37,66 @@ public class FrmEmitirComprobante extends javax.swing.JFrame {
     public FrmEmitirComprobante(Matricula matricula) {
         this.matricula = matricula;
         initComponents();
-        //MetodoInicio();
+        MetodoInicio();
     }
-    /*
-     private void MetodoInicio() {
 
-     setLocationRelativeTo(null);
-     int monto = 120;
+    private void MetodoInicio() {
 
-     comprobante = new Comprobante();
+        setLocationRelativeTo(null);
+        int monto = 120;
 
-     comprobante.setMonto(monto);
-     comprobante.setCodAlu(matricula.getCodAlu());
-     comprobante.setCodGrado(matricula.getCodGrado());
-     comprobante.setCodSeccion(matricula.getCodSeccion());
+        comprobante = new Comprobante();
 
-     int codComprobante = comprobanteLN.registrarComprobante(comprobante);
+        comprobante.setMonto(monto);
+        comprobante.setCodAlu(matricula.getCodAlu());
+        comprobante.setCodGrado(matricula.getCodGrado());
+        comprobante.setCodSeccion(matricula.getCodSeccion());
 
-     comprobante = comprobanteLN.buscarComprobante(codComprobante);
+        int codComprobante = comprobanteLN.registrarComprobante(comprobante);
 
-     if (comprobante != null) {
+        comprobante = comprobanteLN.buscarComprobante(codComprobante);
 
-     Alumnos alumno = alumnoLN.buscarAlumno(comprobante.getCodAlu());
+        if (comprobante != null) {
+            
+            // Estos dos objetos bb :3
+            alumno = alumnoLN.buscarAlumno(comprobante.getCodAlu());
 
-     Apoderado apoderado = apoderadoLN.buscarApoderado(alumno.getCodApoderado());
+            apoderado = apoderadoLN.buscarApoderado(alumno.getCodApoderado());
 
-     if (codComprobante > 0) {
-     String format = "########### INSTITUCION EDUCATIVA VIRGEN MILAGROSA ############\n"
-     + "CODIGO: %s\n"
-     + "APELLIDOS Y NOMBRES: %s\n"
-     + "APODERADO: %s     DNI: %s\n"
-     + "\n"
-     + "CONCEPTO  | DETALLE                      | MONTO   \n"
-     + "---------------------------------------------------\n"
-     + "       01 |                    MATRICULA |  %.2f   \n"
-     + "---------------------------------------------------\n"
-     + "FECHA: %s		          TOTAL:S./%.2f ";
+            if (codComprobante > 0) {
+                String format = "########### INSTITUCION EDUCATIVA VIRGEN MILAGROSA ############\n"
+                        + "CODIGO: %s\n"
+                        + "APELLIDOS Y NOMBRES: %s\n"
+                        + "APODERADO: %s     DNI: %s\n"
+                        + "\n"
+                        + "CONCEPTO  | DETALLE                      | MONTO   \n"
+                        + "---------------------------------------------------\n"
+                        + "       01 |                    MATRICULA |  %.2f   \n"
+                        + "---------------------------------------------------\n"
+                        + "FECHA: %s		   TOTAL:S./%.2f ";
 
-     String salida = String.format(format,
-     alumno.getCodAlu(),
-     alumno.getNombreAlu() + " " + alumno.getaPaternoAlu() + " " + alumno.getaMaternoAlu(),
-     apoderado.getNombreAp() + " " + apoderado.getaPaternoAp() + " " + apoderado.getaMaternoAp(),
-     apoderado.getDniAp(),
-     comprobante.getMonto(),
-     FORMATO.format(comprobante.getFechaEmision()),
-     comprobante.getMonto()
-     );
+                String salida = String.format(format,
+                        alumno.getCodAlu(),
+                        alumno.getNombreAlu() + " " + alumno.getaPaternoAlu() + " " + alumno.getaMaternoAlu(),
+                        apoderado.getNombreAp() + " " + apoderado.getaPaternoAp() + " " + apoderado.getaMaternoAp(),
+                        apoderado.getDniAp(),
+                        comprobante.getMonto(),
+                        FORMATO.format(comprobante.getFechaEmision()),
+                        comprobante.getMonto()
+                );
+                
 
-     txtAreaComprobante.setText(salida);
-     } else {
-     JOptionPane.showMessageDialog(null, "Ha ocurrido un problema", "Error", JOptionPane.ERROR_MESSAGE);
-     }
-     }
-     }
-     */
+                txtAreaComprobante.setText(salida);
+            } else {
+                JOptionPane.showMessageDialog(null, "Ha ocurrido un problema", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+    }
 
     public void crearPdf(File nuevoPdf) throws IOException {
-        /*
-         comprobante = new Comprobante();
-         Alumnos alumno = alumnoLN.buscarAlumno(comprobante.getCodAlu());
-         Apoderado apoderado = apoderadoLN.buscarApoderado(alumno.getCodApoderado());
-         */
+         
         try {
-            Document documento = new Document();
+            Document documento = new Document(PageSize.A5.rotate());
 
             try {
                 PdfWriter.getInstance(documento, new FileOutputStream(nuevoPdf)).setInitialLeading(20);
@@ -111,7 +110,7 @@ public class FrmEmitirComprobante extends javax.swing.JFrame {
             Image image = null;
             try {
                 image = Image.getInstance(logoCole);
-                image.setAbsolutePosition(30, 760);
+              //  image.setAbsolutePosition(30, 560);
                 image.scaleAbsoluteWidth(60f);
                 image.scaleAbsoluteHeight(60f);
 
@@ -120,9 +119,17 @@ public class FrmEmitirComprobante extends javax.swing.JFrame {
             }
             documento.add(image);
 
-            documento.add(new Paragraph("\n\n COMPROBANTE DE MATRICULA - I.E.P VIRGEN MILAGROSA ", FontFactory.getFont("Monaco", 18, Font.BOLD)));
-            documento.add(new Paragraph("CÓDIGO : " /*+ alumno.getCodAlu()*/, FontFactory.getFont("Monaco", 14, Font.BOLD)));
-            documento.add(new Paragraph("NOMBRES Y APELLIDOS : " /*+ alumno.getNombreAlu()*/, FontFactory.getFont("Monaco", 14, Font.BOLD)));
+            documento.add(new Paragraph("\n\n COMPROBANTE DE MATRICULA - I.E.P VIRGEN MILAGROSA ", FontFactory.getFont("Arial", 18, Font.BOLD)));
+            documento.add(new Paragraph("CÓDIGO : " + alumno.getCodAlu(), FontFactory.getFont("Arial", 14, Font.BOLD)));
+            documento.add(new Paragraph("NOMBRES Y APELLIDOS : " + alumno.getNombreAlu() + " "
+                                                                 +   alumno.getaPaternoAlu()  + " "
+                                                                 + alumno.getaMaternoAlu() + " ", 
+                                                        FontFactory.getFont("Arial", 14, Font.BOLD)));
+            documento.add(new Paragraph("APODERADO : " + apoderado.getNombreAp() + " "
+                                                        + apoderado.getaPaternoAp() + " "
+                                                        + apoderado.getaMaternoAp() + " "
+                                                        + "     DNI : " + apoderado.getDniAp(),
+                                                        FontFactory.getFont("Arial", 14, Font.BOLD)));
 
             /*
              documento.add(new Paragraph("texto con estilo :c ",
@@ -132,30 +139,28 @@ public class FrmEmitirComprobante extends javax.swing.JFrame {
              BaseColor.CYAN))); // color
              */
             documento.addAuthor("guis");  //no sé donde se ve xd
-            
+
             documento.add(new Paragraph("\n"));
             PdfPTable tabla1 = new PdfPTable(3);
-            // for (int i = 0; i < 3; i++) {
             tabla1.addCell("CONCEPTO");
             tabla1.addCell("DETALLE");
             tabla1.addCell("MONTO");
-           // }
+           
 
             PdfPTable tabla2 = new PdfPTable(3);
-            // for (int i = 0; i < 3; i++) {
-            tabla1.addCell("01");
+            tabla1.addCell("01" );
             tabla1.addCell("Matricula");
-            tabla1.addCell("");
+            tabla1.addCell("" + comprobante.getMonto());
 
-             PdfPTable tabla3 = new PdfPTable(3);
-            // for (int i = 0; i < 3; i++) {
-            tabla1.addCell("Fecha: ");
+            PdfPTable tabla3 = new PdfPTable(3);
+            tabla1.addCell("Fecha: " + FORMATO.format(comprobante.getFechaEmision()));
             tabla1.addCell("");
-            tabla1.addCell("Total: ");
-            
+            tabla1.addCell("Total: " + comprobante.getMonto());
+
             // } No sé como llenar los datos y me sale error en el prier metodo el que esta comentado :c
             documento.add(tabla1);
             documento.add(tabla2);
+            documento.add(tabla3);
             documento.close();
             System.out.println("archivo generado correctamente");
 
@@ -179,6 +184,7 @@ public class FrmEmitirComprobante extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         txtAreaComprobante = new javax.swing.JTextArea();
         btnImprimir = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Emitir Comprobante");
@@ -200,23 +206,26 @@ public class FrmEmitirComprobante extends javax.swing.JFrame {
             }
         });
 
+        jButton1.setText("Cancelar");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 543, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 543, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(110, 110, 110)
-                                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 304, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(151, 151, 151)
-                        .addComponent(btnImprimir, javax.swing.GroupLayout.PREFERRED_SIZE, 258, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(110, 110, 110)
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 304, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(22, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addGap(73, 73, 73)
+                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnImprimir)
+                .addGap(94, 94, 94))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -225,9 +234,11 @@ public class FrmEmitirComprobante extends javax.swing.JFrame {
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(29, 29, 29)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 245, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(btnImprimir, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(17, 17, 17))
+                .addGap(17, 17, 17)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(btnImprimir, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap())
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -252,16 +263,15 @@ public class FrmEmitirComprobante extends javax.swing.JFrame {
     private void btnImprimirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnImprimirActionPerformed
 
         //generar pdf
-        FrmEmitirComprobante generarPdf = new FrmEmitirComprobante(null);
+       // el de matricula bbita :*
         try {
-            //generado en la misma carpeta
-            generarPdf.crearPdf(new File("D:/prueba2.pdf"));
+            crearPdf(new File("C:\\Users\\lucho\\Documents\\Ing. de Sistemas\\Comprobantes\\C_" + matricula.getCodMatricula() + ".pdf"));
         } catch (IOException ex) {
             System.out.println(ex);
         }
         //levantar pdf
         try {
-            File path = new File("D:/prueba2.pdf");
+            File path = new File("C:\\Users\\lucho\\Documents\\Ing. de Sistemas\\Comprobantes\\C_" + matricula.getCodMatricula() + ".pdf");
             Desktop.getDesktop().open(path);
         } catch (Exception ex) {
             System.out.println(ex);
@@ -271,8 +281,8 @@ public class FrmEmitirComprobante extends javax.swing.JFrame {
     }//GEN-LAST:event_btnImprimirActionPerformed
 
     public static void main(String[] args) {
-        java.awt.EventQueue.invokeLater(() -> {
-            //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+        
+        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
             /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
              * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
              */
@@ -288,18 +298,17 @@ public class FrmEmitirComprobante extends javax.swing.JFrame {
             }
             //</editor-fold>
 
-            /* Create and display the form */
-            java.awt.EventQueue.invokeLater(new Runnable() {
-                public void run() {
-                    new FrmEmitirComprobante(null).setVisible(true);
-                }
-            });
-
-        });
+        /* Create and display the form */
+        /*java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                new FrmEmitirComprobante(null).setVisible(true);
+            }
+        });*/
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnImprimir;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;

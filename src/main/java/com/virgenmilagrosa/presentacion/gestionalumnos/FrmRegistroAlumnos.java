@@ -564,9 +564,7 @@ public class FrmRegistroAlumnos extends javax.swing.JFrame {
         
         alummnoLN.registrarAlumno(registrarAlu);
         apoderadoLN.registrarApoderado(registrarApo);
-        
-        
-        
+      
     }//GEN-LAST:event_btnGuardarActionPerformed
 
     private void btnVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVolverActionPerformed

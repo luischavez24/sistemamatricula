@@ -195,7 +195,6 @@ public class FrmInicioSesion extends javax.swing.JFrame {
             abrirVentanaPrincipal(verificacion);
         }
 
-
     }//GEN-LAST:event_btnIngresarActionPerformed
 
     private void abrirVentanaPrincipal(int rol) {
@@ -213,7 +212,7 @@ public class FrmInicioSesion extends javax.swing.JFrame {
                     }
                 }
             } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | javax.swing.UnsupportedLookAndFeelException ex) {
-                java.util.logging.Logger.getLogger(FrmGenerarMatricula.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+                java.util.logging.Logger.getLogger(FrmInterfazPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
             }
             //</editor-fold>
             new FrmInterfazPrincipal(rol).setVisible(true);
