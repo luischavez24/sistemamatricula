@@ -1,5 +1,4 @@
 package com.virgenmilagrosa;
-
 import com.virgenmilagrosa.presentacion.generarmatricula.FrmGenerarMatricula;
 import com.virgenmilagrosa.presentacion.gestionusuarios.FrmInicioSesion;
 
