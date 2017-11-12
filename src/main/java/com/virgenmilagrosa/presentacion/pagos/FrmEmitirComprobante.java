@@ -1,95 +1,167 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.virgenmilagrosa.presentacion.pagos;
 
+import com.itextpdf.text.DocumentException;
 import com.virgenmilagrosa.logicanegocio.gestionalumnos.Alumno_LN;
 import com.virgenmilagrosa.logicanegocio.gestionalumnos.Apoderado_LN;
 import com.virgenmilagrosa.logicanegocio.pagos.ComprobantePago_LN;
-import com.virgenmilagrosa.presentacion.FrmInterfazPrincipal;
-import com.virgenmilagrosa.presentacion.generarmatricula.FrmGenerarMatricula;
-import com.virgenmilagrosa.presentacion.gestionusuarios.FrmInicioSesion;
-import com.virgenmilagrosa.tranversal.control.Credencial;
 import com.virgenmilagrosa.tranversal.entidades.Alumnos;
 import com.virgenmilagrosa.tranversal.entidades.Apoderado;
 import com.virgenmilagrosa.tranversal.entidades.Comprobante;
 import com.virgenmilagrosa.tranversal.entidades.Matricula;
-
 import java.text.SimpleDateFormat;
 import javax.swing.JOptionPane;
 
-/**
- *
- * @author lucho
- */
+import java.io.FileOutputStream;
+import com.itextpdf.text.pdf.PdfWriter;
+import java.io.FileNotFoundException;
+import com.itextpdf.text.*;
+import com.itextpdf.text.pdf.PdfPCell;
+import java.awt.Font;
+import com.itextpdf.text.pdf.PdfPTable;
+import java.awt.Desktop;
+import java.io.File;
+import java.io.IOException;
+
 public class FrmEmitirComprobante extends javax.swing.JFrame {
 
-    /**
-     * Creates new form FrmEmitirComprobante
-     */
     private Matricula matricula;
     private Comprobante comprobante;
     private ComprobantePago_LN comprobanteLN = ComprobantePago_LN.getInstance();
     private Alumno_LN alumnoLN = Alumno_LN.getInstance();
     private Apoderado_LN apoderadoLN = Apoderado_LN.getInstance();
     private static final SimpleDateFormat FORMATO = new SimpleDateFormat("dd/MM/yy hh:mm:ss");
+    private static final String logoCole = "imagePrueba.PNG";
 
     public FrmEmitirComprobante(Matricula matricula) {
         this.matricula = matricula;
         initComponents();
-        MetodoInicio();
+        //MetodoInicio();
     }
+    /*
+     private void MetodoInicio() {
 
-    private void MetodoInicio() {
+     setLocationRelativeTo(null);
+     int monto = 120;
 
-        setLocationRelativeTo(null);
-        int monto = 120;
+     comprobante = new Comprobante();
 
-        comprobante = new Comprobante();
+     comprobante.setMonto(monto);
+     comprobante.setCodAlu(matricula.getCodAlu());
+     comprobante.setCodGrado(matricula.getCodGrado());
+     comprobante.setCodSeccion(matricula.getCodSeccion());
 
-        comprobante.setMonto(monto);
-        comprobante.setCodAlu(matricula.getCodAlu());
-        comprobante.setCodGrado(matricula.getCodGrado());
-        comprobante.setCodSeccion(matricula.getCodSeccion());
+     int codComprobante = comprobanteLN.registrarComprobante(comprobante);
 
-        int codComprobante = comprobanteLN.registrarComprobante(comprobante);
+     comprobante = comprobanteLN.buscarComprobante(codComprobante);
 
-        comprobante = comprobanteLN.buscarComprobante(codComprobante);
+     if (comprobante != null) {
 
-        if (comprobante != null) {
+     Alumnos alumno = alumnoLN.buscarAlumno(comprobante.getCodAlu());
 
-            Alumnos alumno = alumnoLN.buscarAlumno(comprobante.getCodAlu());
+     Apoderado apoderado = apoderadoLN.buscarApoderado(alumno.getCodApoderado());
 
-            Apoderado apoderado = apoderadoLN.buscarApoderado(alumno.getCodApoderado());
+     if (codComprobante > 0) {
+     String format = "########### INSTITUCION EDUCATIVA VIRGEN MILAGROSA ############\n"
+     + "CODIGO: %s\n"
+     + "APELLIDOS Y NOMBRES: %s\n"
+     + "APODERADO: %s     DNI: %s\n"
+     + "\n"
+     + "CONCEPTO  | DETALLE                      | MONTO   \n"
+     + "---------------------------------------------------\n"
+     + "       01 |                    MATRICULA |  %.2f   \n"
+     + "---------------------------------------------------\n"
+     + "FECHA: %s		          TOTAL:S./%.2f ";
 
-            if (codComprobante > 0) {
-                String format = "########### INSTITUCION EDUCATIVA VIRGEN MILAGROSA ############\n"
-                        + "CODIGO: %s\n"
-                        + "APELLIDOS Y NOMBRES: %s\n"
-                        + "APODERADO: %s     DNI: %s\n"
-                        + "\n"
-                        + "CONCEPTO  | DETALLE                      | MONTO   \n"
-                        + "---------------------------------------------------\n"
-                        + "       01 |                    MATRICULA |  %.2f   \n"
-                        + "---------------------------------------------------\n"
-                        + "FECHA: %s		          TOTAL:S./%.2f ";
+     String salida = String.format(format,
+     alumno.getCodAlu(),
+     alumno.getNombreAlu() + " " + alumno.getaPaternoAlu() + " " + alumno.getaMaternoAlu(),
+     apoderado.getNombreAp() + " " + apoderado.getaPaternoAp() + " " + apoderado.getaMaternoAp(),
+     apoderado.getDniAp(),
+     comprobante.getMonto(),
+     FORMATO.format(comprobante.getFechaEmision()),
+     comprobante.getMonto()
+     );
 
-                String salida = String.format(format,
-                        alumno.getCodAlu(),
-                        alumno.getNombreAlu() + " " + alumno.getaPaternoAlu() + " " + alumno.getaMaternoAlu(),
-                        apoderado.getNombreAp() + " " + apoderado.getaPaternoAp() + " " + apoderado.getaMaternoAp(),
-                        apoderado.getDniAp(),
-                        comprobante.getMonto(),
-                        FORMATO.format(comprobante.getFechaEmision()),
-                        comprobante.getMonto()
-                );
+     txtAreaComprobante.setText(salida);
+     } else {
+     JOptionPane.showMessageDialog(null, "Ha ocurrido un problema", "Error", JOptionPane.ERROR_MESSAGE);
+     }
+     }
+     }
+     */
 
-                txtAreaComprobante.setText(salida);
-            } else {
-                JOptionPane.showMessageDialog(null, "Ha ocurrido un problema", "Error", JOptionPane.ERROR_MESSAGE);
+    public void crearPdf(File nuevoPdf) throws IOException {
+        /*
+         comprobante = new Comprobante();
+         Alumnos alumno = alumnoLN.buscarAlumno(comprobante.getCodAlu());
+         Apoderado apoderado = apoderadoLN.buscarApoderado(alumno.getCodApoderado());
+         */
+        try {
+            Document documento = new Document();
+
+            try {
+                PdfWriter.getInstance(documento, new FileOutputStream(nuevoPdf)).setInitialLeading(20);
+            } catch (FileNotFoundException ex) {
+                System.out.println("error 1 " + ex);
             }
+            documento.open();
+
+            //añadiendo metadatos
+            //añadiendo contenido al pdf
+            Image image = null;
+            try {
+                image = Image.getInstance(logoCole);
+                image.setAbsolutePosition(30, 760);
+                image.scaleAbsoluteWidth(60f);
+                image.scaleAbsoluteHeight(60f);
+
+            } catch (BadElementException ex) {
+                System.out.println("error al cargar la imagen" + ex);
+            }
+            documento.add(image);
+
+            documento.add(new Paragraph("\n\n COMPROBANTE DE MATRICULA - I.E.P VIRGEN MILAGROSA ", FontFactory.getFont("Monaco", 18, Font.BOLD)));
+            documento.add(new Paragraph("CÓDIGO : " /*+ alumno.getCodAlu()*/, FontFactory.getFont("Monaco", 14, Font.BOLD)));
+            documento.add(new Paragraph("NOMBRES Y APELLIDOS : " /*+ alumno.getNombreAlu()*/, FontFactory.getFont("Monaco", 14, Font.BOLD)));
+
+            /*
+             documento.add(new Paragraph("texto con estilo :c ",
+             FontFactory.getFont("arial", // fuente
+             22, // tamaño
+             Font.ITALIC, // estilo
+             BaseColor.CYAN))); // color
+             */
+            documento.addAuthor("guis");  //no sé donde se ve xd
+            
+            documento.add(new Paragraph("\n"));
+            PdfPTable tabla1 = new PdfPTable(3);
+            // for (int i = 0; i < 3; i++) {
+            tabla1.addCell("CONCEPTO");
+            tabla1.addCell("DETALLE");
+            tabla1.addCell("MONTO");
+           // }
+
+            PdfPTable tabla2 = new PdfPTable(3);
+            // for (int i = 0; i < 3; i++) {
+            tabla1.addCell("01");
+            tabla1.addCell("Matricula");
+            tabla1.addCell("");
+
+             PdfPTable tabla3 = new PdfPTable(3);
+            // for (int i = 0; i < 3; i++) {
+            tabla1.addCell("Fecha: ");
+            tabla1.addCell("");
+            tabla1.addCell("Total: ");
+            
+            // } No sé como llenar los datos y me sale error en el prier metodo el que esta comentado :c
+            documento.add(tabla1);
+            documento.add(tabla2);
+            documento.close();
+            System.out.println("archivo generado correctamente");
+
+        } catch (DocumentException ex) {
+            System.out.println("error2 " + ex);
+            JOptionPane.showMessageDialog(null, "No se puede abrir el archivo, probablemente fue borrado", "ERROR", JOptionPane.ERROR_MESSAGE);
         }
     }
 
@@ -178,8 +250,53 @@ public class FrmEmitirComprobante extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnImprimirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnImprimirActionPerformed
-        // Impprimir comprobante, levantar impresora.
+
+        //generar pdf
+        FrmEmitirComprobante generarPdf = new FrmEmitirComprobante(null);
+        try {
+            //generado en la misma carpeta
+            generarPdf.crearPdf(new File("D:/prueba2.pdf"));
+        } catch (IOException ex) {
+            System.out.println(ex);
+        }
+        //levantar pdf
+        try {
+            File path = new File("D:/prueba2.pdf");
+            Desktop.getDesktop().open(path);
+        } catch (Exception ex) {
+            System.out.println(ex);
+        }
+
+
     }//GEN-LAST:event_btnImprimirActionPerformed
+
+    public static void main(String[] args) {
+        java.awt.EventQueue.invokeLater(() -> {
+            //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+            /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+             * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+             */
+            try {
+                for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+                    if ("Windows".equals(info.getName())) {
+                        javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                        break;
+                    }
+                }
+            } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | javax.swing.UnsupportedLookAndFeelException ex) {
+                //  java.util.logging.Logger.getLogger(FrmGenerarMatricula.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            }
+            //</editor-fold>
+
+            /* Create and display the form */
+            java.awt.EventQueue.invokeLater(new Runnable() {
+                public void run() {
+                    new FrmEmitirComprobante(null).setVisible(true);
+                }
+            });
+
+        });
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnImprimir;
