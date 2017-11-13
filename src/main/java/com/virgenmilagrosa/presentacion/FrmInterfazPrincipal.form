@@ -304,9 +304,6 @@
                       </Table>
                     </Property>
                   </Properties>
-                  <BindingProperties>
-                    <BindingProperty name="componentPopupMenu" source="menuOpcionesSeccion" target="tblSeccion" targetPath="componentPopupMenu" updateStrategy="0" immediately="false"/>
-                  </BindingProperties>
                 </Component>
               </SubComponents>
             </Container>
