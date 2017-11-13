@@ -180,7 +180,7 @@ public class Seccion_AD {
         try {
             Connection conexion = acceso.getConexion();
             conexion.setAutoCommit(false);
-            try (CallableStatement consulta = conexion.prepareCall("{CALL SP_AMPLIAR_VACANTES (?,?,?) }")) {
+            try (CallableStatement consulta = conexion.prepareCall("{CALL SP_AMPLIAR_VACANTE (?,?,?) }")) {
                 consulta.setInt(1, seccion.getCodSeccion());
                 consulta.setInt(2, seccion.getCodGrado());
                 consulta.setInt(3, vacantes);
@@ -192,6 +192,7 @@ public class Seccion_AD {
             acceso.close();
         } catch (SQLException ex) {
             respuesta = ex.getMessage();
+            System.out.println(ex);
         }
         return respuesta;
 

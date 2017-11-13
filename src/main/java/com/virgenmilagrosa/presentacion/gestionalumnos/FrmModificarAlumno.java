@@ -568,6 +568,7 @@ public class FrmModificarAlumno extends javax.swing.JFrame {
         // TODO add your handling code here:
         actualizarDatos();
         Alumno_LN.getInstance().modificarAlumno(alumno);
+        System.out.println(Apoderado_LN.getInstance().modificarApoderado(apoderado));
         Apoderado_LN.getInstance().modificarApoderado(apoderado);
     }//GEN-LAST:event_btnGuardarMouseClicked
 

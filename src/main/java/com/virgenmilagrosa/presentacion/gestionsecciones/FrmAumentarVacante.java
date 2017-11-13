@@ -7,6 +7,10 @@ package com.virgenmilagrosa.presentacion.gestionsecciones;
 
 import com.virgenmilagrosa.logicanegocio.gestionsecciones.Seccion_LN;
 import com.virgenmilagrosa.tranversal.entidades.Seccion;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+import com.virgenmilagrosa.tranversal.entidades.*;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -20,7 +24,10 @@ public class FrmAumentarVacante extends javax.swing.JFrame {
     public FrmAumentarVacante() {
         initComponents();
         MetodoInicio();
+        this.seccion = seccion;
     }
+    
+    private Seccion seccion;
 
     private void MetodoInicio(){
         
@@ -29,16 +36,10 @@ public class FrmAumentarVacante extends javax.swing.JFrame {
         );
     }
     
-    public void ValidarIngreso(){
-        String nrovacantes=spnVacantes.getValue().toString();
+    /*public void ValidarIngreso(){
         
-        if(nrovacantes.isEmpty()){
-            btnAsignar.setEnabled(false);
-        }
-        else {
-            btnAsignar.setEnabled(true);
-        }
-    }
+    }*/
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -50,7 +51,6 @@ public class FrmAumentarVacante extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         btnCancelar = new javax.swing.JButton();
-        btnAsignar = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
@@ -58,6 +58,7 @@ public class FrmAumentarVacante extends javax.swing.JFrame {
         jLabel6 = new javax.swing.JLabel();
         spnVacantes = new javax.swing.JSpinner();
         btnVolver = new javax.swing.JButton();
+        btnAsignar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Aumentar Vacantes");
@@ -65,12 +66,9 @@ public class FrmAumentarVacante extends javax.swing.JFrame {
         jPanel1.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
 
         btnCancelar.setText("Cancelar");
-
-        btnAsignar.setText(" Asignar Vacante");
-        btnAsignar.setEnabled(false);
-        btnAsignar.addActionListener(new java.awt.event.ActionListener() {
+        btnCancelar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnAsignarActionPerformed(evt);
+                btnCancelarActionPerformed(evt);
             }
         });
 
@@ -135,6 +133,13 @@ public class FrmAumentarVacante extends javax.swing.JFrame {
             }
         });
 
+        btnAsignar.setText("Asignar Vacantes");
+        btnAsignar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAsignarActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -154,7 +159,7 @@ public class FrmAumentarVacante extends javax.swing.JFrame {
                 .addComponent(btnCancelar)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btnAsignar)
-                .addGap(164, 164, 164))
+                .addGap(161, 161, 161))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -166,9 +171,9 @@ public class FrmAumentarVacante extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnAsignar, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(btnCancelar, javax.swing.GroupLayout.DEFAULT_SIZE, 35, Short.MAX_VALUE)
+                    .addComponent(btnAsignar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(14, 14, 14))
         );
 
@@ -188,28 +193,45 @@ public class FrmAumentarVacante extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnAsignarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAsignarActionPerformed
-        // TODO add your handling code here:        
-        
-    }//GEN-LAST:event_btnAsignarActionPerformed
-
+    
+    public void actualizarVacantes(){
+        int VacantesSec = seccion.getNroVacantes();
+        seccion.setNroVacantes((int) spnVacantes.getValue() + VacantesSec);
+    }
+    
     private void btnVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVolverActionPerformed
         // TODO add your handling code here:
+        setVisible(false);
     }//GEN-LAST:event_btnVolverActionPerformed
 
     private void spnVacantesCaretPositionChanged(java.awt.event.InputMethodEvent evt) {//GEN-FIRST:event_spnVacantesCaretPositionChanged
         // TODO add your handling code here:
-        this.ValidarIngreso();
     }//GEN-LAST:event_spnVacantesCaretPositionChanged
 
     private void cbxSeccionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxSeccionActionPerformed
         // TODO add your handling code here:
         Seccion seccionSel = (Seccion) cbxSeccion.getSelectedItem();
+        seccion = seccionSel;
         // Luego vamos a coger la propiedad de nro de vacantes de la seccion y la setearemos como valor del
         // spinner
-        spnVacantes.setValue(seccionSel.getNroVacantes());
  
     }//GEN-LAST:event_cbxSeccionActionPerformed
+
+    private void btnAsignarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAsignarActionPerformed
+        // TODO add your handling code here:
+        actualizarVacantes();
+        String mensaje = Seccion_LN.getInstance().ampliarVacantes(seccion, (int) spnVacantes.getValue());
+        if(mensaje.equals("Ampliacion Completada")) {
+            JOptionPane.showMessageDialog(rootPane, mensaje);
+        } else {
+            JOptionPane.showMessageDialog(rootPane, mensaje, "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_btnAsignarActionPerformed
+
+    private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
+        // TODO add your handling code here:
+        this.setVisible(false);
+    }//GEN-LAST:event_btnCancelarActionPerformed
 
     /**
      * @param args the command line arguments

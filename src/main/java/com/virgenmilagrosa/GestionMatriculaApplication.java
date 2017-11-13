@@ -20,6 +20,7 @@ public class GestionMatriculaApplication {
                 java.util.logging.Logger.getLogger(FrmGenerarMatricula.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
             }
             //</editor-fold>
+            
             new FrmInicioSesion().setVisible(true);
         });
     }
