@@ -49,7 +49,6 @@ public class FrmInterfazPrincipal extends javax.swing.JFrame {
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
-        bindingGroup = new org.jdesktop.beansbinding.BindingGroup();
 
         menuOpcionesAlumnos = new javax.swing.JPopupMenu();
         btnActualizarAlumno = new javax.swing.JMenuItem();
@@ -172,10 +171,6 @@ public class FrmInterfazPrincipal extends javax.swing.JFrame {
                 "CODIGO", "SECCION", "GRADO", "NRO_SALON", "NRO_VACANTES"
             }
         ));
-
-        org.jdesktop.beansbinding.Binding binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, menuOpcionesSeccion, org.jdesktop.beansbinding.ObjectProperty.create(), tblSeccion, org.jdesktop.beansbinding.BeanProperty.create("componentPopupMenu"));
-        bindingGroup.addBinding(binding);
-
         jScrollPane1.setViewportView(tblSeccion);
 
         btnAddSeccion.setText("Añadir Seccion");
@@ -338,8 +333,6 @@ public class FrmInterfazPrincipal extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jLayeredPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 508, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
-
-        bindingGroup.bind();
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -643,6 +636,5 @@ public class FrmInterfazPrincipal extends javax.swing.JFrame {
     private javax.swing.JTable tblAlumnos;
     private javax.swing.JTable tblSeccion;
     private javax.swing.JTextField txtBuscarAlumno;
-    private org.jdesktop.beansbinding.BindingGroup bindingGroup;
     // End of variables declaration//GEN-END:variables
 }
