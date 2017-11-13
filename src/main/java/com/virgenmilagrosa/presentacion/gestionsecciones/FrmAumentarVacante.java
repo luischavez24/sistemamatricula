@@ -6,7 +6,6 @@
 package com.virgenmilagrosa.presentacion.gestionsecciones;
 
 import com.virgenmilagrosa.logicanegocio.gestionsecciones.Seccion_LN;
-import com.virgenmilagrosa.tranversal.control.Validaciones;
 import com.virgenmilagrosa.tranversal.entidades.Seccion;
 
 /**
@@ -23,7 +22,7 @@ public class FrmAumentarVacante extends javax.swing.JFrame {
         MetodoInicio();
     }
 
-    public void MetodoInicio(){
+    private void MetodoInicio(){
         
         Seccion_LN.getInstance().listarSecciones().forEach(
                 (item) -> cbxSeccion.addItem(item)

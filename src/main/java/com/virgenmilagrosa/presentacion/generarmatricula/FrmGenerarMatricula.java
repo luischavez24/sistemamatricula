@@ -83,13 +83,13 @@ public class FrmGenerarMatricula extends javax.swing.JFrame {
         txtNombreApod = new javax.swing.JTextField();
         jPanel3 = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
-        cbxSeccion = new javax.swing.JComboBox<String>();
+        cbxSeccion = new javax.swing.JComboBox<>();
         btnVolver = new javax.swing.JLabel();
         btnConsultar = new javax.swing.JLabel();
         btnEjecutar = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -361,7 +361,7 @@ public class FrmGenerarMatricula extends javax.swing.JFrame {
     private javax.swing.JLabel btnConsultar;
     private javax.swing.JLabel btnEjecutar;
     private javax.swing.JLabel btnVolver;
-    private javax.swing.JComboBox<String> cbxSeccion;
+    private javax.swing.JComboBox<Seccion> cbxSeccion;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;

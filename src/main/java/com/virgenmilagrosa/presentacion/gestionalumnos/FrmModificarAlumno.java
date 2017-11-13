@@ -71,7 +71,7 @@ public class FrmModificarAlumno extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
         txtDNI = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
-        cbxLugar = new javax.swing.JComboBox<String>();
+        cbxLugar = new javax.swing.JComboBox<>();
         jLabel6 = new javax.swing.JLabel();
         spnFecha = new javax.swing.JSpinner();
         jLabel15 = new javax.swing.JLabel();
@@ -98,7 +98,7 @@ public class FrmModificarAlumno extends javax.swing.JFrame {
         btnCancelar = new javax.swing.JLabel();
         btnGuardar = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setBackground(new java.awt.Color(102, 102, 255));
 
         jPanel1.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
@@ -141,7 +141,7 @@ public class FrmModificarAlumno extends javax.swing.JFrame {
         jLabel5.setText("Lugar de Nacimiento");
 
         cbxLugar.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
-        cbxLugar.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "-- Seleccione Lugar --", "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cbxLugar.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "-- Seleccione Lugar --", "Item 1", "Item 2", "Item 3", "Item 4" }));
         cbxLugar.setToolTipText("");
 
         jLabel6.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
