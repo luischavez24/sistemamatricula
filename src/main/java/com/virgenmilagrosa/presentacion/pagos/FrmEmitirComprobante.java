@@ -1,6 +1,11 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package com.virgenmilagrosa.presentacion.pagos;
 
-import com.itextpdf.text.DocumentException;
+
 import com.virgenmilagrosa.logicanegocio.gestionalumnos.Alumno_LN;
 import com.virgenmilagrosa.logicanegocio.gestionalumnos.Apoderado_LN;
 import com.virgenmilagrosa.logicanegocio.pagos.ComprobantePago_LN;
@@ -8,20 +13,26 @@ import com.virgenmilagrosa.tranversal.entidades.Alumnos;
 import com.virgenmilagrosa.tranversal.entidades.Apoderado;
 import com.virgenmilagrosa.tranversal.entidades.Comprobante;
 import com.virgenmilagrosa.tranversal.entidades.Matricula;
+
+import com.itextpdf.text.DocumentException;
+import com.itextpdf.text.*;
+import com.itextpdf.text.pdf.PdfWriter;
+import com.itextpdf.text.pdf.PdfPTable;
+
+import java.awt.Font;
+import java.awt.Desktop;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import javax.swing.JOptionPane;
 
 import java.io.FileOutputStream;
-import com.itextpdf.text.pdf.PdfWriter;
-import java.io.FileNotFoundException;
-import com.itextpdf.text.*;
-import com.itextpdf.text.pdf.PdfPCell;
-import java.awt.Font;
-import com.itextpdf.text.pdf.PdfPTable;
-import java.awt.Desktop;
-import java.io.File;
-import java.io.IOException;
 
+/**
+ *
+ * @author lucho
+ */
 public class FrmEmitirComprobante extends javax.swing.JFrame {
 
     private Matricula matricula;
@@ -57,7 +68,7 @@ public class FrmEmitirComprobante extends javax.swing.JFrame {
         comprobante = comprobanteLN.buscarComprobante(codComprobante);
 
         if (comprobante != null) {
-            
+
             // Estos dos objetos bb :3
             alumno = alumnoLN.buscarAlumno(comprobante.getCodAlu());
 
@@ -84,7 +95,6 @@ public class FrmEmitirComprobante extends javax.swing.JFrame {
                         FORMATO.format(comprobante.getFechaEmision()),
                         comprobante.getMonto()
                 );
-                
 
                 txtAreaComprobante.setText(salida);
             } else {
@@ -94,7 +104,7 @@ public class FrmEmitirComprobante extends javax.swing.JFrame {
     }
 
     public void crearPdf(File nuevoPdf) throws IOException {
-         
+
         try {
             Document documento = new Document(PageSize.A5.rotate());
 
@@ -110,7 +120,7 @@ public class FrmEmitirComprobante extends javax.swing.JFrame {
             Image image = null;
             try {
                 image = Image.getInstance(logoCole);
-              //  image.setAbsolutePosition(30, 560);
+                //  image.setAbsolutePosition(30, 560);
                 image.scaleAbsoluteWidth(60f);
                 image.scaleAbsoluteHeight(60f);
 
@@ -122,14 +132,14 @@ public class FrmEmitirComprobante extends javax.swing.JFrame {
             documento.add(new Paragraph("\n\n COMPROBANTE DE MATRICULA - I.E.P VIRGEN MILAGROSA ", FontFactory.getFont("Arial", 18, Font.BOLD)));
             documento.add(new Paragraph("CÓDIGO : " + alumno.getCodAlu(), FontFactory.getFont("Arial", 14, Font.BOLD)));
             documento.add(new Paragraph("NOMBRES Y APELLIDOS : " + alumno.getNombreAlu() + " "
-                                                                 +   alumno.getaPaternoAlu()  + " "
-                                                                 + alumno.getaMaternoAlu() + " ", 
-                                                        FontFactory.getFont("Arial", 14, Font.BOLD)));
+                    + alumno.getaPaternoAlu() + " "
+                    + alumno.getaMaternoAlu() + " ",
+                    FontFactory.getFont("Arial", 14, Font.BOLD)));
             documento.add(new Paragraph("APODERADO : " + apoderado.getNombreAp() + " "
-                                                        + apoderado.getaPaternoAp() + " "
-                                                        + apoderado.getaMaternoAp() + " "
-                                                        + "     DNI : " + apoderado.getDniAp(),
-                                                        FontFactory.getFont("Arial", 14, Font.BOLD)));
+                    + apoderado.getaPaternoAp() + " "
+                    + apoderado.getaMaternoAp() + " "
+                    + "     DNI : " + apoderado.getDniAp(),
+                    FontFactory.getFont("Arial", 14, Font.BOLD)));
 
             /*
              documento.add(new Paragraph("texto con estilo :c ",
@@ -145,10 +155,9 @@ public class FrmEmitirComprobante extends javax.swing.JFrame {
             tabla1.addCell("CONCEPTO");
             tabla1.addCell("DETALLE");
             tabla1.addCell("MONTO");
-           
 
             PdfPTable tabla2 = new PdfPTable(3);
-            tabla1.addCell("01" );
+            tabla1.addCell("01");
             tabla1.addCell("Matricula");
             tabla1.addCell("" + comprobante.getMonto());
 
@@ -180,18 +189,16 @@ public class FrmEmitirComprobante extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         txtAreaComprobante = new javax.swing.JTextArea();
-        btnImprimir = new javax.swing.JButton();
-        jButton1 = new javax.swing.JButton();
+        btnImprimir = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("Emitir Comprobante");
+        setTitle("Emitit Comprobante");
 
-        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setText("Emitir comprobante");
+        jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         txtAreaComprobante.setColumns(20);
         txtAreaComprobante.setRows(5);
@@ -199,71 +206,49 @@ public class FrmEmitirComprobante extends javax.swing.JFrame {
         txtAreaComprobante.setEnabled(false);
         jScrollPane1.setViewportView(txtAreaComprobante);
 
-        btnImprimir.setText("Imprimir Comprobante");
-        btnImprimir.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnImprimirActionPerformed(evt);
+        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 90, 610, 300));
+
+        btnImprimir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Emitir Comprobante/ImprimirComp-Buttom.png"))); // NOI18N
+        btnImprimir.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnImprimirMouseClicked(evt);
             }
         });
+        jPanel1.add(btnImprimir, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 410, -1, -1));
 
-        jButton1.setText("Cancelar");
+        jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Emitir Comprobante/Volver-Buttom.png"))); // NOI18N
+        jLabel5.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel5MouseClicked(evt);
+            }
+        });
+        jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, -1, -1));
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 543, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(110, 110, 110)
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 304, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(22, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addGap(73, 73, 73)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btnImprimir)
-                .addGap(94, 94, 94))
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(29, 29, 29)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 245, Short.MAX_VALUE)
-                .addGap(17, 17, 17)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(btnImprimir, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap())
-        );
+        jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Emitir Comprobante/EmitirComp-Panel.png"))); // NOI18N
+        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
+            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnImprimirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnImprimirActionPerformed
+    private void jLabel5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel5MouseClicked
+        // TODO add your handling code here:
+        setVisible(false);
+    }//GEN-LAST:event_jLabel5MouseClicked
 
+    private void btnImprimirMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnImprimirMouseClicked
         //generar pdf
-       // el de matricula bbita :*
+        // el de matricula bbita :*
         try {
             crearPdf(new File("C:\\Users\\lucho\\Documents\\Ing. de Sistemas\\Comprobantes\\C_" + matricula.getCodMatricula() + ".pdf"));
         } catch (IOException ex) {
@@ -276,40 +261,12 @@ public class FrmEmitirComprobante extends javax.swing.JFrame {
         } catch (Exception ex) {
             System.out.println(ex);
         }
-
-
-    }//GEN-LAST:event_btnImprimirActionPerformed
-
-    public static void main(String[] args) {
-        
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-            /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-             * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-             */
-            try {
-                for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                    if ("Windows".equals(info.getName())) {
-                        javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                        break;
-                    }
-                }
-            } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | javax.swing.UnsupportedLookAndFeelException ex) {
-                //  java.util.logging.Logger.getLogger(FrmGenerarMatricula.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-            }
-            //</editor-fold>
-
-        /* Create and display the form */
-        /*java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new FrmEmitirComprobante(null).setVisible(true);
-            }
-        });*/
-    }
+    }//GEN-LAST:event_btnImprimirMouseClicked
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnImprimir;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel btnImprimir;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextArea txtAreaComprobante;
