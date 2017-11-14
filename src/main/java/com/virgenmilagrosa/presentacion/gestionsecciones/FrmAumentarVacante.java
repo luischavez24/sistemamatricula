@@ -14,20 +14,20 @@ import javax.swing.JOptionPane;
 
 /**
  *
- * @author lucho
+ * @author Lupita
  */
 public class FrmAumentarVacante extends javax.swing.JFrame {
 
     /**
      * Creates new form AsignarVacante
      */
-    public FrmAumentarVacante() {
+     public FrmAumentarVacante() {
         initComponents();
         MetodoInicio();
         this.seccion = seccion;
     }
-    
-    private Seccion seccion;
+
+     private Seccion seccion;
 
     private void MetodoInicio(){
         
@@ -36,10 +36,21 @@ public class FrmAumentarVacante extends javax.swing.JFrame {
         );
     }
     
-    /*public void ValidarIngreso(){
+    public void ValidarIngreso(){
+       // String nseccion=cbxSeccion.getText().trim();
+        String nrovacantes=spnVacantes.getValue().toString();
         
-    }*/
+        if( nrovacantes.isEmpty()){
+            btnAsignar.setEnabled(false);
+        }
+        else
+            btnAsignar.setEnabled(true);
+    }
     
+    public void actualizarVacantes(){
+        int VacantesSec = seccion.getNroVacantes();
+        seccion.setNroVacantes((int) spnVacantes.getValue() + VacantesSec);
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -49,176 +60,103 @@ public class FrmAumentarVacante extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        btnVolver = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
-        btnCancelar = new javax.swing.JButton();
-        jLabel1 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
-        cbxSeccion = new javax.swing.JComboBox<>();
         jLabel6 = new javax.swing.JLabel();
         spnVacantes = new javax.swing.JSpinner();
-        btnVolver = new javax.swing.JButton();
-        btnAsignar = new javax.swing.JButton();
+        cbxSeccion = new javax.swing.JComboBox<Seccion>();
+        btnAsignar = new javax.swing.JLabel();
+        btnCancelar = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("Aumentar Vacantes");
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jPanel1.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
-
-        btnCancelar.setText("Cancelar");
-        btnCancelar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnCancelarActionPerformed(evt);
+        btnVolver.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Asignar Vacante/Volver-Buttom.png"))); // NOI18N
+        btnVolver.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnVolverMouseClicked(evt);
             }
         });
+        getContentPane().add(btnVolver, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 10, -1, -1));
 
-        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setText("Aumentar Vacantes");
+        jPanel1.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
+        jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Información de seccion"));
+        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Información de seccion", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 1, 16))); // NOI18N
+        jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel2.setText("Seccion");
+        jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
+        jLabel2.setText("Sección");
+        jPanel2.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 40, 120, 20));
 
-        cbxSeccion.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
+        jLabel6.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
+        jLabel6.setText("Nro de Vacantes:");
+        jPanel2.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 90, 119, -1));
+
+        spnVacantes.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
+        spnVacantes.addInputMethodListener(new java.awt.event.InputMethodListener() {
+            public void caretPositionChanged(java.awt.event.InputMethodEvent evt) {
+                spnVacantesCaretPositionChanged(evt);
+            }
+            public void inputMethodTextChanged(java.awt.event.InputMethodEvent evt) {
+            }
+        });
+        jPanel2.add(spnVacantes, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 90, 250, -1));
+
+        cbxSeccion.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
         cbxSeccion.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cbxSeccionActionPerformed(evt);
             }
         });
+        jPanel2.add(cbxSeccion, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 40, 400, 24));
 
-        jLabel6.setText("Nro de Vacantes");
+        jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, 640, 150));
 
-        spnVacantes.addInputMethodListener(new java.awt.event.InputMethodListener() {
-            public void inputMethodTextChanged(java.awt.event.InputMethodEvent evt) {
-            }
-            public void caretPositionChanged(java.awt.event.InputMethodEvent evt) {
-                spnVacantesCaretPositionChanged(evt);
-            }
-        });
-
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap(49, Short.MAX_VALUE)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(spnVacantes, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(cbxSeccion, javax.swing.GroupLayout.PREFERRED_SIZE, 304, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(43, 43, 43))
-        );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(cbxSeccion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(spnVacantes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(23, Short.MAX_VALUE))
-        );
-
-        btnVolver.setText("Volver");
-        btnVolver.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnVolverActionPerformed(evt);
+        btnAsignar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Asignar Vacante/AsignarVacante-Buttom.png"))); // NOI18N
+        btnAsignar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnAsignarMouseClicked(evt);
             }
         });
+        jPanel1.add(btnAsignar, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 180, -1, 40));
 
-        btnAsignar.setText("Asignar Vacantes");
-        btnAsignar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnAsignarActionPerformed(evt);
+        btnCancelar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Asignar Vacante/Cancelar-Buttom.png"))); // NOI18N
+        btnCancelar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnCancelarMouseClicked(evt);
             }
         });
+        jPanel1.add(btnCancelar, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 180, -1, 40));
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btnVolver, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(92, 92, 92)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(249, 249, 249))
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(65, 65, 65)
-                .addComponent(btnCancelar)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btnAsignar)
-                .addGap(161, 161, 161))
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(11, 11, 11)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnVolver, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(btnCancelar, javax.swing.GroupLayout.DEFAULT_SIZE, 35, Short.MAX_VALUE)
-                    .addComponent(btnAsignar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(14, 14, 14))
-        );
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 56, 680, 240));
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 562, Short.MAX_VALUE)
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
-        );
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Asignar Vacante/AsignarVacante-Panel.png"))); // NOI18N
+        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, -10, 700, 330));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    
-    public void actualizarVacantes(){
-        int VacantesSec = seccion.getNroVacantes();
-        seccion.setNroVacantes((int) spnVacantes.getValue() + VacantesSec);
-    }
-    
-    private void btnVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVolverActionPerformed
-        // TODO add your handling code here:
-        setVisible(false);
-    }//GEN-LAST:event_btnVolverActionPerformed
-
     private void spnVacantesCaretPositionChanged(java.awt.event.InputMethodEvent evt) {//GEN-FIRST:event_spnVacantesCaretPositionChanged
         // TODO add your handling code here:
+        this.ValidarIngreso();
     }//GEN-LAST:event_spnVacantesCaretPositionChanged
 
-    private void cbxSeccionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxSeccionActionPerformed
+    private void btnVolverMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnVolverMouseClicked
         // TODO add your handling code here:
-        Seccion seccionSel = (Seccion) cbxSeccion.getSelectedItem();
-        seccion = seccionSel;
-        // Luego vamos a coger la propiedad de nro de vacantes de la seccion y la setearemos como valor del
-        // spinner
- 
-    }//GEN-LAST:event_cbxSeccionActionPerformed
+        setVisible(false);
+    }//GEN-LAST:event_btnVolverMouseClicked
 
-    private void btnAsignarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAsignarActionPerformed
+    private void btnCancelarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCancelarMouseClicked
         // TODO add your handling code here:
+        this.setVisible(false);
+    }//GEN-LAST:event_btnCancelarMouseClicked
+
+    private void btnAsignarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAsignarMouseClicked
+          // TODO add your handling code here:
         actualizarVacantes();
         String mensaje = Seccion_LN.getInstance().ampliarVacantes(seccion, (int) spnVacantes.getValue());
         if(mensaje.equals("Ampliacion Completada")) {
@@ -226,22 +164,21 @@ public class FrmAumentarVacante extends javax.swing.JFrame {
         } else {
             JOptionPane.showMessageDialog(rootPane, mensaje, "Error", JOptionPane.ERROR_MESSAGE);
         }
-    }//GEN-LAST:event_btnAsignarActionPerformed
+    }//GEN-LAST:event_btnAsignarMouseClicked
 
-    private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
+    private void cbxSeccionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxSeccionActionPerformed
         // TODO add your handling code here:
-        this.setVisible(false);
-    }//GEN-LAST:event_btnCancelarActionPerformed
+        Seccion seccionSel = (Seccion) cbxSeccion.getSelectedItem();
+        seccion = seccionSel;
+        // Luego vamos a coger la propiedad de nro de vacantes de la seccion y la setearemos como valor del
+        // spinner
 
-    /**
-     * @param args the command line arguments
-     */
-   
+    }//GEN-LAST:event_cbxSeccionActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnAsignar;
-    private javax.swing.JButton btnCancelar;
-    private javax.swing.JButton btnVolver;
+    private javax.swing.JLabel btnAsignar;
+    private javax.swing.JLabel btnCancelar;
+    private javax.swing.JLabel btnVolver;
     private javax.swing.JComboBox<Seccion> cbxSeccion;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;

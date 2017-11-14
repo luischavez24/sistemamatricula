@@ -83,7 +83,7 @@ public class FrmGenerarMatricula extends javax.swing.JFrame {
         txtNombreApod = new javax.swing.JTextField();
         jPanel3 = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
-        cbxSeccion = new javax.swing.JComboBox<>();
+        cbxSeccion = new javax.swing.JComboBox<Seccion>();
         btnVolver = new javax.swing.JLabel();
         btnConsultar = new javax.swing.JLabel();
         btnEjecutar = new javax.swing.JLabel();
