@@ -58,8 +58,6 @@ public class FrmInterfazPrincipal extends javax.swing.JFrame {
         EliminarSeccion = new javax.swing.JMenuItem();
         jPanel1 = new javax.swing.JPanel();
         jLayeredPane2 = new javax.swing.JLayeredPane();
-        pnlPrincipal = new javax.swing.JPanel();
-        jLabel3 = new javax.swing.JLabel();
         pnlSecciones = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblSeccion = new javax.swing.JTable();
@@ -74,8 +72,16 @@ public class FrmInterfazPrincipal extends javax.swing.JFrame {
         btnVolverA = new javax.swing.JLabel();
         btnBuscarAlumno = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
+        pnlPrincipal = new javax.swing.JPanel();
+        colegio = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
+        microscopio = new javax.swing.JLabel();
+        bombilla = new javax.swing.JLabel();
+        bombilla1 = new javax.swing.JLabel();
+        bombilla2 = new javax.swing.JLabel();
+        bombilla3 = new javax.swing.JLabel();
+        bombilla4 = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
-        jLabel12 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         menuAlumnos = new javax.swing.JMenu();
@@ -113,15 +119,6 @@ public class FrmInterfazPrincipal extends javax.swing.JFrame {
 
         jLayeredPane2.setMinimumSize(new java.awt.Dimension(700, 500));
         jLayeredPane2.setLayout(new java.awt.CardLayout());
-
-        pnlPrincipal.setBackground(new java.awt.Color(255, 255, 255));
-        pnlPrincipal.setPreferredSize(new java.awt.Dimension(700, 500));
-        pnlPrincipal.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/logovm.jpg"))); // NOI18N
-        pnlPrincipal.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(144, 41, 426, 442));
-
-        jLayeredPane2.add(pnlPrincipal, "card6");
 
         pnlSecciones.setMinimumSize(new java.awt.Dimension(700, 500));
         pnlSecciones.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -170,13 +167,14 @@ public class FrmInterfazPrincipal extends javax.swing.JFrame {
         pnlAlumnos.setMinimumSize(new java.awt.Dimension(700, 500));
         pnlAlumnos.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        tblAlumnos.setBorder(javax.swing.BorderFactory.createCompoundBorder());
         tblAlumnos.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         tblAlumnos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "Codigo", "Nombre", "Apellido", "Grado", "Datos del apoderado", "Actualizar", "Eliminar"
+                "CÓDIGO", "NOMBRE", "APELLIDO", "GRADO", "APODERADO"
             }
         ));
         tblAlumnos.setRowHeight(25);
@@ -189,6 +187,8 @@ public class FrmInterfazPrincipal extends javax.swing.JFrame {
         pnlAlumnos.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 137, 650, 340));
 
         txtBuscarAlumno.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        txtBuscarAlumno.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        txtBuscarAlumno.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         pnlAlumnos.add(txtBuscarAlumno, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 70, 520, 30));
 
         btnAddAlumno.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Listado-Alumnos/AñadirAlum-Buttom.png"))); // NOI18N
@@ -220,13 +220,40 @@ public class FrmInterfazPrincipal extends javax.swing.JFrame {
 
         jLayeredPane2.add(pnlAlumnos, "card3");
 
+        pnlPrincipal.setBackground(new java.awt.Color(255, 255, 255));
+        pnlPrincipal.setPreferredSize(new java.awt.Dimension(700, 480));
+        pnlPrincipal.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        colegio.setIcon(new javax.swing.ImageIcon(getClass().getResource("/escuela.png"))); // NOI18N
+        pnlPrincipal.add(colegio, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 160, -1, 190));
+
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Principal Frame/Principal-Frame1.png"))); // NOI18N
+        pnlPrincipal.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(-20, 0, 740, 50));
+
+        microscopio.setIcon(new javax.swing.ImageIcon(getClass().getResource("/microscopio.png"))); // NOI18N
+        pnlPrincipal.add(microscopio, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 210, 80, 80));
+
+        bombilla.setIcon(new javax.swing.ImageIcon(getClass().getResource("/libros.png"))); // NOI18N
+        pnlPrincipal.add(bombilla, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 230, 100, 80));
+
+        bombilla1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/bombilla.png"))); // NOI18N
+        pnlPrincipal.add(bombilla1, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 60, 80, 90));
+
+        bombilla2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/birrete.png"))); // NOI18N
+        pnlPrincipal.add(bombilla2, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 400, 100, 70));
+
+        bombilla3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/pizarra.png"))); // NOI18N
+        pnlPrincipal.add(bombilla3, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 70, 100, -1));
+
+        bombilla4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/molecula.png"))); // NOI18N
+        pnlPrincipal.add(bombilla4, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 370, 130, 110));
+
+        jLayeredPane2.add(pnlPrincipal, "card6");
+
         jPanel1.add(jLayeredPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(275, 15, -1, -1));
 
         jLabel11.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Ventana de Registro/Insignia.png"))); // NOI18N
         jPanel1.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 30, -1, -1));
-
-        jLabel12.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Principal Frame/trademark.png"))); // NOI18N
-        jPanel1.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 600, -1, -1));
 
         jLabel10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Principal Frame/Principal2.png"))); // NOI18N
         jPanel1.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1010, -1));
@@ -238,8 +265,12 @@ public class FrmInterfazPrincipal extends javax.swing.JFrame {
             }
         });
 
-        btnMostrarAlumnos.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        btnMostrarAlumnos.setBackground(new java.awt.Color(255, 255, 255));
+        btnMostrarAlumnos.setFont(new java.awt.Font("Segoe UI", 3, 13)); // NOI18N
+        btnMostrarAlumnos.setForeground(new java.awt.Color(0, 102, 153));
+        btnMostrarAlumnos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/alumnos.png"))); // NOI18N
         btnMostrarAlumnos.setText("Mostrar alumnos");
+        btnMostrarAlumnos.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         btnMostrarAlumnos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnMostrarAlumnosActionPerformed(evt);
@@ -249,6 +280,7 @@ public class FrmInterfazPrincipal extends javax.swing.JFrame {
 
         jMenuBar1.add(menuAlumnos);
 
+        menuSeccion.setBorder(null);
         menuSeccion.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Principal Frame/Secciones-Buttom.png"))); // NOI18N
         menuSeccion.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -256,8 +288,11 @@ public class FrmInterfazPrincipal extends javax.swing.JFrame {
             }
         });
 
-        btnMostrarSecciones.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        btnMostrarSecciones.setFont(new java.awt.Font("Segoe UI", 3, 14)); // NOI18N
+        btnMostrarSecciones.setForeground(new java.awt.Color(0, 102, 153));
+        btnMostrarSecciones.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/aulas.png"))); // NOI18N
         btnMostrarSecciones.setText("Mostrar Secciones");
+        btnMostrarSecciones.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         btnMostrarSecciones.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnMostrarSeccionesActionPerformed(evt);
@@ -265,8 +300,11 @@ public class FrmInterfazPrincipal extends javax.swing.JFrame {
         });
         menuSeccion.add(btnMostrarSecciones);
 
-        btnAumentarVac.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        btnAumentarVac.setFont(new java.awt.Font("Segoe UI", 3, 14)); // NOI18N
+        btnAumentarVac.setForeground(new java.awt.Color(0, 102, 153));
+        btnAumentarVac.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/añadir.png"))); // NOI18N
         btnAumentarVac.setText("Aumentar Vacantes");
+        btnAumentarVac.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         btnAumentarVac.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnAumentarVacActionPerformed(evt);
@@ -278,7 +316,9 @@ public class FrmInterfazPrincipal extends javax.swing.JFrame {
 
         menuMatricula.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Principal Frame/Matrícula-Buttom.png"))); // NOI18N
 
-        btnGenerarMatricula.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        btnGenerarMatricula.setFont(new java.awt.Font("Segoe UI", 3, 14)); // NOI18N
+        btnGenerarMatricula.setForeground(new java.awt.Color(0, 102, 153));
+        btnGenerarMatricula.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/matricula.png"))); // NOI18N
         btnGenerarMatricula.setText("Generar Matrícula");
         btnGenerarMatricula.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -287,7 +327,9 @@ public class FrmInterfazPrincipal extends javax.swing.JFrame {
         });
         menuMatricula.add(btnGenerarMatricula);
 
-        btnGenerarActa.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        btnGenerarActa.setFont(new java.awt.Font("Segoe UI", 3, 14)); // NOI18N
+        btnGenerarActa.setForeground(new java.awt.Color(0, 102, 153));
+        btnGenerarActa.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/acta.png"))); // NOI18N
         btnGenerarActa.setText("Generar Acta de Compromiso");
         btnGenerarActa.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -585,6 +627,11 @@ public class FrmInterfazPrincipal extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuItem ActualizarSeccion;
     private javax.swing.JMenuItem EliminarSeccion;
+    private javax.swing.JLabel bombilla;
+    private javax.swing.JLabel bombilla1;
+    private javax.swing.JLabel bombilla2;
+    private javax.swing.JLabel bombilla3;
+    private javax.swing.JLabel bombilla4;
     private javax.swing.JMenuItem btnActualizarAlumno;
     private javax.swing.JLabel btnAddAlumno;
     private javax.swing.JLabel btnAddSeccion;
@@ -597,10 +644,10 @@ public class FrmInterfazPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuItem btnMostrarSecciones;
     private javax.swing.JLabel btnVolverA;
     private javax.swing.JLabel btnVolverS;
+    private javax.swing.JLabel colegio;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
-    private javax.swing.JLabel jLabel12;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLayeredPane jLayeredPane2;
@@ -613,6 +660,7 @@ public class FrmInterfazPrincipal extends javax.swing.JFrame {
     private javax.swing.JPopupMenu menuOpcionesAlumnos;
     private javax.swing.JPopupMenu menuOpcionesSeccion;
     private javax.swing.JMenu menuSeccion;
+    private javax.swing.JLabel microscopio;
     private javax.swing.JPanel pnlAlumnos;
     private javax.swing.JPanel pnlPrincipal;
     private javax.swing.JPanel pnlSecciones;
