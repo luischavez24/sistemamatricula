@@ -481,31 +481,31 @@ BEGIN
     DELETE FROM ALUMNOS WHERE COD_ALU = A_COD_ALU;
 END;
 
-create or replace procedure sp_buscar_alumno(
-    p_dni_alumno char,
-    alumno out sys_refcursor
+CREATE OR REPLACE PROCEDURE SP_BUSCAR_ALUMNO(
+    P_DNI_ALUMNO CHAR,
+    ALUMNO OUT SYS_REFCURSOR
 )
-as
-begin
-    open alumno for
-    select 
+AS
+BEGIN
+    OPEN ALUMNO FOR
+    SELECT 
         *
-    from alumnos
-    where dni_alumno = p_dni_alumno;
-end;
+    FROM ALUMNOS
+    WHERE DNI_ALUMNO = P_DNI_ALUMNO;
+END;
 
-create or replace procedure sp_buscar_alumno_cod(
-    p_cod_alumno number,
-    alumno out sys_refcursor
+CREATE OR REPLACE PROCEDURE SP_BUSCAR_ALUMNO_COD(
+    P_COD_ALUMNO NUMBER,
+    ALUMNO OUT SYS_REFCURSOR
 )
-as
-begin
-    open alumno for
-    select 
+AS
+BEGIN
+    OPEN ALUMNO FOR
+    SELECT 
         *
-    from alumnos
-    where cod_alu = p_cod_alumno;
-end;
+    FROM ALUMNOS
+    WHERE COD_ALU = P_COD_ALUMNO;
+END;
 
 CREATE OR REPLACE VIEW LISTAR_COMPROBANTES AS
     SELECT 

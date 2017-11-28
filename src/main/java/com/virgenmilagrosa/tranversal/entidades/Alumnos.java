@@ -18,6 +18,8 @@ public class Alumnos {
     private String direccionAlu;
     private int codApoderado;
     private String dniAlumno;
+    private String fechaNac;
+    private String distrito;
 
     public Alumnos() {
     }
@@ -105,4 +107,22 @@ public class Alumnos {
     public void setDniAlumno(String dniAlumno) {
         this.dniAlumno = dniAlumno;
     }
+
+    public String getFechaNac() {
+        return fechaNac;
+    }
+
+    public void setFechaNac(String fechaNac) {
+        this.fechaNac = fechaNac;
+    }
+
+    public String getDistrito() {
+        return distrito;
+    }
+
+    public void setDistrito(String distrito) {
+        this.distrito = distrito;
+    }
+    
+    
 }

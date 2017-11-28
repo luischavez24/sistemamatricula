@@ -57,7 +57,7 @@ public class Alumno_AD {
                         emailAlu = resultado.getString(6);
                         direccionAlu = resultado.getString(7);
                         codApoderado = resultado.getInt(8);
-                        dniAlumno = resultado.getString(9);
+                        dniAlumno = resultado.getString(11);
                         
                         temp = new Alumnos(codAlu, apaternoAlu, nombreAlu,
                                 amaternoAlu, telefonoAlu, emailAlu,
@@ -174,7 +174,7 @@ public class Alumno_AD {
                         emailAlu = resultado.getString(6);
                         direccionAlu = resultado.getString(7);
                         codApoderado = resultado.getInt(8);
-                        dniAlumno = resultado.getString(9);
+                        dniAlumno = resultado.getString(11);
 
                         alumno = new Alumnos(codAlu, apaternoAlu, nombreAlu,
                                 amaternoAlu, telefonoAlu, emailAlu,
@@ -216,7 +216,7 @@ public class Alumno_AD {
                         emailAlu = resultado.getString(6);
                         direccionAlu = resultado.getString(7);
                         codApoderado = resultado.getInt(8);
-                        dniAlumno = resultado.getString(9);
+                        dniAlumno = resultado.getString(11);
 
                         alumno = new Alumnos(codAlumno, apaternoAlu, nombreAlu,
                                 amaternoAlu, telefonoAlu, emailAlu,

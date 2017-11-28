@@ -8,6 +8,8 @@ import com.virgenmilagrosa.presentacion.generarmatricula.FrmGenerarMatricula;
 import com.virgenmilagrosa.presentacion.gestionalumnos.FrmModificarAlumno;
 import com.virgenmilagrosa.presentacion.gestionalumnos.FrmRegistroAlumnos;
 import com.virgenmilagrosa.presentacion.gestionsecciones.FrmAumentarVacante;
+import com.virgenmilagrosa.presentacion.gestionsecciones.FrmModificarSeccion;
+import com.virgenmilagrosa.presentacion.gestionsecciones.FrmRegistroSeccion;
 
 import com.virgenmilagrosa.tranversal.control.Validaciones;
 import com.virgenmilagrosa.tranversal.entidades.Alumnos;
@@ -19,7 +21,6 @@ import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
-
 
 /**
  *
@@ -100,9 +101,19 @@ public class FrmInterfazPrincipal extends javax.swing.JFrame {
 
         ActualizarSeccion.setText("Actualizar Seccion");
         ActualizarSeccion.setActionCommand("Actualizar ");
+        ActualizarSeccion.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ActualizarSeccionActionPerformed(evt);
+            }
+        });
         menuOpcionesSeccion.add(ActualizarSeccion);
 
         EliminarSeccion.setText("Eliminar Seccion");
+        EliminarSeccion.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                EliminarSeccionActionPerformed(evt);
+            }
+        });
         menuOpcionesSeccion.add(EliminarSeccion);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -317,7 +328,7 @@ public class FrmInterfazPrincipal extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-    
+
     private void desactivarBotones(int rol) {
         if (rol == 1) {
             btnAumentarVac.setVisible(false);
@@ -327,7 +338,7 @@ public class FrmInterfazPrincipal extends javax.swing.JFrame {
             btnMostrarSecciones.setVisible(false);
         }
     }
-    
+
     private void menuAlumnosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuAlumnosActionPerformed
         // TODO add your handling code here:
 
@@ -378,7 +389,11 @@ public class FrmInterfazPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_btnVolverSMouseClicked
 
     private void btnAddSeccionMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAddSeccionMouseClicked
+        java.awt.EventQueue.invokeLater(() -> {
+            new FrmRegistroSeccion().setVisible(true);
+        });
 
+        actualizarTablaSeccion();
     }//GEN-LAST:event_btnAddSeccionMouseClicked
 
     private void btnGenerarMatriculaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGenerarMatriculaActionPerformed
@@ -386,11 +401,11 @@ public class FrmInterfazPrincipal extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(() -> {
             new FrmGenerarMatricula().setVisible(true);
         });
-        
+
     }//GEN-LAST:event_btnGenerarMatriculaActionPerformed
 
     private void btnGenerarActaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGenerarActaActionPerformed
-    
+
     }//GEN-LAST:event_btnGenerarActaActionPerformed
 
     private void btnAumentarVacActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAumentarVacActionPerformed
@@ -398,7 +413,7 @@ public class FrmInterfazPrincipal extends javax.swing.JFrame {
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html
-        */
+         */
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
                 if ("Windows".equals(info.getName())) {
@@ -422,7 +437,7 @@ public class FrmInterfazPrincipal extends javax.swing.JFrame {
         if (fila > -1) {
 
             int codAlumno = (Integer) tblAlumnos.getValueAt(fila, 0);
-     
+
             java.awt.EventQueue.invokeLater(() -> {
                 new FrmModificarAlumno(Alumno_LN.getInstance().buscarAlumno(codAlumno)).setVisible(true);
             });
@@ -431,18 +446,60 @@ public class FrmInterfazPrincipal extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Debe elegir un elemento de la tabla", "Incorrecto", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_btnActualizarAlumnoActionPerformed
-    
+
+    private void ActualizarSeccionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ActualizarSeccionActionPerformed
+        // TODO add your handling code here:
+        // TODO add your handling code here:
+        int fila = tblSeccion.getSelectedRow();
+        if (fila > -1) {
+
+            int codSeccion = listaSecciones.get(fila).getCodSeccion();
+            int codGrado = listaSecciones.get(fila).getCodGrado();
+            System.out.println(codGrado);
+            System.out.println(codSeccion);
+
+            java.awt.EventQueue.invokeLater(() -> {
+                System.out.println(Seccion_LN.getInstance().buscarSeccion(codSeccion, codGrado));
+
+                new FrmModificarSeccion(Seccion_LN.getInstance().buscarSeccion(codSeccion, codGrado)).setVisible(true);
+            });
+
+            actualizarTablaAlumnos();
+
+        } else {
+            JOptionPane.showMessageDialog(null, "Debe elegir un elemento de la tabla", "Incorrecto", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_ActualizarSeccionActionPerformed
+
+    private void EliminarSeccionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EliminarSeccionActionPerformed
+        // TODO add your handling code here:
+
+        int seleccionfila = tblSeccion.getSelectedRow();
+
+        if (seleccionfila >= 0) {
+
+            int rpta = JOptionPane.showConfirmDialog(null, "¿REALMENTE QUIERE ELIMINAR ESTE USUARIO?");
+            if (rpta == 0) {
+                int codseccion = listaSecciones.get(seleccionfila).getCodSeccion();
+                int codgrado = listaSecciones.get(seleccionfila).getCodGrado();
+                seccion.eliminarSeccion(codseccion, codgrado);
+                actualizarTablaSeccion();
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Debe elegir un elemento de la tabla", "Incorrecto", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_EliminarSeccionActionPerformed
+
     /**
      * Autor: Yudely Palpán semana 3 cus implmentado, por corregir.
      */
-
     // <editor-fold defaultstate="collapsed" desc="Panel Seccion">  
     private DefaultTableModel modelo1;
     private Seccion_LN seccion = Seccion_LN.getInstance();
+    private List<Seccion> listaSecciones;
 
     public void CargarTablaSeccion(DefaultTableModel modelo1, List<Seccion> total, JTable tabla1) {
 
-        total = this.seccion.listarSecciones();
         Object fila[] = new Object[5];
 
         for (int i = 0; i < total.size(); i++) {
@@ -458,8 +515,8 @@ public class FrmInterfazPrincipal extends javax.swing.JFrame {
     }
 
     public void MostrarListaSeccion(DefaultTableModel modelo1, JTable tabla1) {
-        List<Seccion> lista0 = seccion.listarSecciones();
-        CargarTablaSeccion(modelo1, lista0, tabla1);
+        listaSecciones = seccion.listarSecciones();
+        CargarTablaSeccion(modelo1, listaSecciones, tabla1);
 
     }
 

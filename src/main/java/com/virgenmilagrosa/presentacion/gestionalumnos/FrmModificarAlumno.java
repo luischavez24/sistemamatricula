@@ -10,6 +10,7 @@ import com.virgenmilagrosa.tranversal.control.Validaciones;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import com.virgenmilagrosa.tranversal.entidades.*;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -31,7 +32,7 @@ public class FrmModificarAlumno extends javax.swing.JFrame {
     private Apoderado apoderado;
     private Seccion seccion;
 
-      public void MetodoInicio() {
+    private void MetodoInicio() {
         Validaciones v = new Validaciones();
         v.LimitarCaracter(txtNombre, 30);
         v.ValidarSoloLetras(txtNombre);
@@ -138,7 +139,7 @@ public class FrmModificarAlumno extends javax.swing.JFrame {
         });
 
         jLabel5.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
-        jLabel5.setText("Lugar de Nacimiento");
+        jLabel5.setText("Distrito");
 
         cbxLugar.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
         cbxLugar.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "-- Seleccione Lugar --", "Item 1", "Item 2", "Item 3", "Item 4" }));
@@ -440,7 +441,7 @@ public class FrmModificarAlumno extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-     public void ValidarIngreso() {
+    private void ValidarIngreso() {
         String nombre = txtNombre.getText().trim();
         String apellidos = txtApellido.getText().trim();
         String dni = txtDNI.getText().trim();
@@ -448,7 +449,7 @@ public class FrmModificarAlumno extends javax.swing.JFrame {
         String fechanac = spnFecha.getValue().toString();
         String lugar = cbxLugar.getSelectedItem().toString();
         String correo = txtCorreo.getText().trim();
-        boolean estado = Validarformatocorreo(correo);
+       
         String telf = txtTelefono.getText().trim();
         int telef = telf.length();
 
@@ -456,55 +457,54 @@ public class FrmModificarAlumno extends javax.swing.JFrame {
         String apellapod = txtApellApod.getText().trim();
         String dniapod = txtDNIApod.getText().trim();
         String telfapod = txtTelefonoApod.getText().trim();
-        String fechanacapod = spnFechaApod.getValue().toString();
         int tlfapod = telfapod.length();
         String correoapod = txtCorreoApod.getText().trim();
         boolean estcorreoapod = Validarformatocorreo(correoapod);
         String ocup = txtOcupApod.getText().trim();
 
         if (nombre.isEmpty() || apellidos.isEmpty() || Dni != 8 || fechanac.isEmpty() || lugar.isEmpty()
-                || nombapod.isEmpty() || apellapod.isEmpty() || dniapod.isEmpty() || tlfapod != 9 || estcorreoapod == false
-                || ocup.isEmpty()  || estado == false || telef != 9) {
+                || nombapod.isEmpty() || apellapod.isEmpty() || dniapod.isEmpty() || tlfapod != 9 
+                || estcorreoapod == false
+                || ocup.isEmpty()
+                || telef != 9) {
             btnGuardar.setEnabled(false);
         } else {
             btnGuardar.setEnabled(true);
         }
     }
-     
-     public boolean Validarformatocorreo(String correo) {
+
+    private boolean Validarformatocorreo(String correo) {
         Pattern pat;
         Matcher mat;
-        
+
         //formato del correo electronico
         pat = Pattern.compile("^([0-9a-zA-Z]([_.w]*[0-9a-zA-Z])*@([0-9a-zA-Z][-w]*[0-9a-zA-Z].)+([a-zA-Z]{2,9}.)+[a-zA-Z]{2,3})$");
         mat = pat.matcher(correo);
 
         return mat.find();
     }
-    
-    public void llenarDatos(Alumnos alumno)
-    {
+
+    private void llenarDatos(Alumnos alumno) {
         txtNombre.setText(alumno.getNombreAlu());
-        txtApellido.setText(alumno.getaPaternoAlu() + alumno.getaMaternoAlu());
-        txtDNI.setText("Aun no tiene DNI");
+        txtApellido.setText(alumno.getaPaternoAlu() + " " + alumno.getaMaternoAlu());
+        txtDNI.setText(alumno.getDniAlumno());
         txtCorreo.setText(alumno.getEmailAlu());
         txtTelefono.setText(alumno.getTelefonoAlu());
-        
+
         apoderado = Apoderado_LN.getInstance().buscarApoderado(alumno.getCodApoderado());
-        
+
         txtNomApod.setText(apoderado.getNombreAp());
-        txtApellApod.setText(apoderado.getaPaternoAp() + apoderado.getaMaternoAp());
+        txtApellApod.setText(apoderado.getaPaternoAp() + " " +apoderado.getaMaternoAp());
         txtDNIApod.setText(apoderado.getDniAp());
         txtCorreoApod.setText(apoderado.getEmailAp());
         txtTelefonoApod.setText(apoderado.getTelefonoAp());
         txtOcupApod.setText(apoderado.getOcupacion());
-    
+
     }
-    
-    public void actualizarDatos()
-    {
+
+    public void actualizarDatos() {
         String[] apellidos;
-        
+
         alumno.setNombreAlu(txtNombre.getText());
         apellidos = txtApellido.getText().split(" ");
         alumno.setaPaternoAlu(apellidos[0]);
@@ -512,7 +512,7 @@ public class FrmModificarAlumno extends javax.swing.JFrame {
         alumno.setDireccionAlu("");
         alumno.setEmailAlu(txtCorreo.getText());
         alumno.setTelefonoAlu(txtTelefono.getText());
-        
+
         apoderado.setNombreAp(txtNomApod.getText());
         apellidos = txtApellApod.getText().split(" ");
         apoderado.setaPaternoAp(apellidos[0]);
@@ -521,7 +521,7 @@ public class FrmModificarAlumno extends javax.swing.JFrame {
         apoderado.setEmailAp(txtCorreoApod.getText());
         apoderado.setTelefonoAp(txtTelefonoApod.getText());
         apoderado.setOcupacion(txtOcupApod.getText());
-        
+
     }
 
     private void txtNombreCaretUpdate(javax.swing.event.CaretEvent evt) {//GEN-FIRST:event_txtNombreCaretUpdate
@@ -561,15 +561,18 @@ public class FrmModificarAlumno extends javax.swing.JFrame {
 
     private void btnCancelarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCancelarMouseClicked
         // TODO add your handling code here:
-         this.setVisible(false);
+        this.setVisible(false);
     }//GEN-LAST:event_btnCancelarMouseClicked
 
     private void btnGuardarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnGuardarMouseClicked
         // TODO add your handling code here:
         actualizarDatos();
-        Alumno_LN.getInstance().modificarAlumno(alumno);
-        System.out.println(Apoderado_LN.getInstance().modificarApoderado(apoderado));
-        Apoderado_LN.getInstance().modificarApoderado(apoderado);
+
+        String respuestaAlumno = Alumno_LN.getInstance().modificarAlumno(alumno);
+        JOptionPane.showMessageDialog(null, respuestaAlumno, "Actualizacion", JOptionPane.INFORMATION_MESSAGE);
+
+        String respuestaApoderado = Apoderado_LN.getInstance().modificarApoderado(apoderado);
+        JOptionPane.showMessageDialog(null, respuestaApoderado, "Actualizacion", JOptionPane.INFORMATION_MESSAGE);
     }//GEN-LAST:event_btnGuardarMouseClicked
 
     private void txtCorreoCaretUpdate(javax.swing.event.CaretEvent evt) {//GEN-FIRST:event_txtCorreoCaretUpdate

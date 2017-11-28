@@ -74,12 +74,11 @@ public class Seccion_AD {
         try {
             Connection conexion = acceso.getConexion();
             conexion.setAutoCommit(false);
-            try (CallableStatement consulta = conexion.prepareCall("{CALL SP_REGISTRAR_SECCION (?,?,?,?,?)}")) {
-                consulta.setInt(1, seccion.getCodSeccion());
-                consulta.setInt(2, seccion.getCodGrado());
-                consulta.setString(3, seccion.getNombreSeccion());
-                consulta.setInt(4, seccion.getNroVacantes());
-                consulta.setInt(5, seccion.getNroSalon());
+            try (CallableStatement consulta = conexion.prepareCall("{CALL SP_REGISTRAR_SECCIONES (?,?,?,?)}")) {
+                consulta.setInt(1, seccion.getCodGrado());
+                consulta.setString(2, seccion.getNombreSeccion());
+                consulta.setInt(3, seccion.getNroVacantes());
+                consulta.setInt(4, seccion.getNroSalon());
 
                 consulta.execute();
             }
@@ -125,12 +124,13 @@ public class Seccion_AD {
             conn.setAutoCommit(false);
             try (CallableStatement consulta = conn.prepareCall("{ CALL SP_ELIMINAR_SECCION (?,?)}")) {
                 consulta.setInt(1, codSeccion);
-                consulta.setInt(1, codGrado);
+                consulta.setInt(2, codGrado);
                 consulta.execute();
             }
             conn.commit();
             acceso.close();
         } catch (SQLException ex) {
+            System.out.println(ex);
             respuesta = ex.getMessage();
         }
         return respuesta;
@@ -152,20 +152,21 @@ public class Seccion_AD {
                 consulta.execute();
 
                 try (ResultSet resultado = ((OracleCallableStatement) consulta).getCursor(3)) {
-
-                    int nroVacantes, nroSalon;
-                    String nombreSeccion;
-                    codSeccion = resultado.getInt(1);
-                    codGrado = resultado.getInt(2);
-                    nombreSeccion = resultado.getString(3);
-                    nroVacantes = resultado.getInt(4);
-                    nroSalon = resultado.getInt(5);
-                    seccion = new Seccion(codSeccion, codGrado, nombreSeccion, nroVacantes, nroSalon);
-                    seccion.setNombreGrado(resultado.getString("NOMBRE_GRADO"));
+                    if (resultado.next()) {
+                        int nroVacantes, nroSalon;
+                        String nombreSeccion;
+                        codSeccion = resultado.getInt(1);
+                        codGrado = resultado.getInt(2);
+                        nombreSeccion = resultado.getString(3);
+                        nroVacantes = resultado.getInt(4);
+                        nroSalon = resultado.getInt(5);
+                        seccion = new Seccion(codSeccion, codGrado, nombreSeccion, nroVacantes, nroSalon);
+                        seccion.setNombreGrado(resultado.getString("NOMBRE_GRADO"));
+                    }
                 }
             }
         } catch (SQLException ex) {
-
+            System.out.println(ex);
         } finally {
             acceso.close();
         }

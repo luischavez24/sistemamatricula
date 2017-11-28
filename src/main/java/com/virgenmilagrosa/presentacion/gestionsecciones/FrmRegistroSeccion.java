@@ -5,7 +5,12 @@
  */
 package com.virgenmilagrosa.presentacion.gestionsecciones;
 
+import com.virgenmilagrosa.logicanegocio.gestionalumnos.Grado_LN;
+import com.virgenmilagrosa.logicanegocio.gestionsecciones.Seccion_LN;
 import com.virgenmilagrosa.tranversal.control.Validaciones;
+import com.virgenmilagrosa.tranversal.entidades.Grado;
+import com.virgenmilagrosa.tranversal.entidades.Seccion;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -25,6 +30,13 @@ public class FrmRegistroSeccion extends javax.swing.JFrame {
         Validaciones v = new Validaciones();
         v.LimitarCaracter(txtSeccion, 10);
         v.ValidarSoloLetras(txtSeccion);
+        llenarComboGrado();
+    }
+    
+    private void llenarComboGrado() {
+        Grado_LN.getInstance().listarGrados().forEach(
+                   (item) -> cbxGrado.addItem(item)
+        );
     }
 
     public void ValidarIngreso() {
@@ -89,7 +101,7 @@ public class FrmRegistroSeccion extends javax.swing.JFrame {
         jLabel5.setText("Nro de Salon");
 
         cbxSalon.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        cbxSalon.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "-- Seleccione Salon --", "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cbxSalon.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "-- Seleccione Salon --", "1", "2", "3", "4", "5", "6" }));
         cbxSalon.setToolTipText("");
 
         jLabel6.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
@@ -98,7 +110,6 @@ public class FrmRegistroSeccion extends javax.swing.JFrame {
         spnVacantes.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
 
         cbxGrado.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        cbxGrado.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "-- Seleccione Grado --", "Item 1", "Item 2", "Item 3", "Item 4" }));
         cbxGrado.setToolTipText("");
 
         jLabel7.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
@@ -197,10 +208,22 @@ public class FrmRegistroSeccion extends javax.swing.JFrame {
 
     private void jLabel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel1MouseClicked
         // TODO add your handling code here:
+        setVisible(false);
     }//GEN-LAST:event_jLabel1MouseClicked
 
     private void btnGuardarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnGuardarMouseClicked
         // TODO add your handling code here:
+        int codSeccion = 0;
+        int codGrado = ((Grado) cbxGrado.getSelectedItem()).getCodGrado();
+        String nombreSeccion = txtSeccion.getText();
+        int nroSalon = Integer.parseInt((String) cbxSalon.getSelectedItem());
+        int nroVacantes = (Integer) spnVacantes.getValue();
+        
+        Seccion seccion = new Seccion (codSeccion, codGrado, nombreSeccion, nroVacantes, nroSalon);
+        
+        String respuestaSeccion = Seccion_LN.getInstance().registrarSeccion(seccion);
+        
+        JOptionPane.showMessageDialog(null, respuestaSeccion, "Registro", JOptionPane.INFORMATION_MESSAGE);
     }//GEN-LAST:event_btnGuardarMouseClicked
 
     private void txtSeccionCaretUpdate(javax.swing.event.CaretEvent evt) {//GEN-FIRST:event_txtSeccionCaretUpdate
@@ -241,7 +264,7 @@ public class FrmRegistroSeccion extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel btnGuardar;
-    private javax.swing.JComboBox<String> cbxGrado;
+    private javax.swing.JComboBox<Grado> cbxGrado;
     private javax.swing.JComboBox<String> cbxSalon;
     private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;

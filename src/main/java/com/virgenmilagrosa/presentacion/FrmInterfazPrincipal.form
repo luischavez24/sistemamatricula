@@ -34,11 +34,17 @@
             <Property name="text" type="java.lang.String" value="Actualizar Seccion"/>
             <Property name="actionCommand" type="java.lang.String" value="Actualizar "/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="ActualizarSeccionActionPerformed"/>
+          </Events>
         </MenuItem>
         <MenuItem class="javax.swing.JMenuItem" name="EliminarSeccion">
           <Properties>
             <Property name="text" type="java.lang.String" value="Eliminar Seccion"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="EliminarSeccionActionPerformed"/>
+          </Events>
         </MenuItem>
       </SubComponents>
     </Container>
