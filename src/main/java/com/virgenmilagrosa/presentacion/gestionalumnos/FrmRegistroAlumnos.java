@@ -7,6 +7,7 @@ package com.virgenmilagrosa.presentacion.gestionalumnos;
 
 import com.virgenmilagrosa.logicanegocio.gestionalumnos.Alumno_LN;
 import com.virgenmilagrosa.logicanegocio.gestionalumnos.Apoderado_LN;
+import com.virgenmilagrosa.presentacion.FrmInterfazPrincipal;
 import com.virgenmilagrosa.tranversal.control.Validaciones;
 import com.virgenmilagrosa.tranversal.entidades.Alumnos;
 import com.virgenmilagrosa.tranversal.entidades.Apoderado;
@@ -25,7 +26,9 @@ public class FrmRegistroAlumnos extends javax.swing.JFrame {
     /**
      * Creates new form FrmRegistroAlumnos
      */
-    public FrmRegistroAlumnos() {
+    private FrmInterfazPrincipal interfazP;
+    public FrmRegistroAlumnos(FrmInterfazPrincipal interfazP) {
+        this.interfazP = interfazP;
         initComponents();
         MetodoInicio();
         
@@ -56,7 +59,7 @@ public class FrmRegistroAlumnos extends javax.swing.JFrame {
         v.LimitarCaracter(txtTelefonoApod, 9);
         v.ValidarSoloNumeros(txtTelefonoApod);
         v.ValidarSoloLetras(txtOcupApod);
-
+        setLocationRelativeTo(null);
     }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -116,6 +119,7 @@ public class FrmRegistroAlumnos extends javax.swing.JFrame {
         jLabel11.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Agregar-Alumno/AgregarInfo-Panel.png"))); // NOI18N
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Registro Alumnos");
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel1.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
@@ -534,18 +538,14 @@ public class FrmRegistroAlumnos extends javax.swing.JFrame {
     }
 
     public boolean Validarformatocorreo(String correo) {
-        Pattern pat = null;
-        Matcher mat = null;
+        Pattern pat;
+        Matcher mat;
 
         //formato del correo electronico
         pat = Pattern.compile("^([0-9a-zA-Z]([_.w]*[0-9a-zA-Z])*@([0-9a-zA-Z][-w]*[0-9a-zA-Z].)+([a-zA-Z]{2,9}.)+[a-zA-Z]{2,3})$");
         mat = pat.matcher(correo);
 
-        if (mat.find()) {
-            return true;
-        } else {
-            return false;
-        }
+        return mat.find();
     }
     
     
@@ -578,6 +578,7 @@ public class FrmRegistroAlumnos extends javax.swing.JFrame {
         
         alummnoLN.registrarAlumno(registrarAlu);
         apoderadoLN.registrarApoderado(registrarApo);
+        interfazP.actualizarTablaAlumnos();
     }//GEN-LAST:event_btnGuardarMouseClicked
 
     private void txtNombreCaretUpdate(javax.swing.event.CaretEvent evt) {//GEN-FIRST:event_txtNombreCaretUpdate

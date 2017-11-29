@@ -34,7 +34,7 @@ public class FrmGenerarMatricula extends javax.swing.JFrame {
 
     private Matricula_LN matriculaLN = Matricula_LN.getInstance();
 
-     public FrmGenerarMatricula() {
+    public FrmGenerarMatricula() {
         initComponents();
         MetodoInicio();
         EjecutarMatricula();
@@ -49,17 +49,21 @@ public class FrmGenerarMatricula extends javax.swing.JFrame {
                 (item) -> cbxSeccion.addItem(item)
         );
     }
-    
-    private void EjecutarMatricula() {
-        String seccion = cbxSeccion.getSelectedItem().toString();
 
-        if (seccion.isEmpty()) {
-            btnEjecutar.setEnabled(false);
-        } else {
-            btnEjecutar.setEnabled(true);
+    private void EjecutarMatricula() {
+
+        if (cbxSeccion.getSelectedItem() != null) {
+            String seccion = cbxSeccion.getSelectedItem().toString();
+
+            if (seccion.isEmpty()) {
+                btnEjecutar.setEnabled(false);
+            } else {
+                btnEjecutar.setEnabled(true);
+            }
         }
 
     }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -282,7 +286,7 @@ public class FrmGenerarMatricula extends javax.swing.JFrame {
 
         if (alu != null) {
             int verif = matriculaLN.verificarMatricula(txtCodigo.getText());
-            
+
             if (verif != 1) {
                 Apoderado apod = apoderadoLN.buscarApoderado(alu.getCodApoderado());
 

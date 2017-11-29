@@ -3,8 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.virgenmilagrosa.accesodatos.ejecucionmatricula;
+package com.virgenmilagrosa.accesodatos.ejecucionmatricula.imple;
 
+import com.virgenmilagrosa.accesodatos.ejecucionmatricula.MatriculaAD;
 import com.virgenmilagrosa.tranversal.conexion.*;
 import java.sql.CallableStatement;
 import java.sql.Connection;
@@ -20,21 +21,13 @@ import org.apache.commons.logging.*;
  *
  * @author Jose Carlos
  */
-public class Matricula_AD {
+public class MatriculaADOracle implements MatriculaAD{
 
     private AccesoBD acceso = AccesoBD.getInstance();
 
-    private static final Log LOG = LogFactory.getLog(Matricula_AD.class);
+    private static final Log LOG = LogFactory.getLog(MatriculaADOracle.class);
 
-    private static final Matricula_AD instance = new Matricula_AD();
-
-    private Matricula_AD() {
-    }
-
-    public static Matricula_AD getInstance() {
-        return instance;
-    }
-
+    @Override
     public String ejecutarMatricula(Alumnos alumno, Seccion seccion) {
 
         LOG.info("Iniciando la ejecucion de la matricula");
@@ -76,6 +69,7 @@ public class Matricula_AD {
         return codMatricula;
     }
 
+    @Override
     public Matricula buscarMatricula(String codMatricula) {
 
         Matricula miMatricula = null;
@@ -123,6 +117,7 @@ public class Matricula_AD {
         return miMatricula;
     }
     
+    @Override
     public int verificarMatricula(String dniAlu) {
 
         LOG.info("Iniciando la ejecucion de la matricula");

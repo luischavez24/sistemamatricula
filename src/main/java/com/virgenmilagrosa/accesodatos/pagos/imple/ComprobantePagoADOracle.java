@@ -3,8 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.virgenmilagrosa.accesodatos.pagos;
+package com.virgenmilagrosa.accesodatos.pagos.imple;
 
+import com.virgenmilagrosa.accesodatos.pagos.ComprobantePagoAD;
 import com.virgenmilagrosa.tranversal.conexion.*;
 import java.sql.CallableStatement;
 import java.sql.Connection;
@@ -23,21 +24,12 @@ import java.sql.Types;
  *
  * @author Jose Carlos
  */
-public class ComprobantePago_AD {
-
-    private static final ComprobantePago_AD instance = new ComprobantePago_AD();
-
-    private ComprobantePago_AD() {
-    }
-
-    public static ComprobantePago_AD getInstance() {
-        return instance;
-    }
-
+public class ComprobantePagoADOracle implements ComprobantePagoAD {
     private AccesoBD acceso = AccesoBD.getInstance();
 
     private static final SimpleDateFormat FORMATO = new SimpleDateFormat("dd/MM/yy hh:mm:ss");
 
+    @Override
     public List<Comprobante> listarComprobantes() {
 
         List<Comprobante> lista = new ArrayList<>();
@@ -77,6 +69,7 @@ public class ComprobantePago_AD {
 
     }
 
+    @Override
     public int registrarComprobante(Comprobante comprobante) {
 
         int respuesta;
@@ -106,6 +99,7 @@ public class ComprobantePago_AD {
 
     }
 
+    @Override
     public String modificarComprobante(Comprobante comprobante) {
 
         String respuesta = "Actualizacion Completada";
@@ -129,6 +123,7 @@ public class ComprobantePago_AD {
 
     }
 
+    @Override
     public String eliminarComprobante(int nroComprobante) {
 
         String respuesta = "Eliminacion Completada";
@@ -149,6 +144,7 @@ public class ComprobantePago_AD {
 
     }
 
+    @Override
     public Comprobante buscarComprobante(int nroComprobante) {
 
         Comprobante comprobante = null;

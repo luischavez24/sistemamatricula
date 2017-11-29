@@ -3,8 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.virgenmilagrosa.accesodatos.gestionalumnos;
+package com.virgenmilagrosa.accesodatos.gestionalumnos.imple;
 
+import com.virgenmilagrosa.accesodatos.gestionalumnos.AlumnoAD;
 import com.virgenmilagrosa.tranversal.conexion.*;
 import java.sql.CallableStatement;
 import java.sql.Connection;
@@ -20,19 +21,11 @@ import com.virgenmilagrosa.tranversal.entidades.*;
  *
  * @author Jose Carlos
  */
-public class Alumno_AD {
+public class AlumnoADOracle implements AlumnoAD {
 
     private AccesoBD acceso = AccesoBD.getInstance();
 
-    private static final Alumno_AD instance = new Alumno_AD();
-
-    private Alumno_AD() {
-    }
-
-    public static Alumno_AD getInstance() {
-        return instance;
-    }
-
+    @Override
     public List<Alumnos> listarAlumnos() {
 
         List<Alumnos> lista = new ArrayList<>();
@@ -58,7 +51,7 @@ public class Alumno_AD {
                         direccionAlu = resultado.getString(7);
                         codApoderado = resultado.getInt(8);
                         dniAlumno = resultado.getString(11);
-                        
+
                         temp = new Alumnos(codAlu, apaternoAlu, nombreAlu,
                                 amaternoAlu, telefonoAlu, emailAlu,
                                 direccionAlu, codApoderado, dniAlumno);
@@ -77,6 +70,7 @@ public class Alumno_AD {
 
     }
 
+    @Override
     public String registrarAlumno(Alumnos alumno) {
 
         String respuesta = "Insercion Completada";
@@ -106,6 +100,7 @@ public class Alumno_AD {
 
     }
 
+    @Override
     public String modificarAlumno(Alumnos alumno) {
 
         String respuesta = "Actualizacion Completada";
@@ -130,6 +125,7 @@ public class Alumno_AD {
 
     }
 
+    @Override
     public String eliminarAlumno(int codAlumno) {
 
         String respuesta = "Eliminacion Completada";
@@ -150,6 +146,7 @@ public class Alumno_AD {
 
     }
 
+    @Override
     public Alumnos buscarAlumno(String dniAlu) {
 
         Alumnos alumno = null;
@@ -192,6 +189,7 @@ public class Alumno_AD {
 
     }
 
+    @Override
     public Alumnos buscarAlumno(int codAlu) {
 
         Alumnos alumno = null;

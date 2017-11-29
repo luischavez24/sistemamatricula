@@ -1,15 +1,16 @@
 package com.virgenmilagrosa.logicanegocio.ejecucionmatricula;
 
+import com.virgenmilagrosa.accesodatos.FactoryADOracle;
 import java.util.List;
 
-import com.virgenmilagrosa.accesodatos.ejecucionmatricula.Acta_AD;
+import com.virgenmilagrosa.accesodatos.ejecucionmatricula.*;
 import com.virgenmilagrosa.tranversal.entidades.Acta;
 
 public class Acta_LN {
 
     private static final Acta_LN instance = new Acta_LN();
 
-    private Acta_AD actaAD = Acta_AD.getInstance();
+    private ActaAD actaAD = FactoryADOracle.getFactory().getActaAD();
 
     private Acta_LN() {
     }
@@ -41,10 +42,5 @@ public class Acta_LN {
     public String eliminarActa(int codDocumento, int codAlumno) {
         return actaAD.eliminarActa(codDocumento, codAlumno);
     }
-    
-    @Deprecated
-    public Acta buscarActa(int codDoc, int codAlu) {
-        return actaAD.buscarActa(codDoc, codAlu);
-    }
-
+   
 }

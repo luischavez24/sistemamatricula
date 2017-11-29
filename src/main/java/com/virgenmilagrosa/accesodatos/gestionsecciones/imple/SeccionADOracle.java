@@ -3,8 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.virgenmilagrosa.accesodatos.gestionsecciones;
+package com.virgenmilagrosa.accesodatos.gestionsecciones.imple;
 
+import com.virgenmilagrosa.accesodatos.gestionsecciones.SeccionAD;
 import com.virgenmilagrosa.tranversal.conexion.*;
 import java.sql.CallableStatement;
 import java.sql.Connection;
@@ -20,18 +21,9 @@ import com.virgenmilagrosa.tranversal.entidades.*;
  *
  * @author Jose Carlos
  */
-public class Seccion_AD {
+public class SeccionADOracle implements SeccionAD{
 
     private AccesoBD acceso = AccesoBD.getInstance();
-
-    private static final Seccion_AD instance = new Seccion_AD();
-
-    private Seccion_AD() {
-    }
-
-    public static Seccion_AD getInstance() {
-        return instance;
-    }
 
     public List<Seccion> listarSecciones() {
 
@@ -70,11 +62,11 @@ public class Seccion_AD {
     public String registrarSeccion(Seccion seccion) {
 
         String respuesta = "Insercion Completada";
-
         try {
             Connection conexion = acceso.getConexion();
             conexion.setAutoCommit(false);
             try (CallableStatement consulta = conexion.prepareCall("{CALL SP_REGISTRAR_SECCIONES (?,?,?,?)}")) {
+                
                 consulta.setInt(1, seccion.getCodGrado());
                 consulta.setString(2, seccion.getNombreSeccion());
                 consulta.setInt(3, seccion.getNroVacantes());
@@ -94,16 +86,16 @@ public class Seccion_AD {
     public String modificarSeccion(Seccion seccion) {
 
         String respuesta = "Actualizacion Completada";
-
+       
         try {
             Connection conexion = acceso.getConexion();
             conexion.setAutoCommit(false);
-            try (CallableStatement consulta = conexion.prepareCall("{CALL SP_MODIFICAR_SECCION (?,?,?) }")) {
+            try (CallableStatement consulta = conexion.prepareCall("{CALL SP_MODIFICAR_SECCION (?,?,?,?) }")) {
                 consulta.setInt(1, seccion.getCodSeccion());
                 consulta.setInt(2, seccion.getCodGrado());
-                consulta.setInt(3, seccion.getNroSalon());
-
-                consulta.execute();
+                consulta.setString(3, seccion.getNombreSeccion());
+                consulta.setInt(4, seccion.getNroSalon());
+                consulta.executeUpdate();
 
             }
             conexion.commit();

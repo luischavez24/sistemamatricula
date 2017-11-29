@@ -5,6 +5,7 @@
  */
 package com.virgenmilagrosa.tranversal.conexion;
 
+import com.virgenmilagrosa.GestionMatriculaConfig;
 import java.sql.Connection;
 import java.sql.SQLException;
 import javax.sql.DataSource;
@@ -47,9 +48,9 @@ public class AccesoBD {
         try {
             Class.forName("oracle.jdbc.driver.OracleDriver");
 
-            datasource.setURL("jdbc:oracle:thin:@HOST1:1521:xe");
-            datasource.setUser("sistema_matricula");
-            datasource.setPassword("Prueba$1");
+            datasource.setURL(GestionMatriculaConfig.URL);
+            datasource.setUser(GestionMatriculaConfig.USER);
+            datasource.setPassword(GestionMatriculaConfig.PASS);
             datasource.setLoginTimeout(5000);
             miConexion = datasource.getConnection();
         } catch (ClassNotFoundException | SQLException ex) {

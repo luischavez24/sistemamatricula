@@ -1,6 +1,7 @@
 package com.virgenmilagrosa.logicanegocio.ejecucionmatricula;
 
-import com.virgenmilagrosa.accesodatos.ejecucionmatricula.Matricula_AD;
+import com.virgenmilagrosa.accesodatos.FactoryADOracle;
+import com.virgenmilagrosa.accesodatos.ejecucionmatricula.*;
 import com.virgenmilagrosa.tranversal.entidades.Alumnos;
 import com.virgenmilagrosa.tranversal.entidades.Matricula;
 import com.virgenmilagrosa.tranversal.entidades.Seccion;
@@ -16,7 +17,7 @@ public class Matricula_LN {
         return instance;
     }
 
-    private Matricula_AD matriculaAD = Matricula_AD.getInstance();
+    private MatriculaAD matriculaAD = FactoryADOracle.getFactory().getMatriculaAD();
 
     public String ejecutarMatricula(Alumnos alumno, Seccion seccion) {
         return matriculaAD.ejecutarMatricula(alumno, seccion);

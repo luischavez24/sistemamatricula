@@ -3,9 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.virgenmilagrosa.accesodatos.gestionusuarios;
+package com.virgenmilagrosa.accesodatos.gestionusuarios.imple;
 
-import com.virgenmilagrosa.accesodatos.gestionalumnos.Grado_AD;
+import com.virgenmilagrosa.accesodatos.gestionusuarios.UsuarioAD;
 import com.virgenmilagrosa.tranversal.conexion.*;
 import java.sql.CallableStatement;
 import java.sql.Connection;
@@ -24,21 +24,13 @@ import org.apache.commons.logging.LogFactory;
  *
  * @author Jose Carlos
  */
-public class Usuario_AD {
+public class UsuarioADOracle implements UsuarioAD{
 
-    private static final Log LOG = LogFactory.getLog(Usuario_AD.class);
+    private static final Log LOG = LogFactory.getLog(UsuarioADOracle.class);
     
-    private static final Usuario_AD INSTANCE = new Usuario_AD();
-
-    private Usuario_AD() {
-    }
-
-    public static Usuario_AD getInstance() {
-        return INSTANCE;
-    }
-
     private AccesoBD acceso = AccesoBD.getInstance();
 
+    @Override
     public List<Usuario> listarUsuarios() {
 
         List<Usuario> lista = new ArrayList<>();
@@ -82,6 +74,7 @@ public class Usuario_AD {
 
     }
 
+    @Override
     public String registrarUsuario(Usuario usuario) {
 
         String respuesta = "Insercion Completada";
@@ -110,6 +103,7 @@ public class Usuario_AD {
 
     }
 
+    @Override
     public String modificarUsuario(Usuario usuario) {
 
         String respuesta = "Actualizacion Completada";
@@ -133,6 +127,7 @@ public class Usuario_AD {
 
     }
 
+    @Override
     public String modificarPassword(Usuario usuario, String password) {
 
         String respuesta = "Actualizacion de Contraseña Completada";
@@ -157,6 +152,7 @@ public class Usuario_AD {
 
     }
 
+    @Override
     public String eliminarUsuario(int codUsuario) {
 
         String respuesta = "Eliminacion Completada";
@@ -177,6 +173,7 @@ public class Usuario_AD {
 
     }
 
+    @Override
     public Usuario buscarUsuario(int codUsuario) {
 
         Usuario usuario = null;
@@ -227,6 +224,7 @@ public class Usuario_AD {
 
     }
 
+    @Override
     public int verificarUsuario(String username, String password) {
 
         int verificacion = 0;

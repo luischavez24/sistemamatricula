@@ -50,7 +50,7 @@ public class Grado {
 
     @Override
     public String toString() {
-        return "Grado{" + "codGrado=" + codGrado + ", nomGrado=" + nomGrado + ", nivel=" + nivel + '}';
+        return nomGrado;
     }
     
 }

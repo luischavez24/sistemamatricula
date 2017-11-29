@@ -1,8 +1,9 @@
 package com.virgenmilagrosa.logicanegocio.gestionalumnos;
 
+import com.virgenmilagrosa.accesodatos.FactoryADOracle;
 import java.util.List;
 
-import com.virgenmilagrosa.accesodatos.gestionalumnos.Alumno_AD;
+import com.virgenmilagrosa.accesodatos.gestionalumnos.*;
 import com.virgenmilagrosa.tranversal.entidades.Alumnos;
 
 public class Alumno_LN {
@@ -16,7 +17,7 @@ public class Alumno_LN {
         return instance;
     }
 
-    private Alumno_AD alumnoAD = Alumno_AD.getInstance();
+    private AlumnoAD alumnoAD = FactoryADOracle.getFactory().getAlumnoAD();
 
     public List<Alumnos> listarAlumnos() {
         try {

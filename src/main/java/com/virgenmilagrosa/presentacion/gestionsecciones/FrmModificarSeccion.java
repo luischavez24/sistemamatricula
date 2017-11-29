@@ -7,6 +7,7 @@ package com.virgenmilagrosa.presentacion.gestionsecciones;
 
 import com.virgenmilagrosa.logicanegocio.gestionalumnos.Grado_LN;
 import com.virgenmilagrosa.logicanegocio.gestionsecciones.Seccion_LN;
+import com.virgenmilagrosa.presentacion.FrmInterfazPrincipal;
 import com.virgenmilagrosa.tranversal.control.Validaciones;
 import com.virgenmilagrosa.tranversal.entidades.*;
 import javax.swing.JOptionPane;
@@ -21,8 +22,10 @@ public class FrmModificarSeccion extends javax.swing.JFrame {
      * Creates new form FrmModificarInformación
      */
     private Seccion seccion;
+    private FrmInterfazPrincipal interfazP;
     
-    public FrmModificarSeccion(Seccion seccion) {
+    public FrmModificarSeccion(FrmInterfazPrincipal interfazP, Seccion seccion) {
+        this.interfazP = interfazP;
         initComponents();
         MetodoInicio();
         this.seccion = seccion;
@@ -35,6 +38,7 @@ public class FrmModificarSeccion extends javax.swing.JFrame {
         Validaciones v= new Validaciones();
         v.LimitarCaracter(txtNomSeccion, 10);
         v.ValidarSoloLetras(txtNomSeccion);
+        setLocationRelativeTo(null);
     }
     
     public void ValidarIngreso(){
@@ -50,8 +54,7 @@ public class FrmModificarSeccion extends javax.swing.JFrame {
     
     private void llenarDatos(Seccion seccion) {
         txtNomSeccion.setText(seccion.getNombreSeccion());
-        jComboBox1.setSelectedItem(seccion.getNroSalon());
-        Grado grado = Grado_LN.getInstance().buscarGrado(seccion.getCodGrado());
+        jComboBox1.setSelectedItem("" + seccion.getNroSalon());
     }
     
    private void actualizarDatos() {
@@ -103,7 +106,7 @@ public class FrmModificarSeccion extends javax.swing.JFrame {
         jLabel5.setText("Nro de Salon");
 
         jComboBox1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "-- Seleccione Salon --", "1", "2", "3", "4", "5", "6", "7", "8" }));
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1", "2", "3", "4", "5", "6", "7", "8" }));
         jComboBox1.setToolTipText("");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
@@ -200,10 +203,9 @@ public class FrmModificarSeccion extends javax.swing.JFrame {
     private void jLabel6MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel6MouseClicked
         // TODO add your handling code here:
         actualizarDatos();
-        
         String respuestaSeccion = Seccion_LN.getInstance().modificarSeccion(seccion);
-        
         JOptionPane.showMessageDialog(null, respuestaSeccion, "Actualizacion", JOptionPane.INFORMATION_MESSAGE);
+        interfazP.actualizarTablaSeccion();
     }//GEN-LAST:event_jLabel6MouseClicked
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

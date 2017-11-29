@@ -1,8 +1,9 @@
 package com.virgenmilagrosa.logicanegocio.ejecucionmatricula;
 
+import com.virgenmilagrosa.accesodatos.FactoryADOracle;
 import java.util.List;
 
-import com.virgenmilagrosa.accesodatos.ejecucionmatricula.Documento_AD;
+import com.virgenmilagrosa.accesodatos.ejecucionmatricula.*;
 import com.virgenmilagrosa.tranversal.entidades.Documentos;
 
 public class Documento_LN {
@@ -16,7 +17,7 @@ public class Documento_LN {
         return instance;
     }
 
-    private Documento_AD documentoAD = Documento_AD.getInstance();
+    private DocumentoAD documentoAD = FactoryADOracle.getFactory().getDocumentoAD();
 
     public List<Documentos> listaActas() {
         try {
@@ -41,9 +42,5 @@ public class Documento_LN {
     public String eliminarActa(int codDocumento) {
         return documentoAD.eliminarDocumento(codDocumento);
     }
-    
-    @Deprecated
-    public Documentos buscarActa(int codDocumento) {
-        return documentoAD.buscarDocumento(codDocumento);
-    }
+
 }

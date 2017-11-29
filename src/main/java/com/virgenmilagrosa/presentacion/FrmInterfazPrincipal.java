@@ -37,8 +37,8 @@ public class FrmInterfazPrincipal extends javax.swing.JFrame {
         this.rol = rol;
         initComponents();
         desactivarBotones(rol);
-        init();
-        init0();
+        initAlumnos();
+        initSeccion();
     }
 
     /**
@@ -59,6 +59,15 @@ public class FrmInterfazPrincipal extends javax.swing.JFrame {
         EliminarSeccion = new javax.swing.JMenuItem();
         jPanel1 = new javax.swing.JPanel();
         jLayeredPane2 = new javax.swing.JLayeredPane();
+        pnlPrincipal = new javax.swing.JPanel();
+        colegio = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
+        microscopio = new javax.swing.JLabel();
+        bombilla = new javax.swing.JLabel();
+        bombilla1 = new javax.swing.JLabel();
+        bombilla2 = new javax.swing.JLabel();
+        bombilla3 = new javax.swing.JLabel();
+        bombilla4 = new javax.swing.JLabel();
         pnlSecciones = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblSeccion = new javax.swing.JTable();
@@ -73,15 +82,6 @@ public class FrmInterfazPrincipal extends javax.swing.JFrame {
         btnVolverA = new javax.swing.JLabel();
         btnBuscarAlumno = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
-        pnlPrincipal = new javax.swing.JPanel();
-        colegio = new javax.swing.JLabel();
-        jLabel1 = new javax.swing.JLabel();
-        microscopio = new javax.swing.JLabel();
-        bombilla = new javax.swing.JLabel();
-        bombilla1 = new javax.swing.JLabel();
-        bombilla2 = new javax.swing.JLabel();
-        bombilla3 = new javax.swing.JLabel();
-        bombilla4 = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
@@ -130,6 +130,36 @@ public class FrmInterfazPrincipal extends javax.swing.JFrame {
 
         jLayeredPane2.setMinimumSize(new java.awt.Dimension(700, 500));
         jLayeredPane2.setLayout(new java.awt.CardLayout());
+
+        pnlPrincipal.setBackground(new java.awt.Color(255, 255, 255));
+        pnlPrincipal.setPreferredSize(new java.awt.Dimension(700, 480));
+        pnlPrincipal.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        colegio.setIcon(new javax.swing.ImageIcon(getClass().getResource("/escuela.png"))); // NOI18N
+        pnlPrincipal.add(colegio, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 160, -1, 190));
+
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Principal Frame/Principal-Frame1.png"))); // NOI18N
+        pnlPrincipal.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(-20, 0, 740, 50));
+
+        microscopio.setIcon(new javax.swing.ImageIcon(getClass().getResource("/microscopio.png"))); // NOI18N
+        pnlPrincipal.add(microscopio, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 210, 80, 80));
+
+        bombilla.setIcon(new javax.swing.ImageIcon(getClass().getResource("/libros.png"))); // NOI18N
+        pnlPrincipal.add(bombilla, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 230, 100, 80));
+
+        bombilla1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/bombilla.png"))); // NOI18N
+        pnlPrincipal.add(bombilla1, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 60, 80, 90));
+
+        bombilla2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/birrete.png"))); // NOI18N
+        pnlPrincipal.add(bombilla2, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 400, 100, 70));
+
+        bombilla3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/pizarra.png"))); // NOI18N
+        pnlPrincipal.add(bombilla3, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 70, 100, -1));
+
+        bombilla4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/molecula.png"))); // NOI18N
+        pnlPrincipal.add(bombilla4, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 370, 130, 110));
+
+        jLayeredPane2.add(pnlPrincipal, "card6");
 
         pnlSecciones.setMinimumSize(new java.awt.Dimension(700, 500));
         pnlSecciones.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -230,36 +260,6 @@ public class FrmInterfazPrincipal extends javax.swing.JFrame {
         pnlAlumnos.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
 
         jLayeredPane2.add(pnlAlumnos, "card3");
-
-        pnlPrincipal.setBackground(new java.awt.Color(255, 255, 255));
-        pnlPrincipal.setPreferredSize(new java.awt.Dimension(700, 480));
-        pnlPrincipal.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        colegio.setIcon(new javax.swing.ImageIcon(getClass().getResource("/escuela.png"))); // NOI18N
-        pnlPrincipal.add(colegio, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 160, -1, 190));
-
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Principal Frame/Principal-Frame1.png"))); // NOI18N
-        pnlPrincipal.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(-20, 0, 740, 50));
-
-        microscopio.setIcon(new javax.swing.ImageIcon(getClass().getResource("/microscopio.png"))); // NOI18N
-        pnlPrincipal.add(microscopio, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 210, 80, 80));
-
-        bombilla.setIcon(new javax.swing.ImageIcon(getClass().getResource("/libros.png"))); // NOI18N
-        pnlPrincipal.add(bombilla, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 230, 100, 80));
-
-        bombilla1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/bombilla.png"))); // NOI18N
-        pnlPrincipal.add(bombilla1, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 60, 80, 90));
-
-        bombilla2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/birrete.png"))); // NOI18N
-        pnlPrincipal.add(bombilla2, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 400, 100, 70));
-
-        bombilla3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/pizarra.png"))); // NOI18N
-        pnlPrincipal.add(bombilla3, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 70, 100, -1));
-
-        bombilla4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/molecula.png"))); // NOI18N
-        pnlPrincipal.add(bombilla4, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 370, 130, 110));
-
-        jLayeredPane2.add(pnlPrincipal, "card6");
 
         jPanel1.add(jLayeredPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(275, 15, -1, -1));
 
@@ -415,7 +415,7 @@ public class FrmInterfazPrincipal extends javax.swing.JFrame {
     private void btnAddAlumnoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAddAlumnoMouseClicked
         // TODO add your handling code here:
         java.awt.EventQueue.invokeLater(() -> {
-            new FrmRegistroAlumnos().setVisible(true);
+            new FrmRegistroAlumnos(this).setVisible(true);
         });
     }//GEN-LAST:event_btnAddAlumnoMouseClicked
 
@@ -432,10 +432,10 @@ public class FrmInterfazPrincipal extends javax.swing.JFrame {
 
     private void btnAddSeccionMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAddSeccionMouseClicked
         java.awt.EventQueue.invokeLater(() -> {
-            new FrmRegistroSeccion().setVisible(true);
+            new FrmRegistroSeccion(this).setVisible(true);
         });
 
-        actualizarTablaSeccion();
+
     }//GEN-LAST:event_btnAddSeccionMouseClicked
 
     private void btnGenerarMatriculaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGenerarMatriculaActionPerformed
@@ -481,7 +481,7 @@ public class FrmInterfazPrincipal extends javax.swing.JFrame {
             int codAlumno = (Integer) tblAlumnos.getValueAt(fila, 0);
 
             java.awt.EventQueue.invokeLater(() -> {
-                new FrmModificarAlumno(Alumno_LN.getInstance().buscarAlumno(codAlumno)).setVisible(true);
+                new FrmModificarAlumno(this, Alumno_LN.getInstance().buscarAlumno(codAlumno)).setVisible(true);
             });
 
         } else {
@@ -501,12 +501,13 @@ public class FrmInterfazPrincipal extends javax.swing.JFrame {
             System.out.println(codSeccion);
 
             java.awt.EventQueue.invokeLater(() -> {
-                System.out.println(Seccion_LN.getInstance().buscarSeccion(codSeccion, codGrado));
+                new FrmModificarSeccion(
+                        this,
+                        Seccion_LN.getInstance().buscarSeccion(codSeccion, codGrado)
+                ).setVisible(true);
 
-                new FrmModificarSeccion(Seccion_LN.getInstance().buscarSeccion(codSeccion, codGrado)).setVisible(true);
+                actualizarTablaAlumnos();
             });
-
-            actualizarTablaAlumnos();
 
         } else {
             JOptionPane.showMessageDialog(null, "Debe elegir un elemento de la tabla", "Incorrecto", JOptionPane.ERROR_MESSAGE);
@@ -524,7 +525,7 @@ public class FrmInterfazPrincipal extends javax.swing.JFrame {
             if (rpta == 0) {
                 int codseccion = listaSecciones.get(seleccionfila).getCodSeccion();
                 int codgrado = listaSecciones.get(seleccionfila).getCodGrado();
-                seccion.eliminarSeccion(codseccion, codgrado);
+                seccionLN.eliminarSeccion(codseccion, codgrado);
                 actualizarTablaSeccion();
             }
         } else {
@@ -537,10 +538,10 @@ public class FrmInterfazPrincipal extends javax.swing.JFrame {
      */
     // <editor-fold defaultstate="collapsed" desc="Panel Seccion">  
     private DefaultTableModel modelo1;
-    private Seccion_LN seccion = Seccion_LN.getInstance();
+    private Seccion_LN seccionLN = Seccion_LN.getInstance();
     private List<Seccion> listaSecciones;
 
-    public void CargarTablaSeccion(DefaultTableModel modelo1, List<Seccion> total, JTable tabla1) {
+    private void CargarTablaSeccion(DefaultTableModel modelo1, List<Seccion> total, JTable tabla1) {
 
         Object fila[] = new Object[5];
 
@@ -553,26 +554,28 @@ public class FrmInterfazPrincipal extends javax.swing.JFrame {
 
             modelo1.addRow(fila);
         }
+
         tabla1.updateUI();
     }
 
-    public void MostrarListaSeccion(DefaultTableModel modelo1, JTable tabla1) {
-        listaSecciones = seccion.listarSecciones();
+    private void MostrarListaSeccion(DefaultTableModel modelo1, JTable tabla1) {
+        listaSecciones = seccionLN.listarSecciones();
         CargarTablaSeccion(modelo1, listaSecciones, tabla1);
 
     }
 
     public void actualizarTablaSeccion() {
         //limpiar tabla1
-
+        System.out.println("Limpiando tabla");
         while (modelo1.getRowCount() > 0) {
             modelo1.removeRow(0);
         }
+
         //actualiza y cargando
         MostrarListaSeccion(modelo1, tblSeccion);
     }
 
-    private void init0() {
+    private void initSeccion() {
         setLocationRelativeTo(null);
 
         modelo1 = new DefaultTableModel() {
@@ -604,7 +607,7 @@ public class FrmInterfazPrincipal extends javax.swing.JFrame {
     private FrmRegistroAlumnos registro;
     private int id = 0;
 
-    public void CargarTablaAlumnos(DefaultTableModel modelo2, List<Alumnos> total, JTable tabla2) {
+    private void CargarTablaAlumnos(DefaultTableModel modelo2, List<Alumnos> total, JTable tabla2) {
 
         total = this.alumno.listarAlumnos();
         Object fila[] = new Object[8];
@@ -623,7 +626,7 @@ public class FrmInterfazPrincipal extends javax.swing.JFrame {
         tabla2.updateUI();
     }
 
-    public void buscar() {
+    private void buscar() {
         String buscar = txtBuscarAlumno.getText();
 
         if (buscar.isEmpty()) {
@@ -641,7 +644,7 @@ public class FrmInterfazPrincipal extends javax.swing.JFrame {
 
     }
 
-    public void MostrarLista(DefaultTableModel modelo2, JTable tabla2) {
+    private void MostrarLista(DefaultTableModel modelo2, JTable tabla2) {
         List<Alumnos> lista = alumno.listarAlumnos();
         CargarTablaAlumnos(modelo2, lista, tabla2);
     }
@@ -656,7 +659,7 @@ public class FrmInterfazPrincipal extends javax.swing.JFrame {
         MostrarLista(modelo2, tblAlumnos);
     }
 
-    private void init() {
+    private void initAlumnos() {
         setLocationRelativeTo(null);
         Validaciones validaciones = new Validaciones();
         validaciones.ValidarSoloNumeros(txtBuscarAlumno);

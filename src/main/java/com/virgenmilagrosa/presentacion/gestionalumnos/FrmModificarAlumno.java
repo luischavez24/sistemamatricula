@@ -6,6 +6,7 @@
 package com.virgenmilagrosa.presentacion.gestionalumnos;
 
 import com.virgenmilagrosa.logicanegocio.gestionalumnos.*;
+import com.virgenmilagrosa.presentacion.FrmInterfazPrincipal;
 import com.virgenmilagrosa.tranversal.control.Validaciones;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -21,16 +22,18 @@ public class FrmModificarAlumno extends javax.swing.JFrame {
     /**
      * Creates new form FrmModificarInformación
      */
-    public FrmModificarAlumno(Alumnos alumno) {
-        initComponents();
-        MetodoInicio();
-        this.alumno = alumno;
-        llenarDatos(alumno);
-    }
-
+    private FrmInterfazPrincipal interfazP;
     private Alumnos alumno;
     private Apoderado apoderado;
     private Seccion seccion;
+
+    public FrmModificarAlumno(FrmInterfazPrincipal interfazP, Alumnos alumno) {
+        initComponents();
+        MetodoInicio();
+        this.interfazP = interfazP;
+        this.alumno = alumno;
+        llenarDatos(alumno);
+    }
 
     private void MetodoInicio() {
         Validaciones v = new Validaciones();
@@ -449,7 +452,7 @@ public class FrmModificarAlumno extends javax.swing.JFrame {
         String fechanac = spnFecha.getValue().toString();
         String lugar = cbxLugar.getSelectedItem().toString();
         String correo = txtCorreo.getText().trim();
-       
+
         String telf = txtTelefono.getText().trim();
         int telef = telf.length();
 
@@ -463,7 +466,7 @@ public class FrmModificarAlumno extends javax.swing.JFrame {
         String ocup = txtOcupApod.getText().trim();
 
         if (nombre.isEmpty() || apellidos.isEmpty() || Dni != 8 || fechanac.isEmpty() || lugar.isEmpty()
-                || nombapod.isEmpty() || apellapod.isEmpty() || dniapod.isEmpty() || tlfapod != 9 
+                || nombapod.isEmpty() || apellapod.isEmpty() || dniapod.isEmpty() || tlfapod != 9
                 || estcorreoapod == false
                 || ocup.isEmpty()
                 || telef != 9) {
@@ -494,7 +497,7 @@ public class FrmModificarAlumno extends javax.swing.JFrame {
         apoderado = Apoderado_LN.getInstance().buscarApoderado(alumno.getCodApoderado());
 
         txtNomApod.setText(apoderado.getNombreAp());
-        txtApellApod.setText(apoderado.getaPaternoAp() + " " +apoderado.getaMaternoAp());
+        txtApellApod.setText(apoderado.getaPaternoAp() + " " + apoderado.getaMaternoAp());
         txtDNIApod.setText(apoderado.getDniAp());
         txtCorreoApod.setText(apoderado.getEmailAp());
         txtTelefonoApod.setText(apoderado.getTelefonoAp());
@@ -573,6 +576,8 @@ public class FrmModificarAlumno extends javax.swing.JFrame {
 
         String respuestaApoderado = Apoderado_LN.getInstance().modificarApoderado(apoderado);
         JOptionPane.showMessageDialog(null, respuestaApoderado, "Actualizacion", JOptionPane.INFORMATION_MESSAGE);
+        
+        interfazP.actualizarTablaAlumnos();
     }//GEN-LAST:event_btnGuardarMouseClicked
 
     private void txtCorreoCaretUpdate(javax.swing.event.CaretEvent evt) {//GEN-FIRST:event_txtCorreoCaretUpdate

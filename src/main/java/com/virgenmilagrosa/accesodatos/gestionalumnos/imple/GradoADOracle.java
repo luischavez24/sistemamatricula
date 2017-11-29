@@ -3,8 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.virgenmilagrosa.accesodatos.gestionalumnos;
+package com.virgenmilagrosa.accesodatos.gestionalumnos.imple;
 
+import com.virgenmilagrosa.accesodatos.gestionalumnos.GradoAD;
 import com.virgenmilagrosa.tranversal.conexion.*;
 import java.sql.CallableStatement;
 import java.sql.Connection;
@@ -23,21 +24,13 @@ import org.apache.commons.logging.LogFactory;
  *
  * @author Jose Carlos
  */
-public class Grado_AD {
+public class GradoADOracle implements GradoAD {
     
     private AccesoBD acceso = AccesoBD.getInstance();
+ 
+    private static final Log LOG = LogFactory.getLog(GradoADOracle.class);
 
-    private static final Grado_AD instance = new Grado_AD();
-    
-    private static final Log LOG = LogFactory.getLog(Grado_AD.class);
-    
-    private Grado_AD() {
-    }
-
-    public static Grado_AD getInstance() {
-        return instance;
-    }
-
+    @Override
     public List<Grado> listarGrados() {
 
         List<Grado> lista = new ArrayList<>();
@@ -85,6 +78,7 @@ public class Grado_AD {
 
     }
 
+    @Override
     public String registrarGrado(Grado grado) {
 
         String respuesta = "Insercion Completada";
@@ -108,6 +102,7 @@ public class Grado_AD {
 
     }
 
+    @Override
     public String modificarGrado(Grado grado) {
 
         String respuesta = "Actualizacion Completada";
@@ -131,6 +126,7 @@ public class Grado_AD {
 
     }
 
+    @Override
     public String eliminarGrado(int codGrado) {
 
         String respuesta = "Eliminacion Completada";
@@ -151,6 +147,7 @@ public class Grado_AD {
 
     }
 
+    @Override
     public Grado buscarGrado(int codGrado) {
 
         Grado grado = null;

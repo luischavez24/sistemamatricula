@@ -1,8 +1,9 @@
 package com.virgenmilagrosa.logicanegocio.gestionsecciones;
 
+import com.virgenmilagrosa.accesodatos.FactoryADOracle;
 import java.util.List;
 
-import com.virgenmilagrosa.accesodatos.gestionsecciones.Seccion_AD;
+import com.virgenmilagrosa.accesodatos.gestionsecciones.*;
 import com.virgenmilagrosa.tranversal.entidades.Seccion;
 
 public class Seccion_LN {
@@ -16,7 +17,7 @@ public class Seccion_LN {
         return instance;
     }
 
-    private Seccion_AD seccionAD = Seccion_AD.getInstance();
+    private SeccionAD seccionAD = FactoryADOracle.getFactory().getSeccionAD();
 
     public List<Seccion> listarSecciones() {
         return seccionAD.listarSecciones();

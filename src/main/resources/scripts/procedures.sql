@@ -167,7 +167,7 @@ BEGIN
         WHERE
             COD_USUARIO = P_COD_USUARIO;
     ELSE
-        raise_application_error( -20001, 'Contraseña proporcionada no coincide' );
+        raise_application_error( -20001, 'Contraseï¿½a proporcionada no coincide' );
     END IF;
 END;
 
@@ -297,7 +297,7 @@ BEGIN
     SELECT 
         *
     FROM ACTA_COMPROMISO
-    WHERE COD_ALUMNO = P_COD_ALUMNO;
+    WHERE COD_ALU = P_COD_ALUMNO;
 END;
 
 CREATE OR REPLACE FUNCTION SF_NRO_VACANTES(
@@ -447,8 +447,8 @@ BEGIN
         A_TELEFONO_ALU,
         A_EMAIL_ALU,
         A_DIRECCION_ALU,
-        A_COD_APODERADO,
         A_FECHA_NAC,
+        A_COD_APODERADO,
         A_COD_DISTRITO,
         A_DNI_ALUMNO
     );
@@ -719,4 +719,17 @@ BEGIN
     ELSE
         RETURN 0;
     END IF;
+END;
+
+CREATE OR REPLACE PROCEDURE SP_LISTAR_GRADO(
+    P_CURSOR OUT SYS_REFCURSOR
+)
+AS
+BEGIN
+    OPEN P_CURSOR FOR 
+    SELECT
+        COD_GRADO,
+        NOMBRE_GRADO,
+        NIVEL
+    FROM GRADO;
 END;

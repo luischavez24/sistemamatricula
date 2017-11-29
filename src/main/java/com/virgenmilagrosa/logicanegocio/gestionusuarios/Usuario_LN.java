@@ -1,8 +1,9 @@
 package com.virgenmilagrosa.logicanegocio.gestionusuarios;
 
+import com.virgenmilagrosa.accesodatos.FactoryADOracle;
 import java.util.List;
 
-import com.virgenmilagrosa.accesodatos.gestionusuarios.Usuario_AD;
+import com.virgenmilagrosa.accesodatos.gestionusuarios.*;
 import com.virgenmilagrosa.tranversal.entidades.Usuario;
 
 public class Usuario_LN {
@@ -16,7 +17,7 @@ public class Usuario_LN {
         return instance;
     }
 
-    private Usuario_AD usuarioAD = Usuario_AD.getInstance();
+    private UsuarioAD usuarioAD = FactoryADOracle.getFactory().getUsuarioAD();
 
     public List<Usuario> listarUsuarios() {
         return usuarioAD.listarUsuarios();

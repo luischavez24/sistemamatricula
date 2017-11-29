@@ -7,6 +7,7 @@ package com.virgenmilagrosa.presentacion.gestionsecciones;
 
 import com.virgenmilagrosa.logicanegocio.gestionalumnos.Grado_LN;
 import com.virgenmilagrosa.logicanegocio.gestionsecciones.Seccion_LN;
+import com.virgenmilagrosa.presentacion.FrmInterfazPrincipal;
 import com.virgenmilagrosa.tranversal.control.Validaciones;
 import com.virgenmilagrosa.tranversal.entidades.Grado;
 import com.virgenmilagrosa.tranversal.entidades.Seccion;
@@ -21,7 +22,10 @@ public class FrmRegistroSeccion extends javax.swing.JFrame {
     /**
      * Creates new form FrmRegistroAlumnos
      */
-    public FrmRegistroSeccion() {
+    
+    private FrmInterfazPrincipal interfazP;
+    public FrmRegistroSeccion(FrmInterfazPrincipal interfazP) {
+        this.interfazP  = interfazP;
         initComponents();
         MetodoInicio();
     }
@@ -31,6 +35,7 @@ public class FrmRegistroSeccion extends javax.swing.JFrame {
         v.LimitarCaracter(txtSeccion, 10);
         v.ValidarSoloLetras(txtSeccion);
         llenarComboGrado();
+        setLocationRelativeTo(null);
     }
     
     private void llenarComboGrado() {
@@ -101,7 +106,7 @@ public class FrmRegistroSeccion extends javax.swing.JFrame {
         jLabel5.setText("Nro de Salon");
 
         cbxSalon.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        cbxSalon.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "-- Seleccione Salon --", "1", "2", "3", "4", "5", "6" }));
+        cbxSalon.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1", "2", "3", "4", "5", "6" }));
         cbxSalon.setToolTipText("");
 
         jLabel6.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
@@ -224,43 +229,13 @@ public class FrmRegistroSeccion extends javax.swing.JFrame {
         String respuestaSeccion = Seccion_LN.getInstance().registrarSeccion(seccion);
         
         JOptionPane.showMessageDialog(null, respuestaSeccion, "Registro", JOptionPane.INFORMATION_MESSAGE);
+        interfazP.actualizarTablaSeccion();
     }//GEN-LAST:event_btnGuardarMouseClicked
 
     private void txtSeccionCaretUpdate(javax.swing.event.CaretEvent evt) {//GEN-FIRST:event_txtSeccionCaretUpdate
         // TODO add your handling code here:
         this.ValidarIngreso();
     }//GEN-LAST:event_txtSeccionCaretUpdate
-
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(FrmRegistroSeccion.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(FrmRegistroSeccion.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(FrmRegistroSeccion.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(FrmRegistroSeccion.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-        java.awt.EventQueue.invokeLater(() -> {
-            new FrmRegistroSeccion().setVisible(true);
-        });
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel btnGuardar;

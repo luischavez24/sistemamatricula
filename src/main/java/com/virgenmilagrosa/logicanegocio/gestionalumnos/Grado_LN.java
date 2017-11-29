@@ -1,39 +1,41 @@
 package com.virgenmilagrosa.logicanegocio.gestionalumnos;
 
+import com.virgenmilagrosa.accesodatos.FactoryADOracle;
 import java.util.List;
 
-import com.virgenmilagrosa.accesodatos.gestionalumnos.Grado_AD;
+import com.virgenmilagrosa.accesodatos.gestionalumnos.*;
 import com.virgenmilagrosa.tranversal.entidades.Grado;
 
 public class Grado_LN {
-	private static final Grado_LN instance = new Grado_LN();
 
-	private Grado_LN() {
-	}
+    private static final Grado_LN instance = new Grado_LN();
 
-	public static Grado_LN getInstance() {
-		return instance;
-	}
+    private Grado_LN() {
+    }
 
-	private Grado_AD gradoAD = Grado_AD.getInstance();
-	
-	public List<Grado> listarGrados() {
-		return gradoAD.listarGrados();
-	}
+    public static Grado_LN getInstance() {
+        return instance;
+    }
 
-	public String registrarGrado(Grado grado) {
-		return gradoAD.registrarGrado(grado);
-	}
+    private GradoAD gradoAD = FactoryADOracle.getFactory().getGradoAD();
 
-	public String modificarGrado(Grado grado) {
-		return gradoAD.modificarGrado(grado);
-	}
+    public List<Grado> listarGrados() {
+        return gradoAD.listarGrados();
+    }
 
-	public String eliminarGrado(int codGrado) {
-		return gradoAD.eliminarGrado(codGrado);
-	}
+    public String registrarGrado(Grado grado) {
+        return gradoAD.registrarGrado(grado);
+    }
 
-	public Grado buscarGrado(int codGrado) {
-		return gradoAD.buscarGrado(codGrado);
-	}
+    public String modificarGrado(Grado grado) {
+        return gradoAD.modificarGrado(grado);
+    }
+
+    public String eliminarGrado(int codGrado) {
+        return gradoAD.eliminarGrado(codGrado);
+    }
+
+    public Grado buscarGrado(int codGrado) {
+        return gradoAD.buscarGrado(codGrado);
+    }
 }

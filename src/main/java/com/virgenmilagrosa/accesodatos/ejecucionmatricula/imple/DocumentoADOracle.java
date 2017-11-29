@@ -3,8 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.virgenmilagrosa.accesodatos.ejecucionmatricula;
+package com.virgenmilagrosa.accesodatos.ejecucionmatricula.imple;
 
+import com.virgenmilagrosa.accesodatos.ejecucionmatricula.DocumentoAD;
 import com.virgenmilagrosa.tranversal.conexion.*;
 import java.sql.CallableStatement;
 import java.sql.Connection;
@@ -15,48 +16,34 @@ import java.util.List;
 import oracle.jdbc.OracleCallableStatement;
 import oracle.jdbc.OracleTypes;
 import com.virgenmilagrosa.tranversal.entidades.*;
-import java.sql.Date;
-import java.text.SimpleDateFormat;
 
 /**
  *
  * @author Jose Carlos
  */
-public class Acta_AD {
+public class DocumentoADOracle implements DocumentoAD {
 
     private AccesoBD acceso = AccesoBD.getInstance();
 
-    private static final SimpleDateFormat FORMATO = new SimpleDateFormat("dd/MM/yy hh:mm:ss");
-    
-    private static final Acta_AD instance = new Acta_AD();
+    @Override
+    public List<Documentos> listarDocumentos() {
 
-	private Acta_AD() {
-	}
-
-	public static Acta_AD getInstance() {
-		return instance;
-	}
-
-    public List<Acta> listarActas() {
-
-        List<Acta> lista = new ArrayList<>();
+        List<Documentos> lista = new ArrayList<>();
 
         try {
             Connection conexion = acceso.getConexion();
-            try (CallableStatement consulta = conexion.prepareCall("{ CALL SP_LISTAR_ACTAS (?) }")) {
+            try (CallableStatement consulta = conexion.prepareCall("{ CALL SP_LISTAR_DOCUMENTOS (?) }")) {
                 consulta.registerOutParameter(1, OracleTypes.CURSOR);
                 consulta.execute();
                 try (ResultSet resultado = ((OracleCallableStatement) consulta).getCursor(1)) {
-                    Acta temp;
-                    int codDocumento, codAlu, codUsuario, estado;
-                    String fechaEntrega;
+                    Documentos temp;
+                    int codDocumento, gradoImportancia;
+                    String descripcionDoc;
                     while (resultado.next()) {
                         codDocumento = resultado.getInt(1);
-                        codAlu = resultado.getInt(2);
-                        fechaEntrega = resultado.getString(3);
-                        codUsuario = resultado.getInt(4);
-                        estado = resultado.getInt(5);
-                        temp = new Acta(codDocumento, codAlu, Date.valueOf(fechaEntrega), codUsuario, estado);
+                        descripcionDoc = resultado.getString(2);
+                        gradoImportancia = resultado.getInt(3);
+                        temp = new Documentos(codDocumento, descripcionDoc, gradoImportancia);
 
                         lista.add(temp);
                     }
@@ -71,19 +58,18 @@ public class Acta_AD {
 
     }
 
-    public String registrarActa(Acta acta) {
+    @Override
+    public String registrarDocumento(Documentos documento) {
 
         String respuesta = "Insercion Completada";
 
         try {
             Connection conexion = acceso.getConexion();
             conexion.setAutoCommit(false);
-            try (CallableStatement consulta = conexion.prepareCall("{CALL SP_REGISTRAR_ACTAS (?,?,?,?,?)}")) {
-                consulta.setInt(1, acta.getCodDocumento());
-                consulta.setInt(2, acta.getCodAlu());
-                consulta.setString(3, FORMATO.format(acta.getFechaEntrega()));
-                consulta.setInt(4, acta.getCodUsuario());
-                consulta.setInt(5, acta.getEstado());
+            try (CallableStatement consulta = conexion.prepareCall("{CALL SP_REGISTRAR_DOCUMENTO (?,?,?)}")) {
+                consulta.setInt(1, documento.getCodDocumento());
+                consulta.setString(2, documento.getDescripcionDoc());
+                consulta.setInt(3, documento.getGradoImportancia());
                 consulta.execute();
             }
             conexion.commit();
@@ -95,17 +81,18 @@ public class Acta_AD {
 
     }
 
-    public String modificarActa(Acta acta) {
+    @Override
+    public String modificarDocumento(Documentos documento) {
 
         String respuesta = "Actualizacion Completada";
 
         try {
             Connection conexion = acceso.getConexion();
             conexion.setAutoCommit(false);
-            try (CallableStatement consulta = conexion.prepareCall("{CALL SP_MODIFICAR_ACTA (?,?,?) }")) {
-                consulta.setInt(1, acta.getCodDocumento());
-                consulta.setInt(2, acta.getCodAlu());
-                consulta.setInt(3, acta.getEstado());
+            try (CallableStatement consulta = conexion.prepareCall("{CALL SP_MODIFICAR_DOCUMENTO (?,?) }")) {
+                consulta.setInt(1, documento.getCodDocumento());
+                consulta.setInt(2, documento.getGradoImportancia());
+
                 consulta.execute();
             }
             conexion.commit();
@@ -117,16 +104,16 @@ public class Acta_AD {
 
     }
 
-    public String eliminarActa(int codDocumento, int codAlumno) {
+    @Override
+    public String eliminarDocumento(int codDocumento) {
 
         String respuesta = "Eliminacion Completada";
 
         try {
             Connection conn = acceso.getConexion();
             conn.setAutoCommit(false);
-            try (CallableStatement consulta = conn.prepareCall("{ CALL SP_ELIMINAR_ACTA (?,?)}")) {
+            try (CallableStatement consulta = conn.prepareCall("{ CALL SP_ELIMINAR_DOCUMENTO (?)}")) {
                 consulta.setInt(1, codDocumento);
-                consulta.setInt(1, codAlumno);
                 consulta.execute();
             }
             conn.commit();
@@ -137,38 +124,34 @@ public class Acta_AD {
         return respuesta;
 
     }
-    
-    @Deprecated
-    public Acta buscarActa(int codDoc, int codAlu) {
 
-        Acta acta = null;
+    @Deprecated
+    public Documentos buscarDocumento(int codDocumento) {
+
+        Documentos documento = null;
 
         try {
             Connection conexion = acceso.getConexion();
-            try (CallableStatement consulta = conexion.prepareCall("{ CALL SP_BUSCAR_ACTA (?,?) }")) {
+            try (CallableStatement consulta = conexion.prepareCall("{ CALL SP_BUSCAR_DOCUMENTO (?) }")) {
                 consulta.registerOutParameter(1, OracleTypes.CURSOR);
-                consulta.setInt(1, codDoc);
-                consulta.setInt(1, codAlu);
+                consulta.setInt(2, codDocumento);
                 consulta.execute();
                 try (ResultSet resultado = ((OracleCallableStatement) consulta).getCursor(1)) {
 
-                    int codDocumento, codAlumno, codUsuario, estado;
-                    String fechaEntrega;
+                    int gradoImportancia;
+                    String descripcionDoc;
                     codDocumento = resultado.getInt(1);
-                    codAlumno = resultado.getInt(2);
-                    fechaEntrega = resultado.getString(3);
-                    codUsuario = resultado.getInt(4);
-                    estado = resultado.getInt(5);
-                    acta = new Acta(codDocumento, codAlumno, Date.valueOf(fechaEntrega), codUsuario, estado);
+                    descripcionDoc = resultado.getString(2);
+                    gradoImportancia = resultado.getInt(3);
+                    documento = new Documentos(codDocumento, descripcionDoc, gradoImportancia);
                 }
             }
         } catch (SQLException ex) {
-            System.out.println(ex);
+
         } finally {
             acceso.close();
         }
-        return acta;
+        return documento;
 
     }
-
 }

@@ -3,8 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.virgenmilagrosa.accesodatos.gestionalumnos;
+package com.virgenmilagrosa.accesodatos.gestionalumnos.imple;
 
+import com.virgenmilagrosa.accesodatos.gestionalumnos.ApoderadoAD;
 import com.virgenmilagrosa.tranversal.conexion.*;
 import java.sql.CallableStatement;
 import java.sql.Connection;
@@ -20,19 +21,11 @@ import com.virgenmilagrosa.tranversal.entidades.*;
  *
  * @author Jose Carlos
  */
-public class Apoderado_AD {
+public class ApoderadoADOracle implements ApoderadoAD{
 
     private AccesoBD acceso = AccesoBD.getInstance();
 
-    private static final Apoderado_AD instance = new Apoderado_AD();
-
-    private Apoderado_AD() {
-    }
-
-    public static Apoderado_AD getInstance() {
-        return instance;
-    }
-
+    @Override
     public List<Apoderado> listarApoderados() {
 
         List<Apoderado> lista = new ArrayList<>();
@@ -72,6 +65,7 @@ public class Apoderado_AD {
 
     }
 
+    @Override
     public String registrarApoderado(Apoderado apoderado) {
 
         String respuesta = "Insercion Completada";
@@ -99,6 +93,7 @@ public class Apoderado_AD {
 
     }
 
+    @Override
     public String modificarApoderado(Apoderado apoderado) {
 
         String respuesta = "Actualizacion Completada";
@@ -124,6 +119,7 @@ public class Apoderado_AD {
 
     }
 
+    @Override
     public String eliminarApoderado(int codApoderado) {
 
         String respuesta = "Eliminacion Completada";
@@ -144,6 +140,7 @@ public class Apoderado_AD {
 
     }
 
+    @Override
     public Apoderado buscarApoderado(int codApoderado) {
         Apoderado apoderado = new Apoderado();
 

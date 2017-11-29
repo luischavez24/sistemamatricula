@@ -1,8 +1,9 @@
 package com.virgenmilagrosa.logicanegocio.gestionalumnos;
 
+import com.virgenmilagrosa.accesodatos.FactoryADOracle;
 import java.util.List;
 
-import com.virgenmilagrosa.accesodatos.gestionalumnos.Apoderado_AD;
+import com.virgenmilagrosa.accesodatos.gestionalumnos.*;
 import com.virgenmilagrosa.tranversal.entidades.Apoderado;
 
 public class Apoderado_LN {
@@ -15,7 +16,7 @@ public class Apoderado_LN {
         return instance;
     }
 
-    private Apoderado_AD apoderadoAD = Apoderado_AD.getInstance();
+    private ApoderadoAD apoderadoAD = FactoryADOracle.getFactory().getApoderadoAD();
 
     public List<Apoderado> listarApoderados() {
         try {
