@@ -14,4 +14,7 @@ public interface ApoderadoAD {
     public String eliminarApoderado(int codApoderado);
 
     public Apoderado buscarApoderado(int codApoderado);
+    
+    public Apoderado buscarApoderadoDni(String dniApoderado);
+    
 }
