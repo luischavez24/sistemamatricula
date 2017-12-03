@@ -160,23 +160,19 @@ public class AlumnoADOracle implements AlumnoAD {
                 consulta.execute();
                 try (ResultSet resultado = ((OracleCallableStatement) consulta).getCursor(2)) {
                     if (resultado.next()) {
-                        int codApoderado, codAlu;
-                        String apaternoAlu, nombreAlu, amaternoAlu, telefonoAlu,
-                                emailAlu, direccionAlu, dniAlumno;
 
-                        codAlu = resultado.getInt(1);
-                        apaternoAlu = resultado.getString(2);
-                        nombreAlu = resultado.getString(3);
-                        amaternoAlu = resultado.getString(4);
-                        telefonoAlu = resultado.getString(5);
-                        emailAlu = resultado.getString(6);
-                        direccionAlu = resultado.getString(7);
-                        codApoderado = resultado.getInt(8);
-                        dniAlumno = resultado.getString(11);
-
-                        alumno = new Alumnos(codAlu, apaternoAlu, nombreAlu,
-                                amaternoAlu, telefonoAlu, emailAlu,
-                                direccionAlu, codApoderado, dniAlumno);
+                        alumno = new Alumnos();
+                        alumno.setCodAlu(resultado.getInt("COD_ALU"));
+                        alumno.setaPaternoAlu(resultado.getString("APATERNO_ALU"));
+                        alumno.setaMaternoAlu(resultado.getString("AMATERNO_ALU"));
+                        alumno.setNombreAlu(resultado.getString("NOMBRE_ALU"));
+                        alumno.setTelefonoAlu(resultado.getString("TELEFONO_ALU"));
+                        alumno.setEmailAlu(resultado.getString("EMAIL_ALU"));
+                        alumno.setDireccionAlu(resultado.getString("DIRECCION_ALU"));
+                        alumno.setFechaNac(resultado.getString("FECHA_NAC"));
+                        alumno.setCodApoderado(resultado.getInt("COD_APODERADO"));
+                        alumno.setCodDistrito(resultado.getInt("COD_DISTRITO"));
+                        alumno.setDniAlumno(resultado.getString("DNI_ALUMNO"));
                     }
 
                 }
@@ -203,23 +199,18 @@ public class AlumnoADOracle implements AlumnoAD {
                 consulta.execute();
                 try (ResultSet resultado = ((OracleCallableStatement) consulta).getCursor(2)) {
                     if (resultado.next()) {
-                        int codApoderado, codAlumno;
-                        String apaternoAlu, nombreAlu, amaternoAlu, telefonoAlu,
-                                emailAlu, direccionAlu, dniAlumno;
-
-                        codAlumno = resultado.getInt(1);
-                        apaternoAlu = resultado.getString(2);
-                        nombreAlu = resultado.getString(3);
-                        amaternoAlu = resultado.getString(4);
-                        telefonoAlu = resultado.getString(5);
-                        emailAlu = resultado.getString(6);
-                        direccionAlu = resultado.getString(7);
-                        codApoderado = resultado.getInt(8);
-                        dniAlumno = resultado.getString(11);
-
-                        alumno = new Alumnos(codAlumno, apaternoAlu, nombreAlu,
-                                amaternoAlu, telefonoAlu, emailAlu,
-                                direccionAlu, codApoderado, dniAlumno);
+                        alumno = new Alumnos();
+                        alumno.setCodAlu(resultado.getInt("COD_ALU"));
+                        alumno.setaPaternoAlu(resultado.getString("APATERNO_ALU"));
+                        alumno.setaMaternoAlu(resultado.getString("AMATERNO_ALU"));
+                        alumno.setNombreAlu(resultado.getString("NOMBRE_ALU"));
+                        alumno.setTelefonoAlu(resultado.getString("TELEFONO_ALU"));
+                        alumno.setEmailAlu(resultado.getString("EMAIL_ALU"));
+                        alumno.setDireccionAlu(resultado.getString("DIRECCION_ALU"));
+                        alumno.setFechaNac(resultado.getString("FECHA_NAC"));
+                        alumno.setCodApoderado(resultado.getInt("COD_APODERADO"));
+                        alumno.setCodDistrito(resultado.getInt("COD_DISTRITO"));
+                        alumno.setDniAlumno(resultado.getString("DNI_ALUMNO"));
                     }
 
                 }
