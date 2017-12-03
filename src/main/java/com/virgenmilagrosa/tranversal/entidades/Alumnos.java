@@ -134,5 +134,11 @@ public class Alumnos {
     public void setCodDistrito(int codDistrito) {
         this.codDistrito = codDistrito;
     }
+
+    @Override
+    public String toString() {
+        return "Alumnos{" + "codAlu=" + codAlu + ", aPaternoAlu=" + aPaternoAlu + ", nombreAlu=" + nombreAlu + ", aMaternoAlu=" + aMaternoAlu + ", telefonoAlu=" + telefonoAlu + ", emailAlu=" + emailAlu + ", direccionAlu=" + direccionAlu + ", codApoderado=" + codApoderado + ", dniAlumno=" + dniAlumno + ", fechaNac=" + fechaNac + ", codDistrito=" + codDistrito + ", distrito=" + distrito + '}';
+    }
    
+    
 }

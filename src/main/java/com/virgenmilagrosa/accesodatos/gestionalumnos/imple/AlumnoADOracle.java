@@ -16,6 +16,8 @@ import java.util.List;
 import oracle.jdbc.OracleCallableStatement;
 import oracle.jdbc.OracleTypes;
 import com.virgenmilagrosa.tranversal.entidades.*;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 /**
  *
@@ -24,6 +26,7 @@ import com.virgenmilagrosa.tranversal.entidades.*;
 public class AlumnoADOracle implements AlumnoAD {
 
     private AccesoBD acceso = AccesoBD.getInstance();
+    private final static SimpleDateFormat FORMATO = new SimpleDateFormat("dd/MM/yy");
 
     @Override
     public List<Alumnos> listarAlumnos() {
@@ -85,6 +88,7 @@ public class AlumnoADOracle implements AlumnoAD {
                 consulta.setString(4, alumno.getTelefonoAlu());
                 consulta.setString(5, alumno.getEmailAlu());
                 consulta.setString(6, alumno.getDireccionAlu());
+
                 consulta.setString(7, alumno.getFechaNac());
                 consulta.setInt(8, alumno.getCodApoderado());
                 consulta.setInt(9, alumno.getCodDistrito());
@@ -169,12 +173,14 @@ public class AlumnoADOracle implements AlumnoAD {
                         alumno.setTelefonoAlu(resultado.getString("TELEFONO_ALU"));
                         alumno.setEmailAlu(resultado.getString("EMAIL_ALU"));
                         alumno.setDireccionAlu(resultado.getString("DIRECCION_ALU"));
-                        alumno.setFechaNac(resultado.getString("FECHA_NAC"));
+                        Date fechaNac = new Date(resultado.getDate("FECHA_NAC").getTime());
+                        alumno.setFechaNac(FORMATO.format(fechaNac));
                         alumno.setCodApoderado(resultado.getInt("COD_APODERADO"));
                         alumno.setCodDistrito(resultado.getInt("COD_DISTRITO"));
                         alumno.setDniAlumno(resultado.getString("DNI_ALUMNO"));
+                        System.out.println(alumno);
                     }
-
+                    
                 }
             }
         } catch (SQLException ex) {
@@ -207,7 +213,8 @@ public class AlumnoADOracle implements AlumnoAD {
                         alumno.setTelefonoAlu(resultado.getString("TELEFONO_ALU"));
                         alumno.setEmailAlu(resultado.getString("EMAIL_ALU"));
                         alumno.setDireccionAlu(resultado.getString("DIRECCION_ALU"));
-                        alumno.setFechaNac(resultado.getString("FECHA_NAC"));
+                        Date fechaNac = new Date(resultado.getDate("FECHA_NAC").getTime());
+                        alumno.setFechaNac(FORMATO.format(fechaNac));
                         alumno.setCodApoderado(resultado.getInt("COD_APODERADO"));
                         alumno.setCodDistrito(resultado.getInt("COD_DISTRITO"));
                         alumno.setDniAlumno(resultado.getString("DNI_ALUMNO"));
