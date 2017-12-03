@@ -7,34 +7,44 @@ package com.virgenmilagrosa.presentacion.gestionalumnos;
 
 import com.virgenmilagrosa.logicanegocio.gestionalumnos.Alumno_LN;
 import com.virgenmilagrosa.logicanegocio.gestionalumnos.Apoderado_LN;
+import com.virgenmilagrosa.logicanegocio.gestionalumnos.Distrito_LN;
 import com.virgenmilagrosa.presentacion.FrmInterfazPrincipal;
 import com.virgenmilagrosa.tranversal.control.Validaciones;
-import com.virgenmilagrosa.tranversal.entidades.Alumnos;
-import com.virgenmilagrosa.tranversal.entidades.Apoderado;
+import com.virgenmilagrosa.tranversal.entidades.*;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import javax.swing.JOptionPane;
+import javax.swing.JSpinner;
+import javax.swing.SpinnerDateModel;
 
 /**
  *
  * @author lucho
  */
 public class FrmRegistroAlumnos extends javax.swing.JFrame {
+
     private Alumno_LN alummnoLN = Alumno_LN.getInstance();
     private Apoderado_LN apoderadoLN = Apoderado_LN.getInstance();
     private Alumnos registrarAlu;
     private Apoderado registrarApo;
+    private static final DateFormat FORMATO = new SimpleDateFormat("dd/MM/yy");
     /**
      * Creates new form FrmRegistroAlumnos
      */
     private FrmInterfazPrincipal interfazP;
+
     public FrmRegistroAlumnos(FrmInterfazPrincipal interfazP) {
         this.interfazP = interfazP;
         initComponents();
         MetodoInicio();
-        
+
     }
 
-   private void MetodoInicio() {
+    private void MetodoInicio() {
         Validaciones v = new Validaciones();
         registrarAlu = new Alumnos();
         registrarApo = new Apoderado();
@@ -59,8 +69,13 @@ public class FrmRegistroAlumnos extends javax.swing.JFrame {
         v.LimitarCaracter(txtTelefonoApod, 9);
         v.ValidarSoloNumeros(txtTelefonoApod);
         v.ValidarSoloLetras(txtOcupApod);
+        
+        configurarSpinners(spnFechaAlu, "dd/MM/yy");
+        llenarCombo();
+        
         setLocationRelativeTo(null);
     }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -82,7 +97,7 @@ public class FrmRegistroAlumnos extends javax.swing.JFrame {
         jLabel5 = new javax.swing.JLabel();
         cbxDistrito = new javax.swing.JComboBox<>();
         jLabel6 = new javax.swing.JLabel();
-        spnFecha = new javax.swing.JSpinner();
+        spnFechaAlu = new javax.swing.JSpinner();
         jLabel15 = new javax.swing.JLabel();
         txtCorreo = new javax.swing.JTextField();
         jLabel16 = new javax.swing.JLabel();
@@ -98,11 +113,9 @@ public class FrmRegistroAlumnos extends javax.swing.JFrame {
         jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
-        jLabel17 = new javax.swing.JLabel();
         jLabel18 = new javax.swing.JLabel();
         jLabel19 = new javax.swing.JLabel();
         jLabel20 = new javax.swing.JLabel();
-        spnFechaApod = new javax.swing.JSpinner();
         txtCorreoApod = new javax.swing.JTextField();
         txtTelefonoApod = new javax.swing.JTextField();
         txtOcupApod = new javax.swing.JTextField();
@@ -155,13 +168,12 @@ public class FrmRegistroAlumnos extends javax.swing.JFrame {
         jLabel5.setText("Distrito");
 
         cbxDistrito.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
-        cbxDistrito.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "-- Seleccione Lugar --", "Item 1", "Item 2", "Item 3", "Item 4" }));
         cbxDistrito.setToolTipText("");
 
         jLabel6.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
         jLabel6.setText("Fecha de Nacimiento");
 
-        spnFecha.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
+        spnFechaAlu.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
 
         jLabel15.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
         jLabel15.setText("Correo Electronico");
@@ -214,7 +226,7 @@ public class FrmRegistroAlumnos extends javax.swing.JFrame {
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(27, 27, 27)
+                .addGap(22, 22, 22)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -233,7 +245,7 @@ public class FrmRegistroAlumnos extends javax.swing.JFrame {
                     .addComponent(txtDireccion)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(spnFecha)
+                            .addComponent(spnFechaAlu)
                             .addComponent(txtApellidoPaternoAlu)
                             .addComponent(txtDNI, javax.swing.GroupLayout.DEFAULT_SIZE, 165, Short.MAX_VALUE))
                         .addGap(18, 18, 18)
@@ -243,9 +255,9 @@ public class FrmRegistroAlumnos extends javax.swing.JFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(txtTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, 198, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                    .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(jLabel12, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 116, Short.MAX_VALUE))
+                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(jLabel12, javax.swing.GroupLayout.DEFAULT_SIZE, 116, Short.MAX_VALUE)
+                                    .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addGroup(jPanel2Layout.createSequentialGroup()
                                         .addGap(6, 6, 6)
@@ -257,7 +269,7 @@ public class FrmRegistroAlumnos extends javax.swing.JFrame {
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 456, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, Short.MAX_VALUE)))
-                .addGap(23, 23, 23))
+                .addGap(16, 16, 16))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -283,7 +295,7 @@ public class FrmRegistroAlumnos extends javax.swing.JFrame {
                     .addComponent(txtDireccion, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(11, 11, 11)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(spnFecha, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(spnFechaAlu, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel16, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(txtTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -294,7 +306,7 @@ public class FrmRegistroAlumnos extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 50, 640, 220));
+        jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 60, 640, 220));
 
         jPanel3.setBackground(new java.awt.Color(255, 255, 255));
         jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Información del apoderado", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 1, 14))); // NOI18N
@@ -322,9 +334,6 @@ public class FrmRegistroAlumnos extends javax.swing.JFrame {
         jLabel9.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
         jLabel9.setText("DNI del Apoderado");
 
-        jLabel17.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
-        jLabel17.setText("Fecha de Nacimiento");
-
         jLabel18.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
         jLabel18.setText("Correo Electronico");
 
@@ -333,8 +342,6 @@ public class FrmRegistroAlumnos extends javax.swing.JFrame {
 
         jLabel20.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
         jLabel20.setText("Ocupacion");
-
-        spnFechaApod.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
 
         txtCorreoApod.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
         txtCorreoApod.addCaretListener(new javax.swing.event.CaretListener() {
@@ -383,81 +390,80 @@ public class FrmRegistroAlumnos extends javax.swing.JFrame {
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGap(34, 34, 34)
+                .addGap(22, 22, 22)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addComponent(jLabel18, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(4, 4, 4)
+                        .addComponent(txtCorreoApod, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addComponent(jLabel20, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(55, 55, 55)
+                        .addComponent(txtOcupApod, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jLabel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jLabel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jLabel18, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel3Layout.createSequentialGroup()
+                                .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(4, 4, 4)
+                                .addComponent(txtDNIApod, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(jLabel19, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addGroup(jPanel3Layout.createSequentialGroup()
+                                .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(4, 4, 4)
                                 .addComponent(txtApellidoPaternoAp, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(16, 16, 16)
-                                .addComponent(jLabel10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txtApellidoMaternoAp, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                                    .addComponent(txtCorreoApod, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGap(152, 152, 152))
-                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                                    .addComponent(txtDNIApod)
-                                    .addGap(18, 18, 18)
-                                    .addComponent(jLabel17)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(spnFechaApod, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addComponent(txtNomApod, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 410, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(45, 45, 45))
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(jLabel20, javax.swing.GroupLayout.DEFAULT_SIZE, 99, Short.MAX_VALUE)
-                            .addComponent(jLabel19, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addComponent(jLabel10)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtTelefonoApod, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtOcupApod, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(199, 199, 199))))
+                            .addComponent(txtTelefonoApod, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtApellidoMaternoAp, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                        .addComponent(jLabel7)
+                        .addGap(4, 4, 4)
+                        .addComponent(txtNomApod, javax.swing.GroupLayout.PREFERRED_SIZE, 436, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(19, 19, 19))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtNomApod, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(11, 11, 11)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtApellidoPaternoAp, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(txtApellidoMaternoAp, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(txtApellidoPaternoAp, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(txtApellidoMaternoAp, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jLabel17, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(spnFechaApod)
-                        .addComponent(txtDNIApod))
-                    .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel18, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtCorreoApod))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addGap(11, 11, 11)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel3Layout.createSequentialGroup()
+                                .addGap(2, 2, 2)
+                                .addComponent(txtDNIApod, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel19, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtTelefonoApod, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addGap(13, 13, 13)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addGap(1, 1, 1)
+                        .addComponent(jLabel18, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtCorreoApod, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(11, 11, 11)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel20, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtOcupApod, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(9, 9, 9)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel19, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtTelefonoApod, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(32, 32, 32))
+                .addGap(18, 18, 18))
         );
 
-        jPanel1.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 270, 640, 230));
+        jPanel1.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 290, 640, 200));
 
         btnVolver.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Agregar-Alumno/Volver-Buttom.png"))); // NOI18N
         btnVolver.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -497,7 +503,7 @@ public class FrmRegistroAlumnos extends javax.swing.JFrame {
         String apellidos = txtApellidoPaternoAlu.getText().trim();
         String dni = txtDNI.getText().trim();
         int Dni = dni.length();
-        String fechanac = spnFecha.getValue().toString();
+        String fechanac = spnFechaAlu.getValue().toString();
         String lugar = cbxDistrito.getSelectedItem().toString();
         String correo = txtCorreo.getText().trim();
         boolean estado = Validarformatocorreo(correo);
@@ -509,28 +515,26 @@ public class FrmRegistroAlumnos extends javax.swing.JFrame {
         String apellapom = txtApellidoMaternoAp.getText().trim();
         String dniapod = txtDNIApod.getText().trim();
         String telfapod = txtTelefonoApod.getText().trim();
-        String fechanacapod = spnFechaApod.getValue().toString();
         int tlfapod = telfapod.length();
         String correoapod = txtCorreoApod.getText().trim();
         boolean estcorreoapod = Validarformatocorreo(correoapod);
         String ocup = txtOcupApod.getText().trim();
 
-
-        if (nombre.isEmpty() 
-                || apellidos.isEmpty() 
-                || Dni != 8 
-                || fechanac.isEmpty() 
+        if (nombre.isEmpty()
+                || apellidos.isEmpty()
+                || Dni != 8
+                || fechanac.isEmpty()
                 || lugar.isEmpty()
-                || nombapod.isEmpty() 
+                || nombapod.isEmpty()
                 || apellapod.isEmpty()
                 || apellapod.isEmpty()
-                || dniapod.isEmpty() 
-                || tlfapod != 9 
+                || dniapod.isEmpty()
+                || tlfapod != 9
                 || estcorreoapod == false
-                || ocup.isEmpty() 
-                || estado == false 
+                || ocup.isEmpty()
+                || estado == false
                 || telef != 9) {
-            
+
             btnGuardar.setEnabled(false);
         } else {
             btnGuardar.setEnabled(true);
@@ -547,9 +551,8 @@ public class FrmRegistroAlumnos extends javax.swing.JFrame {
 
         return mat.find();
     }
-    
-    
-    
+
+
     private void btnVolverMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnVolverMouseClicked
         // TODO add your handling code here:
         setVisible(false);
@@ -561,6 +564,10 @@ public class FrmRegistroAlumnos extends javax.swing.JFrame {
 
     private void btnGuardarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnGuardarMouseClicked
         // TODO add your handling code here:
+        
+        Date fechaAlu =  (Date) spnFechaAlu.getValue();
+        Distrito distritoAlu = (Distrito) cbxDistrito.getSelectedItem();
+        
         registrarAlu.setNombreAlu(txtNombre.getText());
         registrarAlu.setDireccionAlu(txtDireccion.getText());
         registrarAlu.setEmailAlu(txtCorreo.getText());
@@ -568,6 +575,9 @@ public class FrmRegistroAlumnos extends javax.swing.JFrame {
         registrarAlu.setaMaternoAlu(txtApellidoMaternoAlu.getText());
         registrarAlu.setaPaternoAlu(txtApellidoPaternoAlu.getText());
         
+        registrarAlu.setCodDistrito(distritoAlu.getCodDistrito());
+        registrarAlu.setFechaNac(FORMATO.format(fechaAlu));
+               
         registrarApo.setNombreAp(txtNomApod.getText());
         registrarApo.setaPaternoAp(txtApellidoPaternoAp.getText());
         registrarApo.setaMaternoAp(txtApellidoMaternoAp.getText());
@@ -576,9 +586,12 @@ public class FrmRegistroAlumnos extends javax.swing.JFrame {
         registrarApo.setTelefonoAp(txtTelefonoApod.getText());
         registrarApo.setOcupacion(txtOcupApod.getText());
         
-        alummnoLN.registrarAlumno(registrarAlu);
-        apoderadoLN.registrarApoderado(registrarApo);
+        String msj2 = apoderadoLN.registrarApoderado(registrarApo);
+        String msj1 = alummnoLN.registrarAlumno(registrarAlu);
+        
+        JOptionPane.showMessageDialog(rootPane, msj1 + " " + msj2);
         interfazP.actualizarTablaAlumnos();
+
     }//GEN-LAST:event_btnGuardarMouseClicked
 
     private void txtNombreCaretUpdate(javax.swing.event.CaretEvent evt) {//GEN-FIRST:event_txtNombreCaretUpdate
@@ -651,11 +664,22 @@ public class FrmRegistroAlumnos extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtDireccionCaretUpdate
 
+    private void configurarSpinners(JSpinner timeSpinner, String dateFormat) {
+        timeSpinner.setModel(new SpinnerDateModel());
+        JSpinner.DateEditor timeEditor = new JSpinner.DateEditor(timeSpinner, dateFormat);
+        timeSpinner.setEditor(timeEditor);
+        timeSpinner.setValue(new Date()); // will only show the current time
+    }
+    
+    private void llenarCombo() {
+        List<Distrito> listaDistritos = Distrito_LN.getInstance().listarDistritos();
+        listaDistritos.forEach((item) -> cbxDistrito.addItem(item));
+    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel btnCancelar;
     private javax.swing.JLabel btnGuardar;
     private javax.swing.JLabel btnVolver;
-    private javax.swing.JComboBox<String> cbxDistrito;
+    private javax.swing.JComboBox<Distrito> cbxDistrito;
     private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
@@ -664,7 +688,6 @@ public class FrmRegistroAlumnos extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
-    private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
@@ -679,8 +702,7 @@ public class FrmRegistroAlumnos extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
-    private javax.swing.JSpinner spnFecha;
-    private javax.swing.JSpinner spnFechaApod;
+    private javax.swing.JSpinner spnFechaAlu;
     private javax.swing.JTextField txtApellidoMaternoAlu;
     private javax.swing.JTextField txtApellidoMaternoAp;
     private javax.swing.JTextField txtApellidoPaternoAlu;

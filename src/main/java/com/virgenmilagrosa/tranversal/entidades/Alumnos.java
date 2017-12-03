@@ -9,6 +9,7 @@ package com.virgenmilagrosa.tranversal.entidades;
  * @author juanmanuel
  */
 public class Alumnos {
+    
     private int codAlu;
     private String aPaternoAlu;
     private String nombreAlu;
@@ -19,9 +20,11 @@ public class Alumnos {
     private int codApoderado;
     private String dniAlumno;
     private String fechaNac;
+    private int codDistrito;
     private String distrito;
 
     public Alumnos() {
+        
     }
 
     public Alumnos(int codAlu, String aPaternoAlu, String nombreAlu, String aMaternoAlu, String telefonoAlu, String emailAlu, String direccionAlu, int codApoderado, String dniAlumno) {
@@ -123,6 +126,13 @@ public class Alumnos {
     public void setDistrito(String distrito) {
         this.distrito = distrito;
     }
-    
-    
+
+    public int getCodDistrito() {
+        return codDistrito;
+    }
+
+    public void setCodDistrito(int codDistrito) {
+        this.codDistrito = codDistrito;
+    }
+   
 }
