@@ -42,15 +42,15 @@ public class AlumnoADOracle implements AlumnoAD {
                     String apaternoAlu, nombreAlu, amaternoAlu,
                             telefonoAlu, emailAlu, direccionAlu, dniAlumno;
                     while (resultado.next()) {
-                        codAlu = resultado.getInt(1);
-                        apaternoAlu = resultado.getString(2);
-                        nombreAlu = resultado.getString(3);
-                        amaternoAlu = resultado.getString(4);
-                        telefonoAlu = resultado.getString(5);
-                        emailAlu = resultado.getString(6);
-                        direccionAlu = resultado.getString(7);
-                        codApoderado = resultado.getInt(8);
-                        dniAlumno = resultado.getString(11);
+                        codAlu = resultado.getInt("COD_ALU");
+                        apaternoAlu = resultado.getString("APATERNO_ALU");
+                        amaternoAlu = resultado.getString("AMATERNO_ALU");
+                        nombreAlu = resultado.getString("NOMBRE_ALU");
+                        telefonoAlu = resultado.getString("TELEFONO_ALU");
+                        emailAlu = resultado.getString("EMAIL_ALU");
+                        direccionAlu = resultado.getString("DIRECCION_ALU");
+                        codApoderado = resultado.getInt("COD_APODERADO");
+                        dniAlumno = resultado.getString("DNI_ALUMNO");
 
                         temp = new Alumnos(codAlu, apaternoAlu, nombreAlu,
                                 amaternoAlu, telefonoAlu, emailAlu,
@@ -87,7 +87,8 @@ public class AlumnoADOracle implements AlumnoAD {
                 consulta.setString(6, alumno.getDireccionAlu());
                 consulta.setString(7, alumno.getFechaNac());
                 consulta.setInt(8, alumno.getCodApoderado());
-                consulta.setString(9, alumno.getDniAlumno());
+                consulta.setInt(9, alumno.getCodDistrito());
+                consulta.setString(10, alumno.getDniAlumno());
 
                 consulta.execute();
             }

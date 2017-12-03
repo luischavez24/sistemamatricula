@@ -41,4 +41,8 @@ public class Apoderado_LN {
     public Apoderado buscarApoderado(int codApoderado) {
         return apoderadoAD.buscarApoderado(codApoderado);
     }
+    
+    public Apoderado buscarApoderadoDni(String dniApoderado) {
+        return apoderadoAD.buscarApoderadoDni(dniApoderado);
+    }
 }

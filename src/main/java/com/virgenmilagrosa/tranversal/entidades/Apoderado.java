@@ -10,14 +10,14 @@ package com.virgenmilagrosa.tranversal.entidades;
  * @author juanmanuel
  */
 public class Apoderado {
-    public int codApoderado;
-    public String nombreAp;
-    public String aPaternoAp;
-    public String aMaternoAp;
-    public String dniAp;
-    public String emailAp;
-    public String telefonoAp;
-    public String ocupacion;
+    private int codApoderado;
+    private String nombreAp;
+    private String aPaternoAp;
+    private String aMaternoAp;
+    private String dniAp;
+    private String emailAp;
+    private String telefonoAp;
+    private String ocupacion;
 
     public Apoderado() {
     }

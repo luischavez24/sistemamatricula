@@ -21,7 +21,7 @@ import com.virgenmilagrosa.tranversal.entidades.*;
  *
  * @author Jose Carlos
  */
-public class ApoderadoADOracle implements ApoderadoAD{
+public class ApoderadoADOracle implements ApoderadoAD {
 
     private AccesoBD acceso = AccesoBD.getInstance();
 
@@ -142,6 +142,7 @@ public class ApoderadoADOracle implements ApoderadoAD{
 
     @Override
     public Apoderado buscarApoderado(int codApoderado) {
+
         Apoderado apoderado = new Apoderado();
 
         try {
@@ -162,6 +163,45 @@ public class ApoderadoADOracle implements ApoderadoAD{
                         apoderado.setEmailAp(resultado.getString("EMAIL_AP"));
                         apoderado.setTelefonoAp(resultado.getString("TELEFONO_AP"));
                         apoderado.setOcupacion(resultado.getString("OCUPACIN"));
+                    } else {
+                        apoderado = null;
+                    }
+
+                }
+            }
+        } catch (SQLException ex) {
+            apoderado = null;
+        } finally {
+            acceso.close();
+        }
+        return apoderado;
+    }
+    
+    @Override
+    public Apoderado buscarApoderadoDni(String dniApoderado) {
+
+        Apoderado apoderado = new Apoderado();
+
+        try {
+            Connection conexion = acceso.getConexion();
+            try (CallableStatement consulta = conexion.prepareCall("{ CALL SP_BUSCAR_APODERADO_DNI(?, ?) }")) {
+                consulta.setString(1, dniApoderado);
+                consulta.registerOutParameter(2, OracleTypes.CURSOR);
+
+                consulta.execute();
+                try (ResultSet resultado = ((OracleCallableStatement) consulta).getCursor(2)) {
+
+                    if (resultado.next()) {
+                        
+                        apoderado.setCodApoderado(resultado.getInt("COD_APODERADO"));
+                        apoderado.setNombreAp(resultado.getString("NOMBRE_AP"));
+                        apoderado.setaPaternoAp(resultado.getString("APATERNO_AP"));
+                        apoderado.setaMaternoAp(resultado.getString("AMATERNO_AP"));
+                        apoderado.setDniAp(resultado.getString("DNI_AP"));
+                        apoderado.setEmailAp(resultado.getString("EMAIL_AP"));
+                        apoderado.setTelefonoAp(resultado.getString("TELEFONO_AP"));
+                        apoderado.setOcupacion(resultado.getString("OCUPACIN"));
+                        
                     } else {
                         apoderado = null;
                     }

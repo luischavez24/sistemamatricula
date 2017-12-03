@@ -69,10 +69,10 @@ public class FrmRegistroAlumnos extends javax.swing.JFrame {
         v.LimitarCaracter(txtTelefonoApod, 9);
         v.ValidarSoloNumeros(txtTelefonoApod);
         v.ValidarSoloLetras(txtOcupApod);
-        
+
         configurarSpinners(spnFechaAlu, "dd/MM/yy");
         llenarCombo();
-        
+
         setLocationRelativeTo(null);
     }
 
@@ -564,20 +564,20 @@ public class FrmRegistroAlumnos extends javax.swing.JFrame {
 
     private void btnGuardarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnGuardarMouseClicked
         // TODO add your handling code here:
-        
-        Date fechaAlu =  (Date) spnFechaAlu.getValue();
+
+        Date fechaAlu = (Date) spnFechaAlu.getValue();
         Distrito distritoAlu = (Distrito) cbxDistrito.getSelectedItem();
-        
+
         registrarAlu.setNombreAlu(txtNombre.getText());
         registrarAlu.setDireccionAlu(txtDireccion.getText());
         registrarAlu.setEmailAlu(txtCorreo.getText());
         registrarAlu.setTelefonoAlu(txtTelefono.getText());
         registrarAlu.setaMaternoAlu(txtApellidoMaternoAlu.getText());
         registrarAlu.setaPaternoAlu(txtApellidoPaternoAlu.getText());
-        
+        registrarAlu.setDniAlumno(txtDNI.getText());
         registrarAlu.setCodDistrito(distritoAlu.getCodDistrito());
         registrarAlu.setFechaNac(FORMATO.format(fechaAlu));
-               
+
         registrarApo.setNombreAp(txtNomApod.getText());
         registrarApo.setaPaternoAp(txtApellidoPaternoAp.getText());
         registrarApo.setaMaternoAp(txtApellidoMaternoAp.getText());
@@ -585,12 +585,22 @@ public class FrmRegistroAlumnos extends javax.swing.JFrame {
         registrarApo.setEmailAp(txtCorreoApod.getText());
         registrarApo.setTelefonoAp(txtTelefonoApod.getText());
         registrarApo.setOcupacion(txtOcupApod.getText());
-        
+
         String msj2 = apoderadoLN.registrarApoderado(registrarApo);
-        String msj1 = alummnoLN.registrarAlumno(registrarAlu);
-        
-        JOptionPane.showMessageDialog(rootPane, msj1 + " " + msj2);
-        interfazP.actualizarTablaAlumnos();
+
+        if (msj2.equals("Insercion Completada")) {
+            registrarAlu.setCodApoderado(apoderadoLN.buscarApoderadoDni(registrarApo.getDniAp()).getCodApoderado());
+
+            String msj1 = alummnoLN.registrarAlumno(registrarAlu);
+
+            JOptionPane.showMessageDialog(rootPane, msj1);
+            
+            interfazP.actualizarTablaAlumnos();
+            
+        } else {
+            JOptionPane.showMessageDialog(rootPane, msj2);
+        }
+
 
     }//GEN-LAST:event_btnGuardarMouseClicked
 
@@ -670,7 +680,7 @@ public class FrmRegistroAlumnos extends javax.swing.JFrame {
         timeSpinner.setEditor(timeEditor);
         timeSpinner.setValue(new Date()); // will only show the current time
     }
-    
+
     private void llenarCombo() {
         List<Distrito> listaDistritos = Distrito_LN.getInstance().listarDistritos();
         listaDistritos.forEach((item) -> cbxDistrito.addItem(item));
