@@ -253,7 +253,7 @@ public class FrmGenerarActaCompromiso extends javax.swing.JFrame {
     }//GEN-LAST:event_txtNombreActionPerformed
 
     private void txtCodigoCaretUpdate(javax.swing.event.CaretEvent evt) {//GEN-FIRST:event_txtCodigoCaretUpdate
-        // TODO add your handling code here:
+        // TODO add your handling code herrrre:
     }//GEN-LAST:event_txtCodigoCaretUpdate
 
     /**
