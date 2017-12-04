@@ -154,7 +154,7 @@
                           <Component id="jLabel3" alignment="3" min="-2" pref="22" max="-2" attributes="0"/>
                           <Component id="txtApellidoMaternoAlu" alignment="3" max="32767" attributes="0"/>
                           <Component id="jLabel12" alignment="3" min="-2" pref="20" max="-2" attributes="0"/>
-                          <Component id="txtApellidoPaternoAlu" alignment="3" pref="22" max="32767" attributes="0"/>
+                          <Component id="txtApellidoPaternoAlu" alignment="3" max="32767" attributes="0"/>
                       </Group>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
@@ -315,11 +315,21 @@
               </Properties>
             </Component>
             <Component class="javax.swing.JTextField" name="txtApellidoMaternoAlu">
+              <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Segoe UI" size="13" style="2"/>
+                </Property>
+              </Properties>
               <Events>
                 <EventHandler event="caretUpdate" listener="javax.swing.event.CaretListener" parameters="javax.swing.event.CaretEvent" handler="txtApellidoMaternoAluCaretUpdate"/>
               </Events>
             </Component>
             <Component class="javax.swing.JTextField" name="txtApellidoPaternoAlu">
+              <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Segoe UI" size="13" style="2"/>
+                </Property>
+              </Properties>
               <Events>
                 <EventHandler event="caretUpdate" listener="javax.swing.event.CaretListener" parameters="javax.swing.event.CaretEvent" handler="txtApellidoPaternoAluCaretUpdate"/>
               </Events>
@@ -454,15 +464,11 @@
                       </Group>
                       <EmptySpace min="11" pref="11" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="102" attributes="0">
-                              <Component id="jLabel20" min="-2" pref="22" max="-2" attributes="0"/>
-                          </Group>
-                          <Group type="102" attributes="0">
-                              <Group type="103" groupAlignment="3" attributes="0">
-                                  <Component id="txtOcupApod" alignment="3" min="-2" pref="22" max="-2" attributes="0"/>
-                                  <Component id="jLabel19" alignment="3" min="-2" pref="22" max="-2" attributes="0"/>
-                                  <Component id="txtTelefonoApod" alignment="3" min="-2" pref="22" max="-2" attributes="0"/>
-                              </Group>
+                          <Component id="jLabel20" min="-2" pref="22" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="3" attributes="0">
+                              <Component id="txtOcupApod" alignment="3" min="-2" pref="22" max="-2" attributes="0"/>
+                              <Component id="jLabel19" alignment="3" min="-2" pref="22" max="-2" attributes="0"/>
+                              <Component id="txtTelefonoApod" alignment="3" min="-2" pref="22" max="-2" attributes="0"/>
                           </Group>
                       </Group>
                       <EmptySpace max="32767" attributes="0"/>
@@ -474,7 +480,7 @@
             <Component class="javax.swing.JTextField" name="txtApellidoPaternoAp">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                  <Font name="Segoe UI" size="13" style="0"/>
+                  <Font name="Segoe UI" size="13" style="2"/>
                 </Property>
               </Properties>
               <Events>
@@ -484,7 +490,7 @@
             <Component class="javax.swing.JTextField" name="txtNomApod">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                  <Font name="Segoe UI" size="13" style="0"/>
+                  <Font name="Segoe UI" size="13" style="2"/>
                 </Property>
               </Properties>
               <Events>
@@ -542,7 +548,7 @@
             <Component class="javax.swing.JTextField" name="txtCorreoApod">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                  <Font name="Segoe UI" size="13" style="0"/>
+                  <Font name="Segoe UI" size="13" style="2"/>
                 </Property>
               </Properties>
               <Events>
@@ -552,7 +558,7 @@
             <Component class="javax.swing.JTextField" name="txtTelefonoApod">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                  <Font name="Segoe UI" size="13" style="0"/>
+                  <Font name="Segoe UI" size="13" style="2"/>
                 </Property>
               </Properties>
               <Events>
@@ -562,7 +568,7 @@
             <Component class="javax.swing.JTextField" name="txtOcupApod">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                  <Font name="Segoe UI" size="13" style="0"/>
+                  <Font name="Segoe UI" size="13" style="2"/>
                 </Property>
               </Properties>
               <Events>
@@ -570,6 +576,11 @@
               </Events>
             </Component>
             <Component class="javax.swing.JTextField" name="txtDNIApod">
+              <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Segoe UI" size="13" style="2"/>
+                </Property>
+              </Properties>
               <Events>
                 <EventHandler event="caretUpdate" listener="javax.swing.event.CaretListener" parameters="javax.swing.event.CaretEvent" handler="txtDNIApodCaretUpdate"/>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtDNIApodActionPerformed"/>
@@ -578,7 +589,7 @@
             <Component class="javax.swing.JTextField" name="txtApellidoMaternoAp">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                  <Font name="Segoe UI" size="13" style="0"/>
+                  <Font name="Segoe UI" size="13" style="2"/>
                 </Property>
               </Properties>
               <Events>

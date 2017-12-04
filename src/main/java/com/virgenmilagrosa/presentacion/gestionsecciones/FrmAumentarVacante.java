@@ -32,6 +32,8 @@ public class FrmAumentarVacante extends javax.swing.JFrame {
 
     private void MetodoInicio() {
         GestionMatriculaConfig.icon(this);
+        setLocationRelativeTo(null);
+        
         Seccion_LN.getInstance().listarSecciones().forEach(
                 (item) -> cbxSeccion.addItem(item)
         );
@@ -68,12 +70,13 @@ public class FrmAumentarVacante extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         spnVacantes = new javax.swing.JSpinner();
-        cbxSeccion = new javax.swing.JComboBox<Seccion>();
+        cbxSeccion = new javax.swing.JComboBox<>();
         btnAsignar = new javax.swing.JLabel();
         btnCancelar = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Aumentar Vacantes");
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         btnVolver.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Asignar Vacante/Volver-Buttom.png"))); // NOI18N

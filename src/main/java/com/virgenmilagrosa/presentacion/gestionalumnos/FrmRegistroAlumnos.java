@@ -204,12 +204,14 @@ public class FrmRegistroAlumnos extends javax.swing.JFrame {
         jLabel12.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel12.setText("Apellidos Materno");
 
+        txtApellidoMaternoAlu.setFont(new java.awt.Font("Segoe UI", 2, 13)); // NOI18N
         txtApellidoMaternoAlu.addCaretListener(new javax.swing.event.CaretListener() {
             public void caretUpdate(javax.swing.event.CaretEvent evt) {
                 txtApellidoMaternoAluCaretUpdate(evt);
             }
         });
 
+        txtApellidoPaternoAlu.setFont(new java.awt.Font("Segoe UI", 2, 13)); // NOI18N
         txtApellidoPaternoAlu.addCaretListener(new javax.swing.event.CaretListener() {
             public void caretUpdate(javax.swing.event.CaretEvent evt) {
                 txtApellidoPaternoAluCaretUpdate(evt);
@@ -287,7 +289,7 @@ public class FrmRegistroAlumnos extends javax.swing.JFrame {
                     .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtApellidoMaternoAlu)
                     .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtApellidoPaternoAlu, javax.swing.GroupLayout.DEFAULT_SIZE, 22, Short.MAX_VALUE))
+                    .addComponent(txtApellidoPaternoAlu))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtDNI, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -316,14 +318,14 @@ public class FrmRegistroAlumnos extends javax.swing.JFrame {
         jPanel3.setBackground(new java.awt.Color(255, 255, 255));
         jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Información del apoderado", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 1, 14))); // NOI18N
 
-        txtApellidoPaternoAp.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
+        txtApellidoPaternoAp.setFont(new java.awt.Font("Segoe UI", 2, 13)); // NOI18N
         txtApellidoPaternoAp.addCaretListener(new javax.swing.event.CaretListener() {
             public void caretUpdate(javax.swing.event.CaretEvent evt) {
                 txtApellidoPaternoApCaretUpdate(evt);
             }
         });
 
-        txtNomApod.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
+        txtNomApod.setFont(new java.awt.Font("Segoe UI", 2, 13)); // NOI18N
         txtNomApod.addCaretListener(new javax.swing.event.CaretListener() {
             public void caretUpdate(javax.swing.event.CaretEvent evt) {
                 txtNomApodCaretUpdate(evt);
@@ -348,27 +350,28 @@ public class FrmRegistroAlumnos extends javax.swing.JFrame {
         jLabel20.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
         jLabel20.setText("Ocupacion");
 
-        txtCorreoApod.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
+        txtCorreoApod.setFont(new java.awt.Font("Segoe UI", 2, 13)); // NOI18N
         txtCorreoApod.addCaretListener(new javax.swing.event.CaretListener() {
             public void caretUpdate(javax.swing.event.CaretEvent evt) {
                 txtCorreoApodCaretUpdate(evt);
             }
         });
 
-        txtTelefonoApod.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
+        txtTelefonoApod.setFont(new java.awt.Font("Segoe UI", 2, 13)); // NOI18N
         txtTelefonoApod.addCaretListener(new javax.swing.event.CaretListener() {
             public void caretUpdate(javax.swing.event.CaretEvent evt) {
                 txtTelefonoApodCaretUpdate(evt);
             }
         });
 
-        txtOcupApod.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
+        txtOcupApod.setFont(new java.awt.Font("Segoe UI", 2, 13)); // NOI18N
         txtOcupApod.addCaretListener(new javax.swing.event.CaretListener() {
             public void caretUpdate(javax.swing.event.CaretEvent evt) {
                 txtOcupApodCaretUpdate(evt);
             }
         });
 
+        txtDNIApod.setFont(new java.awt.Font("Segoe UI", 2, 13)); // NOI18N
         txtDNIApod.addCaretListener(new javax.swing.event.CaretListener() {
             public void caretUpdate(javax.swing.event.CaretEvent evt) {
                 txtDNIApodCaretUpdate(evt);
@@ -380,7 +383,7 @@ public class FrmRegistroAlumnos extends javax.swing.JFrame {
             }
         });
 
-        txtApellidoMaternoAp.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
+        txtApellidoMaternoAp.setFont(new java.awt.Font("Segoe UI", 2, 13)); // NOI18N
         txtApellidoMaternoAp.addCaretListener(new javax.swing.event.CaretListener() {
             public void caretUpdate(javax.swing.event.CaretEvent evt) {
                 txtApellidoMaternoApCaretUpdate(evt);
@@ -470,13 +473,11 @@ public class FrmRegistroAlumnos extends javax.swing.JFrame {
                     .addComponent(txtCorreoApod, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(11, 11, 11)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addComponent(jLabel20, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(txtOcupApod, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel19, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtTelefonoApod, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addComponent(jLabel20, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(txtOcupApod, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel19, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txtTelefonoApod, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -606,7 +607,7 @@ public class FrmRegistroAlumnos extends javax.swing.JFrame {
 
         if (apoderadoReg) {
             msj2 = apoderadoLN.registrarApoderado(registrarApo);
-        }
+        } 
 
         if (msj2.equals("Insercion Completada") || apoderadoReg) {
             registrarAlu.setCodApoderado(apoderadoLN.buscarApoderadoDni(registrarApo.getDniAp()).getCodApoderado());
@@ -718,18 +719,21 @@ public class FrmRegistroAlumnos extends javax.swing.JFrame {
         txtCorreoApod.setText("");
         txtOcupApod.setText("");
         txtTelefonoApod.setText("");
+        txtDireccion.setText("");
     }
+ 
     private void btnConsultaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConsultaActionPerformed
         // TODO add your handling code here:
-        Apoderado apoReg = apoderadoLN.buscarApoderadoDni(txtDNIApod.getText());
+        registrarApo = apoderadoLN.buscarApoderadoDni(txtDNIApod.getText());
 
-        if (apoReg != null) {
-            txtNomApod.setText(apoReg.getNombreAp());
-            txtApellidoPaternoAp.setText(apoReg.getaPaternoAp());
-            txtApellidoMaternoAp.setText(apoReg.getaMaternoAp());
-            txtCorreoApod.setText(apoReg.getEmailAp());
-            txtOcupApod.setText(apoReg.getOcupacion());
-            txtTelefonoApod.setText(apoReg.getTelefonoAp());
+        if (registrarApo != null) {
+            apoderadoReg = true;
+            txtNomApod.setText(registrarApo.getNombreAp());
+            txtApellidoPaternoAp.setText(registrarApo.getaPaternoAp());
+            txtApellidoMaternoAp.setText(registrarApo.getaMaternoAp());
+            txtCorreoApod.setText(registrarApo.getEmailAp());
+            txtOcupApod.setText(registrarApo.getOcupacion());
+            txtTelefonoApod.setText(registrarApo.getTelefonoAp());
             txtModApo(false);
         } else {
             txtModApo(true);

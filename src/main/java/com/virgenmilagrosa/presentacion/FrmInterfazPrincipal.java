@@ -20,8 +20,6 @@ import com.virgenmilagrosa.tranversal.entidades.Seccion;
 
 import java.util.Collections;
 import java.util.List;
-import javax.swing.ImageIcon;
-
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
@@ -685,9 +683,6 @@ public class FrmInterfazPrincipal extends javax.swing.JFrame {
     private DefaultTableModel modelo2;
     private Alumno_LN alumno = Alumno_LN.getInstance();
     private Apoderado_LN apad = Apoderado_LN.getInstance();
-    private boolean consultar = false;
-    private FrmRegistroAlumnos registro;
-    private int id = 0;
 
     private void CargarTablaAlumnos(DefaultTableModel modelo2, List<Alumnos> total, JTable tabla2) {
         Object fila[] = new Object[8];
@@ -700,29 +695,12 @@ public class FrmInterfazPrincipal extends javax.swing.JFrame {
             fila[4] = total.get(i).getTelefonoAlu();
             fila[5] = total.get(i).getEmailAlu();
             fila[6] = total.get(i).getDireccionAlu();
-            fila[7] = total.get(i).getCodApoderado();
+            fila[7] = total.get(i).getDniAlumno();
             modelo2.addRow(fila);
         }
         tabla2.updateUI();
     }
 
-    private void buscar() {
-        String buscar = txtBuscarAlumno.getText();
-
-        if (buscar.isEmpty()) {
-            actualizarTablaAlumnos();
-        } else if (!buscar.isEmpty()) {
-
-            while (modelo2.getRowCount() > 0) {
-                modelo2.removeRow(0);
-            }
-
-            Alumnos alu = alumno.buscarAlumno(Integer.parseInt(buscar));
-            List<Alumnos> lista = Collections.singletonList(alu);
-            CargarTablaAlumnos(modelo2, lista, tblAlumnos);
-        }
-
-    }
 
     private void MostrarLista(DefaultTableModel modelo2, JTable tabla2) {
         List<Alumnos> lista = alumno.listarAlumnos();
@@ -759,7 +737,7 @@ public class FrmInterfazPrincipal extends javax.swing.JFrame {
         modelo2.addColumn("TELEFONO");
         modelo2.addColumn("EMAIL");
         modelo2.addColumn("DIRECCION");
-        modelo2.addColumn("APODERADO");
+        modelo2.addColumn("DNI");
         MostrarLista(modelo2, tblAlumnos);
         tblAlumnos.getTableHeader().setReorderingAllowed(false);
     }

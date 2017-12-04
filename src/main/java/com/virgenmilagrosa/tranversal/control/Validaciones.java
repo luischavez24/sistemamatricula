@@ -18,13 +18,13 @@ public class Validaciones {
     public void ValidarSoloLetras(JTextField campo){
         campo.addKeyListener(new KeyAdapter() {
             
+            @Override
             public void keyTyped(KeyEvent e){
                 char c=e.getKeyChar();
                 int k=(int)e.getKeyChar();
-                if(Character.isDigit(c) || k==64 || !Character.isLetter(c)){
+                if(Character.isDigit(c) || k==64 || !Character.isLetter(c) || Character.isSpaceChar(c)){
                     //si es un digito
                     e.consume();//no lo digita
-                    System.out.println("car: "+c);
                 }
             }
         
@@ -35,13 +35,13 @@ public class Validaciones {
     public void ValidarSoloNumeros(JTextField campo){
         campo.addKeyListener(new KeyAdapter() {
             
+            @Override
             public void keyTyped(KeyEvent e){
                 char c=e.getKeyChar();
                 //int k = (int) e.getKeyChar();
                 if(!Character.isDigit(c) || Character.isLetter(c) ){
                     //si es un digito
                     e.consume();//no lo digita
-                    System.out.println("car: "+c);
                 }
             }
         
@@ -52,6 +52,7 @@ public class Validaciones {
      public void LimitarCaracter(JTextField campo,int cantidad){
         campo.addKeyListener(new KeyAdapter() {
             
+            @Override
             public void keyTyped(KeyEvent e){
                 char c=e.getKeyChar();
                 
@@ -61,7 +62,6 @@ public class Validaciones {
                 if(tam>=cantidad){
                     //si es un digito
                     e.consume();//no lo digita
-                    System.out.println("car: "+c);
                 }   
             }
         });
