@@ -46,4 +46,9 @@ public class Documentos {
     public void setGradoImportancia(int gradoImportancia) {
         this.gradoImportancia = gradoImportancia;
     }
+    
+    @Override
+    public String toString() {
+        return descripcionDoc;
+    }
 }

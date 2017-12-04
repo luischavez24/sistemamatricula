@@ -50,7 +50,7 @@ public class DocumentoADOracle implements DocumentoAD {
                 }
             }
         } catch (SQLException ex) {
-
+            System.out.println(ex);
         } finally {
             acceso.close();
         }

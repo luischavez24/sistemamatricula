@@ -137,7 +137,7 @@ public class Alumnos {
 
     @Override
     public String toString() {
-        return "Alumnos{" + "codAlu=" + codAlu + ", aPaternoAlu=" + aPaternoAlu + ", nombreAlu=" + nombreAlu + ", aMaternoAlu=" + aMaternoAlu + ", telefonoAlu=" + telefonoAlu + ", emailAlu=" + emailAlu + ", direccionAlu=" + direccionAlu + ", codApoderado=" + codApoderado + ", dniAlumno=" + dniAlumno + ", fechaNac=" + fechaNac + ", codDistrito=" + codDistrito + ", distrito=" + distrito + '}';
+        return String.format("DNI: %s, Nombres y Apellidos: %s %s %s", dniAlumno, nombreAlu, aPaternoAlu, aMaternoAlu);
     }
    
     

@@ -514,7 +514,7 @@ public class FrmModificarAlumno extends javax.swing.JFrame {
                 txtDNI.setText(alumno.getDniAlumno());
                 txtCorreo.setText(alumno.getEmailAlu());
                 txtTelefono.setText(alumno.getTelefonoAlu());
-
+                txtDireccion.setText(alumno.getDireccionAlu());
                 spnFechaAlu.setValue(FORMATO.parse(alumno.getFechaNac()));
                 cbxDistrito.setSelectedIndex(selectItem);
 
