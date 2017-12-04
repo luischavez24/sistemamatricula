@@ -13,4 +13,4 @@
 * Se creo dos nuevas funciones en Oracle : SF_VERIFICAR_MATRICULA y SF_BUSCAR_MATRICULA
 * Se altero la tabla Matricula agregandole el campo P_ACADEMICO
 
-*El codigo de las tablas y de los procedimientos se encuentra en al carptea resources/scripts*
+*El codigo de las tablas y de los procedimientos se encuentra en al carpetea resources/scripts*
