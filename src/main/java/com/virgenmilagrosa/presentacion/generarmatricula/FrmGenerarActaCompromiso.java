@@ -309,13 +309,12 @@ public class FrmGenerarActaCompromiso extends javax.swing.JFrame {
                 nuevaActa.setCodDocumento(docs.getCodDocumento());
                 nuevaActa.setCodUsuario(codUsuario);
                 nuevaActa.setFechaEntrega((Date) jSpinner1.getValue());
-                msj += actaLN.registrarActa(nuevaActa) + "\ns";
+                msj += actaLN.registrarActa(nuevaActa) + "\n";
             }
 
             JOptionPane.showMessageDialog(rootPane, msj);
 
             //generar pdf
-            // el de matricula bbita :*
             try {
                 crearPdf(new File("C:\\Users\\lucho\\Documents\\Ing. de Sistemas\\Comprobantes\\AC_" + aluSelect.getCodAlu() + ".pdf"));
             } catch (IOException ex) {
@@ -373,11 +372,11 @@ public class FrmGenerarActaCompromiso extends javax.swing.JFrame {
             }
             documento.add(image);
 
-            documento.add(new Paragraph("\n\n Acta de Compromiso - I.E.P VIRGEN MILAGROSA ", FontFactory.getFont("Arial", 18, Font.BOLD)));
+            documento.add(new Paragraph("\n\nActa de Compromiso - I.E.P VIRGEN MILAGROSA ", FontFactory.getFont("Arial", 18, Font.BOLD)));
             documento.add(new Paragraph("Código : " + aluSelect.getCodAlu(), FontFactory.getFont("Arial", 14, Font.BOLD)));
             documento.add(new Paragraph("Nombres y Apellidos: " + aluSelect.getNombreAlu() + " " + aluSelect.getaPaternoAlu() + " " + aluSelect.getaMaternoAlu(), FontFactory.getFont("Arial", 14, Font.BOLD)));
             documento.add(new Paragraph("Usuario: " + Credencial.getInstance().getUsername(), FontFactory.getFont("Arial", 14, Font.BOLD)));
-            documento.add(new Paragraph("Docuementos", FontFactory.getFont("Arial", 14, Font.BOLD)));
+            documento.add(new Paragraph("Documentos", FontFactory.getFont("Arial", 14, Font.BOLD)));
 
             for (Documentos lDoc : lDocs) {
                 documento.add(new Paragraph("\t- " + lDoc, FontFactory.getFont("Arial", 12, Font.PLAIN)));
