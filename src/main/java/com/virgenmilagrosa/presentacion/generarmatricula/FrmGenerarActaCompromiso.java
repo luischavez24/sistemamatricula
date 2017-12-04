@@ -29,6 +29,8 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -51,7 +53,8 @@ public class FrmGenerarActaCompromiso extends javax.swing.JFrame {
     private Alumnos aluSelect;
     private static final String LOGO_COLE = "logovm.jpg";
     private List<Documentos> lDocs;
-
+    private static final DateFormat FORMATO = new SimpleDateFormat("dd/MM/yy");
+    
     public FrmGenerarActaCompromiso() {
         initComponents();
 
@@ -381,7 +384,8 @@ public class FrmGenerarActaCompromiso extends javax.swing.JFrame {
             for (Documentos lDoc : lDocs) {
                 documento.add(new Paragraph("\t- " + lDoc, FontFactory.getFont("Arial", 12, Font.PLAIN)));
             }
-
+            
+            documento.add(new Paragraph("Fecha de Entrega: " + FORMATO.format((Date) jSpinner1.getValue()), FontFactory.getFont("Arial", 14, Font.BOLD)));
             documento.close();
             
             System.out.println("Archivo generado correctamente");
