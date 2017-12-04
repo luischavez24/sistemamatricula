@@ -145,10 +145,10 @@ public class FrmInicioSesion extends javax.swing.JFrame {
 
         JOptionPane.showMessageDialog(rootPane, mensaje, "Mensaje", iconBox);
         if (verificacion > 0) {
-
+            
             Credencial.getInstance().setUsername(user);
             Credencial.getInstance().setRol(verificacion);
-
+            System.out.println(Credencial.getInstance());
             abrirVentanaPrincipal(verificacion);
         }
     }//GEN-LAST:event_btnIngresarMouseClicked

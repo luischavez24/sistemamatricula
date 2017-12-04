@@ -39,7 +39,7 @@ public class Usuario_LN {
         return usuarioAD.eliminarUsuario(codUsuario);
     }
 
-    public Usuario buscarUsuario(int codUsuario) {
+    public Usuario buscarUsuario(String codUsuario) {
         return usuarioAD.buscarUsuario(codUsuario);
     }
 

@@ -113,11 +113,12 @@ public class AlumnoADOracle implements AlumnoAD {
         try {
             Connection conexion = acceso.getConexion();
             conexion.setAutoCommit(false);
-            try (CallableStatement consulta = conexion.prepareCall("{CALL SP_MODIFICAR_ALUMNO (?,?,?,?) }")) {
+            try (CallableStatement consulta = conexion.prepareCall("{CALL SP_MODIFICAR_ALUMNO (?,?,?,?,?) }")) {
                 consulta.setInt(1, alumno.getCodAlu());
                 consulta.setString(2, alumno.getTelefonoAlu());
                 consulta.setString(3, alumno.getEmailAlu());
                 consulta.setString(4, alumno.getDireccionAlu());
+                consulta.setInt(5, alumno.getCodDistrito());
 
                 consulta.execute();
             }

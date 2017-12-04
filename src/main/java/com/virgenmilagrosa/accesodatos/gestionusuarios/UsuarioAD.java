@@ -16,7 +16,7 @@ public interface UsuarioAD {
 
     public String eliminarUsuario(int codUsuario);
 
-    public Usuario buscarUsuario(int codUsuario);
+    public Usuario buscarUsuario(String codUsuario);
 
     public int verificarUsuario(String username, String password);
 }

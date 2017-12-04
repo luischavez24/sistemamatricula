@@ -8,12 +8,18 @@ package com.virgenmilagrosa.presentacion.generarmatricula;
 import com.virgenmilagrosa.logicanegocio.ejecucionmatricula.Acta_LN;
 import com.virgenmilagrosa.logicanegocio.ejecucionmatricula.Documento_LN;
 import com.virgenmilagrosa.logicanegocio.gestionalumnos.Alumno_LN;
+import com.virgenmilagrosa.logicanegocio.gestionusuarios.Usuario_LN;
+import com.virgenmilagrosa.tranversal.control.Credencial;
 import com.virgenmilagrosa.tranversal.control.Validaciones;
+import com.virgenmilagrosa.tranversal.entidades.Acta;
 import com.virgenmilagrosa.tranversal.entidades.Alumnos;
 import com.virgenmilagrosa.tranversal.entidades.Documentos;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import javax.swing.JOptionPane;
+import javax.swing.JSpinner;
+import javax.swing.SpinnerDateModel;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -26,12 +32,12 @@ public class FrmGenerarActaCompromiso extends javax.swing.JFrame {
     private Alumno_LN alumnoLN = Alumno_LN.getInstance();
     private Documento_LN documentoLN = Documento_LN.getInstance();
     private Acta_LN actaLN = Acta_LN.getInstance();
+    private Usuario_LN usuarioLN = Usuario_LN.getInstance();
     private Alumnos aluSelect;
     private List<Documentos> lDocs;
 
     public FrmGenerarActaCompromiso() {
         initComponents();
-        
 
         modelo = new DefaultTableModel() {
             //para que las columnas y filas no se editen
@@ -40,7 +46,7 @@ public class FrmGenerarActaCompromiso extends javax.swing.JFrame {
                 return false;
             }
         };
-        
+
         MetodoInicio();
         tblactas.getTableHeader().setReorderingAllowed(false);
     }
@@ -53,6 +59,8 @@ public class FrmGenerarActaCompromiso extends javax.swing.JFrame {
         lDocs = new ArrayList<>();
         modelo.setColumnIdentifiers(new String[]{"Codigo", "Descripcion", "Importacia"});
         tblactas.setModel(modelo);
+        setLocationRelativeTo(null);
+        configurarSpinners(jSpinner1, "dd/MM/yy");
     }
 
     /**
@@ -75,6 +83,7 @@ public class FrmGenerarActaCompromiso extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         tblactas = new javax.swing.JTable();
         cmbDocumentos = new javax.swing.JComboBox<>();
+        jSpinner1 = new javax.swing.JSpinner();
         btnVolver = new javax.swing.JLabel();
         btnAdd = new javax.swing.JLabel();
         btnConsultar = new javax.swing.JLabel();
@@ -82,6 +91,7 @@ public class FrmGenerarActaCompromiso extends javax.swing.JFrame {
         jLabel9 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle(" Generar Acta de Compromiso");
 
         jPanel1.setAlignmentX(0.0F);
         jPanel1.setAlignmentY(0.0F);
@@ -180,9 +190,10 @@ public class FrmGenerarActaCompromiso extends javax.swing.JFrame {
             tblactas.getColumnModel().getColumn(1).setResizable(false);
         }
 
-        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 348, 640, 100));
+        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 310, 640, 100));
 
-        jPanel1.add(cmbDocumentos, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 280, 490, 30));
+        jPanel1.add(cmbDocumentos, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 260, 270, 30));
+        jPanel1.add(jSpinner1, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 260, 170, 30));
 
         btnVolver.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Generar Acta/Volver-Buttom.png"))); // NOI18N
         btnVolver.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -198,7 +209,7 @@ public class FrmGenerarActaCompromiso extends javax.swing.JFrame {
                 btnAddMouseClicked(evt);
             }
         });
-        jPanel1.add(btnAdd, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 280, -1, -1));
+        jPanel1.add(btnAdd, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 260, -1, -1));
 
         btnConsultar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Generar Acta/Mostrar-Buttom.png"))); // NOI18N
         btnConsultar.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -209,6 +220,11 @@ public class FrmGenerarActaCompromiso extends javax.swing.JFrame {
         jPanel1.add(btnConsultar, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 50, -1, -1));
 
         btnGenerar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Generar Acta/Generar-Buttom.png"))); // NOI18N
+        btnGenerar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnGenerarMouseClicked(evt);
+            }
+        });
         jPanel1.add(btnGenerar, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 460, -1, -1));
 
         jLabel9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Generar Acta/GenerarActa-Panel.png"))); // NOI18N
@@ -260,6 +276,32 @@ public class FrmGenerarActaCompromiso extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnAddMouseClicked
 
+    private void configurarSpinners(JSpinner timeSpinner, String dateFormat) {
+        timeSpinner.setModel(new SpinnerDateModel());
+        JSpinner.DateEditor timeEditor = new JSpinner.DateEditor(timeSpinner, dateFormat);
+        timeSpinner.setEditor(timeEditor);
+        timeSpinner.setValue(new Date()); // will only show the current time
+    }
+    private void btnGenerarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnGenerarMouseClicked
+
+        if (aluSelect != null) {
+            int codUsuario = usuarioLN.buscarUsuario(Credencial.getInstance().getUsername()).getCodUsuario();
+
+            for (Documentos docs : lDocs) {
+                Acta nuevaActa = new Acta();
+                nuevaActa.setCodAlu(aluSelect.getCodAlu());
+                nuevaActa.setCodDocumento(docs.getCodDocumento());
+                nuevaActa.setCodUsuario(codUsuario);
+                nuevaActa.setFechaEntrega((Date) jSpinner1.getValue());
+                actaLN.registrarActa(nuevaActa);
+            }
+
+            JOptionPane.showMessageDialog(rootPane, "Registro Exitoso");
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "No ha buscado un alumno", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_btnGenerarMouseClicked
+
     private void agregarTabla(Documentos doc) {
         Object[] rowData = new Object[3];
         rowData[0] = doc.getCodDocumento();
@@ -271,41 +313,6 @@ public class FrmGenerarActaCompromiso extends javax.swing.JFrame {
 
     private void llenarCombos() {
         documentoLN.listaActas().forEach((item) -> cmbDocumentos.addItem(item));
-    }
-
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(FrmGenerarActaCompromiso.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(FrmGenerarActaCompromiso.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(FrmGenerarActaCompromiso.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(FrmGenerarActaCompromiso.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new FrmGenerarActaCompromiso().setVisible(true);
-            }
-        });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -321,6 +328,7 @@ public class FrmGenerarActaCompromiso extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JSpinner jSpinner1;
     private javax.swing.JTable tblactas;
     private javax.swing.JTextField txtApellido;
     private javax.swing.JTextField txtCodigo;

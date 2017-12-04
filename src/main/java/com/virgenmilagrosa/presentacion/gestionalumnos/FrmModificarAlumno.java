@@ -551,10 +551,11 @@ public class FrmModificarAlumno extends javax.swing.JFrame {
         alumno.setEmailAlu(txtCorreo.getText());
         alumno.setTelefonoAlu(txtTelefono.getText());
         alumno.setCodDistrito(dist.getCodDistrito());
-
+        
         apoderado.setEmailAp(txtCorreoApod.getText());
         apoderado.setTelefonoAp(txtTelefonoApod.getText());
         apoderado.setOcupacion(txtOcupApod.getText());
+       
 
     }
 

@@ -174,7 +174,7 @@ public class UsuarioADOracle implements UsuarioAD{
     }
 
     @Override
-    public Usuario buscarUsuario(int codUsuario) {
+    public Usuario buscarUsuario(String codUsuario) {
 
         Usuario usuario = null;
 
@@ -185,7 +185,7 @@ public class UsuarioADOracle implements UsuarioAD{
             
             try (CallableStatement consulta = conexion.prepareCall("{ CALL SP_BUSCAR_USUARIO (?,?) }")) {
 
-                consulta.setInt(1, codUsuario);
+                consulta.setString(1, codUsuario);
                 consulta.registerOutParameter(2, OracleTypes.CURSOR);
                 
                 LOG.info("Ejecuntado procedimiento");
