@@ -5,6 +5,15 @@
  */
 package com.virgenmilagrosa.presentacion.generarmatricula;
 
+import com.itextpdf.text.BadElementException;
+import com.itextpdf.text.Document;
+import com.itextpdf.text.DocumentException;
+import com.itextpdf.text.FontFactory;
+import com.itextpdf.text.Image;
+import com.itextpdf.text.PageSize;
+import com.itextpdf.text.Paragraph;
+import com.itextpdf.text.pdf.PdfPTable;
+import com.itextpdf.text.pdf.PdfWriter;
 import com.virgenmilagrosa.logicanegocio.ejecucionmatricula.Acta_LN;
 import com.virgenmilagrosa.logicanegocio.ejecucionmatricula.Documento_LN;
 import com.virgenmilagrosa.logicanegocio.gestionalumnos.Alumno_LN;
@@ -14,6 +23,12 @@ import com.virgenmilagrosa.tranversal.control.Validaciones;
 import com.virgenmilagrosa.tranversal.entidades.Acta;
 import com.virgenmilagrosa.tranversal.entidades.Alumnos;
 import com.virgenmilagrosa.tranversal.entidades.Documentos;
+import java.awt.Desktop;
+import java.awt.Font;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -34,6 +49,7 @@ public class FrmGenerarActaCompromiso extends javax.swing.JFrame {
     private Acta_LN actaLN = Acta_LN.getInstance();
     private Usuario_LN usuarioLN = Usuario_LN.getInstance();
     private Alumnos aluSelect;
+    private static final String LOGO_COLE = "logovm.jpg";
     private List<Documentos> lDocs;
 
     public FrmGenerarActaCompromiso() {
@@ -286,17 +302,33 @@ public class FrmGenerarActaCompromiso extends javax.swing.JFrame {
 
         if (aluSelect != null) {
             int codUsuario = usuarioLN.buscarUsuario(Credencial.getInstance().getUsername()).getCodUsuario();
-
+            String msj = "";
             for (Documentos docs : lDocs) {
                 Acta nuevaActa = new Acta();
                 nuevaActa.setCodAlu(aluSelect.getCodAlu());
                 nuevaActa.setCodDocumento(docs.getCodDocumento());
                 nuevaActa.setCodUsuario(codUsuario);
                 nuevaActa.setFechaEntrega((Date) jSpinner1.getValue());
-                actaLN.registrarActa(nuevaActa);
+                msj += actaLN.registrarActa(nuevaActa) + "\ns";
             }
 
-            JOptionPane.showMessageDialog(rootPane, "Registro Exitoso");
+            JOptionPane.showMessageDialog(rootPane, msj);
+
+            //generar pdf
+            // el de matricula bbita :*
+            try {
+                crearPdf(new File("C:\\Users\\lucho\\Documents\\Ing. de Sistemas\\Comprobantes\\AC_" + aluSelect.getCodAlu() + ".pdf"));
+            } catch (IOException ex) {
+                System.out.println(ex);
+            }
+            //levantar pdf
+            try {
+                File path = new File("C:\\Users\\lucho\\Documents\\Ing. de Sistemas\\Comprobantes\\AC_" + aluSelect.getCodAlu() + ".pdf");
+                Desktop.getDesktop().open(path);
+            } catch (Exception ex) {
+                System.out.println(ex);
+            }
+
         } else {
             JOptionPane.showMessageDialog(rootPane, "No ha buscado un alumno", "Error", JOptionPane.ERROR_MESSAGE);
         }
@@ -314,6 +346,53 @@ public class FrmGenerarActaCompromiso extends javax.swing.JFrame {
     private void llenarCombos() {
         documentoLN.listaActas().forEach((item) -> cmbDocumentos.addItem(item));
     }
+
+    public void crearPdf(File nuevoPdf) throws IOException {
+
+        try {
+            Document documento = new Document(PageSize.A5.rotate());
+
+            try {
+                PdfWriter.getInstance(documento, new FileOutputStream(nuevoPdf)).setInitialLeading(20);
+            } catch (FileNotFoundException ex) {
+                System.out.println("error 1 " + ex);
+            }
+            documento.open();
+
+            //añadiendo metadatos
+            //añadiendo contenido al pdf
+            Image image = null;
+            try {
+                image = Image.getInstance(LOGO_COLE);
+                //  image.setAbsolutePosition(30, 560);
+                image.scaleAbsoluteWidth(60f);
+                image.scaleAbsoluteHeight(60f);
+
+            } catch (BadElementException ex) {
+                System.out.println("error al cargar la imagen" + ex);
+            }
+            documento.add(image);
+
+            documento.add(new Paragraph("\n\n Acta de Compromiso - I.E.P VIRGEN MILAGROSA ", FontFactory.getFont("Arial", 18, Font.BOLD)));
+            documento.add(new Paragraph("Código : " + aluSelect.getCodAlu(), FontFactory.getFont("Arial", 14, Font.BOLD)));
+            documento.add(new Paragraph("Nombres y Apellidos: " + aluSelect.getNombreAlu() + " " + aluSelect.getaPaternoAlu() + " " + aluSelect.getaMaternoAlu(), FontFactory.getFont("Arial", 14, Font.BOLD)));
+            documento.add(new Paragraph("Usuario: " + Credencial.getInstance().getUsername(), FontFactory.getFont("Arial", 14, Font.BOLD)));
+            documento.add(new Paragraph("Docuementos", FontFactory.getFont("Arial", 14, Font.BOLD)));
+
+            for (Documentos lDoc : lDocs) {
+                documento.add(new Paragraph("\t- " + lDoc, FontFactory.getFont("Arial", 12, Font.PLAIN)));
+            }
+
+            documento.close();
+            
+            System.out.println("Archivo generado correctamente");
+
+        } catch (DocumentException ex) {
+            System.out.println("error2 " + ex);
+            JOptionPane.showMessageDialog(null, "No se puede abrir el archivo, probablemente fue borrado", "ERROR", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel btnAdd;

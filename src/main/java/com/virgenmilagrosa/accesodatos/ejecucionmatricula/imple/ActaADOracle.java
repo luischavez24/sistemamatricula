@@ -27,7 +27,7 @@ public class ActaADOracle implements ActaAD {
 
     private AccesoBD acceso = AccesoBD.getInstance();
 
-    private static final SimpleDateFormat FORMATO = new SimpleDateFormat("dd/MM/yy hh:mm:ss");
+    private static final SimpleDateFormat FORMATO = new SimpleDateFormat("dd/MM/yy");
 
     @Override
     public List<Acta> listarActas() {

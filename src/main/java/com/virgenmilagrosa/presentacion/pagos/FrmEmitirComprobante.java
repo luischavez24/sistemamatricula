@@ -5,7 +5,6 @@
  */
 package com.virgenmilagrosa.presentacion.pagos;
 
-
 import com.virgenmilagrosa.logicanegocio.gestionalumnos.Alumno_LN;
 import com.virgenmilagrosa.logicanegocio.gestionalumnos.Apoderado_LN;
 import com.virgenmilagrosa.logicanegocio.pagos.ComprobantePago_LN;
@@ -43,7 +42,7 @@ public class FrmEmitirComprobante extends javax.swing.JFrame {
     private Alumno_LN alumnoLN = Alumno_LN.getInstance();
     private Apoderado_LN apoderadoLN = Apoderado_LN.getInstance();
     private static final SimpleDateFormat FORMATO = new SimpleDateFormat("dd/MM/yy hh:mm:ss");
-    private static final String logoCole = "imagePrueba.PNG";
+    private static final String LOGO_COLE = "logovm.jpg";
 
     public FrmEmitirComprobante(Matricula matricula) {
         this.matricula = matricula;
@@ -119,7 +118,7 @@ public class FrmEmitirComprobante extends javax.swing.JFrame {
             //añadiendo contenido al pdf
             Image image = null;
             try {
-                image = Image.getInstance(logoCole);
+                image = Image.getInstance(LOGO_COLE);
                 //  image.setAbsolutePosition(30, 560);
                 image.scaleAbsoluteWidth(60f);
                 image.scaleAbsoluteHeight(60f);
@@ -171,7 +170,7 @@ public class FrmEmitirComprobante extends javax.swing.JFrame {
             documento.add(tabla2);
             documento.add(tabla3);
             documento.close();
-            System.out.println("archivo generado correctamente");
+            System.out.println("Archivo generado correctamente");
 
         } catch (DocumentException ex) {
             System.out.println("error2 " + ex);
