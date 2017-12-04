@@ -19,7 +19,7 @@ public class GestionMatriculaConfig {
     public static final String PASS = "Prueba$1";
 
     public static void icon(JFrame frame) {
-        ImageIcon image = new ImageIcon(frame.getClass().getResource("/logovm.png"));
+        ImageIcon image = new ImageIcon(frame.getClass().getResource("/logovm.jpg"));
         frame.setIconImage(image.getImage());
     }
 }
