@@ -14,58 +14,58 @@ import javax.swing.JTextField;
  * @author 123
  */
 public class Validaciones {
-    
-    public void ValidarSoloLetras(JTextField campo){
+
+    public void ValidarSoloLetras(JTextField campo) {
         campo.addKeyListener(new KeyAdapter() {
-            
+
             @Override
-            public void keyTyped(KeyEvent e){
-                char c=e.getKeyChar();
-                int k=(int)e.getKeyChar();
-                if(Character.isDigit(c) || k==64 || !Character.isLetter(c) || Character.isSpaceChar(c)){
+            public void keyTyped(KeyEvent e) {
+                char c = e.getKeyChar();
+                int k = (int) e.getKeyChar();
+                if (Character.isDigit(c) || k == 64 || (!Character.isLetter(c) && k != 32)) {
                     //si es un digito
                     e.consume();//no lo digita
                 }
             }
-        
+
         });
-                
+
     }
-    
-    public void ValidarSoloNumeros(JTextField campo){
+
+    public void ValidarSoloNumeros(JTextField campo) {
         campo.addKeyListener(new KeyAdapter() {
-            
+
             @Override
-            public void keyTyped(KeyEvent e){
-                char c=e.getKeyChar();
+            public void keyTyped(KeyEvent e) {
+                char c = e.getKeyChar();
                 //int k = (int) e.getKeyChar();
-                if(!Character.isDigit(c) || Character.isLetter(c) ){
+                if (!Character.isDigit(c) || Character.isLetter(c)) {
                     //si es un digito
                     e.consume();//no lo digita
                 }
             }
-        
+
         });
-                
+
     }
-    
-     public void LimitarCaracter(JTextField campo,int cantidad){
+
+    public void LimitarCaracter(JTextField campo, int cantidad) {
         campo.addKeyListener(new KeyAdapter() {
-            
+
             @Override
-            public void keyTyped(KeyEvent e){
-                char c=e.getKeyChar();
-                
+            public void keyTyped(KeyEvent e) {
+                char c = e.getKeyChar();
+
                 //contar acracteres en un txtfield
-                int tam=campo.getText().length();
-                
-                if(tam>=cantidad){
+                int tam = campo.getText().length();
+
+                if (tam >= cantidad) {
                     //si es un digito
                     e.consume();//no lo digita
-                }   
+                }
             }
         });
-                
+
     }
-    
+
 }
