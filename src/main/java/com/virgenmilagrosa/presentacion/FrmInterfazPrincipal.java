@@ -104,6 +104,11 @@ public class FrmInterfazPrincipal extends javax.swing.JFrame {
         menuOpcionesAlumnos.add(btnActualizarAlumno);
 
         btnEliminarAlumno.setText("Eliminar Alumno");
+        btnEliminarAlumno.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEliminarAlumnoActionPerformed(evt);
+            }
+        });
         menuOpcionesAlumnos.add(btnEliminarAlumno);
 
         ActualizarSeccion.setText("Actualizar Seccion");
@@ -559,6 +564,35 @@ public class FrmInterfazPrincipal extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Debe elegir un elemento de la tabla", "Incorrecto", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_EliminarSeccionActionPerformed
+
+    private void btnEliminarAlumnoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarAlumnoActionPerformed
+        // TODO add your handling code here:
+        int fila = tblAlumnos.getSelectedRow();
+        if (fila > -1) {
+            
+            int codAlumno = (Integer) tblAlumnos.getValueAt(fila, 0);
+            int codApoderado = Alumno_LN.getInstance().buscarAlumno(codAlumno).getCodApoderado();
+
+            int opcion = JOptionPane.showConfirmDialog(null, "¿Está seguro que desea eliminar alumno");
+
+            if (opcion != JOptionPane.CANCEL_OPTION) {
+                if (opcion == JOptionPane.YES_OPTION) {
+                    
+                    Alumno_LN.getInstance().eliminarAlumno(codAlumno);
+                    
+                    String respuesta = Apoderado_LN.getInstance().eliminarApoderado(codApoderado);
+                    
+                    JOptionPane.showMessageDialog(null, respuesta, "Exito", JOptionPane.INFORMATION_MESSAGE);
+                    
+                    actualizarTablaAlumnos();
+
+                }
+            }
+
+        } else {
+            JOptionPane.showMessageDialog(null, "Debe elegir un elemento de la tabla", "Incorrecto", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_btnEliminarAlumnoActionPerformed
 
     /**
      * Autor: Yudely Palpán semana 3 cus implmentado, por corregir.

@@ -87,13 +87,14 @@ public class FrmGenerarMatricula extends javax.swing.JFrame {
         txtNombreApod = new javax.swing.JTextField();
         jPanel3 = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
-        cbxSeccion = new javax.swing.JComboBox<Seccion>();
+        cbxSeccion = new javax.swing.JComboBox<>();
         btnVolver = new javax.swing.JLabel();
         btnConsultar = new javax.swing.JLabel();
         btnEjecutar = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Generar Matricula");
 
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
