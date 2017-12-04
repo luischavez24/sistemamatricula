@@ -5,6 +5,7 @@
  */
 package com.virgenmilagrosa.presentacion.gestionsecciones;
 
+import com.virgenmilagrosa.GestionMatriculaConfig;
 import com.virgenmilagrosa.logicanegocio.gestionalumnos.Grado_LN;
 import com.virgenmilagrosa.logicanegocio.gestionsecciones.Seccion_LN;
 import com.virgenmilagrosa.presentacion.FrmInterfazPrincipal;
@@ -35,6 +36,7 @@ public class FrmModificarSeccion extends javax.swing.JFrame {
     
     
     private void MetodoInicio(){
+        GestionMatriculaConfig.icon(this);
         Validaciones v= new Validaciones();
         v.LimitarCaracter(txtNomSeccion, 10);
         v.ValidarSoloLetras(txtNomSeccion);

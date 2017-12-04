@@ -46,5 +46,7 @@ public class Alumno_LN {
     public Alumnos buscarAlumno(int codAlu) {
         return alumnoAD.buscarAlumno(codAlu);
     }
-
+    public List<Alumnos> buscarTodos(String dniAlu){
+        return alumnoAD.buscarTodos(dniAlu);
+    }
 }

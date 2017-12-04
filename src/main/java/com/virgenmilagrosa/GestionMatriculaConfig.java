@@ -5,12 +5,21 @@
  */
 package com.virgenmilagrosa;
 
+import javax.swing.ImageIcon;
+import javax.swing.JFrame;
+
 /**
  *
  * @author lucho
  */
-public interface GestionMatriculaConfig {
+public class GestionMatriculaConfig {
+
     public static final String URL = "jdbc:oracle:thin:@localhost:1521:basedatos1";
     public static final String USER = "sistema_matricula";
     public static final String PASS = "Prueba$1";
+
+    public static void icon(JFrame frame) {
+        ImageIcon image = new ImageIcon(frame.getClass().getResource("/logovm.png"));
+        frame.setIconImage(image.getImage());
+    }
 }

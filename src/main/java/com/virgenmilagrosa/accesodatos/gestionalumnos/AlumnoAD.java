@@ -16,4 +16,6 @@ public interface AlumnoAD {
     public Alumnos buscarAlumno(String dniAlu);
 
     public Alumnos buscarAlumno(int codAlu);
+    
+    public List<Alumnos> buscarTodos(String dniAlu);
 }

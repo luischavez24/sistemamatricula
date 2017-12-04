@@ -17,6 +17,7 @@ import com.itextpdf.text.DocumentException;
 import com.itextpdf.text.*;
 import com.itextpdf.text.pdf.PdfWriter;
 import com.itextpdf.text.pdf.PdfPTable;
+import com.virgenmilagrosa.GestionMatriculaConfig;
 
 import java.awt.Font;
 import java.awt.Desktop;
@@ -53,6 +54,7 @@ public class FrmEmitirComprobante extends javax.swing.JFrame {
     private void MetodoInicio() {
 
         setLocationRelativeTo(null);
+        GestionMatriculaConfig.icon(this);
         int monto = 120;
 
         comprobante = new Comprobante();

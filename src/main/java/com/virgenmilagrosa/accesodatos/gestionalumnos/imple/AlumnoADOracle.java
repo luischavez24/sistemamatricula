@@ -106,6 +106,51 @@ public class AlumnoADOracle implements AlumnoAD {
     }
 
     @Override
+    public List<Alumnos> buscarTodos(String dniAlu) {
+
+        List<Alumnos> lista = new ArrayList<>();
+
+        try {
+            Connection conexion = acceso.getConexion();
+            try (CallableStatement consulta
+                    = conexion.prepareCall("{ CALL SP_BUSCARTODOS_ALU (?,?) }")) {
+                consulta.setString(1, dniAlu);
+                consulta.registerOutParameter(2, OracleTypes.CURSOR);
+                consulta.execute();
+                try (ResultSet resultado = ((OracleCallableStatement) consulta).getCursor(2)) {
+                    Alumnos temp;
+                    int codAlu, codApoderado;
+                    String apaternoAlu, nombreAlu, amaternoAlu,
+                            telefonoAlu, emailAlu, direccionAlu, dniAlumno;
+                    while (resultado.next()) {
+                        codAlu = resultado.getInt("COD_ALU");
+                        apaternoAlu = resultado.getString("APATERNO_ALU");
+                        amaternoAlu = resultado.getString("AMATERNO_ALU");
+                        nombreAlu = resultado.getString("NOMBRE_ALU");
+                        telefonoAlu = resultado.getString("TELEFONO_ALU");
+                        emailAlu = resultado.getString("EMAIL_ALU");
+                        direccionAlu = resultado.getString("DIRECCION_ALU");
+                        codApoderado = resultado.getInt("COD_APODERADO");
+                        dniAlumno = resultado.getString("DNI_ALUMNO");
+
+                        temp = new Alumnos(codAlu, apaternoAlu, nombreAlu,
+                                amaternoAlu, telefonoAlu, emailAlu,
+                                direccionAlu, codApoderado, dniAlumno);
+
+                        lista.add(temp);
+                    }
+                }
+            }
+        } catch (SQLException ex) {
+            System.out.println(ex);
+            lista = null;
+        } finally {
+            acceso.close();
+        }
+        return lista;
+    }
+
+    @Override
     public String modificarAlumno(Alumnos alumno) {
 
         String respuesta = "Actualizacion Completada";
@@ -181,7 +226,7 @@ public class AlumnoADOracle implements AlumnoAD {
                         alumno.setDniAlumno(resultado.getString("DNI_ALUMNO"));
                         System.out.println(alumno);
                     }
-                    
+
                 }
             }
         } catch (SQLException ex) {

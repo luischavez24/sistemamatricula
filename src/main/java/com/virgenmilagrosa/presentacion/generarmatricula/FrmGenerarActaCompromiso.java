@@ -14,6 +14,7 @@ import com.itextpdf.text.PageSize;
 import com.itextpdf.text.Paragraph;
 import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
+import com.virgenmilagrosa.GestionMatriculaConfig;
 import com.virgenmilagrosa.logicanegocio.ejecucionmatricula.Acta_LN;
 import com.virgenmilagrosa.logicanegocio.ejecucionmatricula.Documento_LN;
 import com.virgenmilagrosa.logicanegocio.gestionalumnos.Alumno_LN;
@@ -80,6 +81,7 @@ public class FrmGenerarActaCompromiso extends javax.swing.JFrame {
         tblactas.setModel(modelo);
         setLocationRelativeTo(null);
         configurarSpinners(jSpinner1, "dd/MM/yy");
+        GestionMatriculaConfig.icon(this);
     }
 
     /**

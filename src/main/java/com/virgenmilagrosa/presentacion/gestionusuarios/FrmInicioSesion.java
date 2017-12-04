@@ -1,5 +1,6 @@
 package com.virgenmilagrosa.presentacion.gestionusuarios;
 
+import com.virgenmilagrosa.GestionMatriculaConfig;
 import com.virgenmilagrosa.logicanegocio.gestionusuarios.Usuario_LN;
 import com.virgenmilagrosa.presentacion.FrmInterfazPrincipal;
 import com.virgenmilagrosa.tranversal.control.Credencial;
@@ -28,6 +29,7 @@ public class FrmInicioSesion extends javax.swing.JFrame {
         Validaciones v = new Validaciones();
         v.LimitarCaracter(txtUsuario, 15);
         v.LimitarCaracter(txtContra, 15);
+        GestionMatriculaConfig.icon(this);
 
     }
 

@@ -1,5 +1,7 @@
 package com.virgenmilagrosa.presentacion;
 
+import com.virgenmilagrosa.GestionMatriculaApplication;
+import com.virgenmilagrosa.GestionMatriculaConfig;
 import com.virgenmilagrosa.logicanegocio.gestionalumnos.Alumno_LN;
 import com.virgenmilagrosa.logicanegocio.gestionalumnos.Apoderado_LN;
 import com.virgenmilagrosa.logicanegocio.gestionsecciones.Seccion_LN;
@@ -18,6 +20,7 @@ import com.virgenmilagrosa.tranversal.entidades.Seccion;
 
 import java.util.Collections;
 import java.util.List;
+import javax.swing.ImageIcon;
 
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
@@ -40,7 +43,10 @@ public class FrmInterfazPrincipal extends javax.swing.JFrame {
         desactivarBotones(rol);
         initAlumnos();
         initSeccion();
+        GestionMatriculaConfig.icon(this);
     }
+
+
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -236,6 +242,11 @@ public class FrmInterfazPrincipal extends javax.swing.JFrame {
         txtBuscarAlumno.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         txtBuscarAlumno.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         txtBuscarAlumno.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        txtBuscarAlumno.addCaretListener(new javax.swing.event.CaretListener() {
+            public void caretUpdate(javax.swing.event.CaretEvent evt) {
+                txtBuscarAlumnoCaretUpdate(evt);
+            }
+        });
         pnlAlumnos.add(txtBuscarAlumno, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 70, 520, 30));
 
         btnAddAlumno.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Listado-Alumnos/AñadirAlum-Buttom.png"))); // NOI18N
@@ -427,6 +438,11 @@ public class FrmInterfazPrincipal extends javax.swing.JFrame {
 
     private void btnBuscarAlumnoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnBuscarAlumnoMouseClicked
         // TODO add your handling code here:
+        System.out.println("Limpiando tabla");
+        while (modelo2.getRowCount() > 0) {
+            modelo2.removeRow(0);
+        }
+        CargarTablaAlumnos(modelo2, alumno.buscarTodos(txtBuscarAlumno.getText()), tblAlumnos);
     }//GEN-LAST:event_btnBuscarAlumnoMouseClicked
 
     private void btnVolverSMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnVolverSMouseClicked
@@ -453,7 +469,7 @@ public class FrmInterfazPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_btnGenerarMatriculaActionPerformed
 
     private void btnGenerarActaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGenerarActaActionPerformed
-    /* Set the Nimbus look and feel */
+        /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
          * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
@@ -569,7 +585,7 @@ public class FrmInterfazPrincipal extends javax.swing.JFrame {
         // TODO add your handling code here:
         int fila = tblAlumnos.getSelectedRow();
         if (fila > -1) {
-            
+
             int codAlumno = (Integer) tblAlumnos.getValueAt(fila, 0);
             int codApoderado = Alumno_LN.getInstance().buscarAlumno(codAlumno).getCodApoderado();
 
@@ -577,13 +593,13 @@ public class FrmInterfazPrincipal extends javax.swing.JFrame {
 
             if (opcion != JOptionPane.CANCEL_OPTION) {
                 if (opcion == JOptionPane.YES_OPTION) {
-                    
+
                     Alumno_LN.getInstance().eliminarAlumno(codAlumno);
-                    
+
                     String respuesta = Apoderado_LN.getInstance().eliminarApoderado(codApoderado);
-                    
+
                     JOptionPane.showMessageDialog(null, respuesta, "Exito", JOptionPane.INFORMATION_MESSAGE);
-                    
+
                     actualizarTablaAlumnos();
 
                 }
@@ -593,6 +609,11 @@ public class FrmInterfazPrincipal extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Debe elegir un elemento de la tabla", "Incorrecto", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_btnEliminarAlumnoActionPerformed
+
+    private void txtBuscarAlumnoCaretUpdate(javax.swing.event.CaretEvent evt) {//GEN-FIRST:event_txtBuscarAlumnoCaretUpdate
+
+
+    }//GEN-LAST:event_txtBuscarAlumnoCaretUpdate
 
     /**
      * Autor: Yudely Palpán semana 3 cus implmentado, por corregir.
@@ -669,8 +690,6 @@ public class FrmInterfazPrincipal extends javax.swing.JFrame {
     private int id = 0;
 
     private void CargarTablaAlumnos(DefaultTableModel modelo2, List<Alumnos> total, JTable tabla2) {
-
-        total = this.alumno.listarAlumnos();
         Object fila[] = new Object[8];
 
         for (int i = 0; i < total.size(); i++) {

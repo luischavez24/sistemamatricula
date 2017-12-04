@@ -5,6 +5,7 @@
  */
 package com.virgenmilagrosa.presentacion.gestionalumnos;
 
+import com.virgenmilagrosa.GestionMatriculaConfig;
 import com.virgenmilagrosa.logicanegocio.gestionalumnos.*;
 import com.virgenmilagrosa.presentacion.FrmInterfazPrincipal;
 import com.virgenmilagrosa.tranversal.control.Validaciones;
@@ -62,6 +63,7 @@ public class FrmModificarAlumno extends javax.swing.JFrame {
         v.ValidarSoloNumeros(txtTelefonoApod);
         v.ValidarSoloLetras(txtOcupApod);
         configurarSpinners(spnFechaAlu, "dd/MM/yy");
+        GestionMatriculaConfig.icon(this);
         llenarCombo();
         setLocationRelativeTo(null);
     }

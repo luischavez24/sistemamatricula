@@ -5,6 +5,7 @@
  */
 package com.virgenmilagrosa.presentacion.gestionsecciones;
 
+import com.virgenmilagrosa.GestionMatriculaConfig;
 import com.virgenmilagrosa.logicanegocio.gestionsecciones.Seccion_LN;
 import com.virgenmilagrosa.tranversal.entidades.Seccion;
 import java.util.regex.Matcher;
@@ -21,36 +22,37 @@ public class FrmAumentarVacante extends javax.swing.JFrame {
     /**
      * Creates new form AsignarVacante
      */
-     public FrmAumentarVacante() {
+    private Seccion seccion;
+
+    public FrmAumentarVacante() {
         initComponents();
         MetodoInicio();
-        this.seccion = seccion;
+
     }
 
-     private Seccion seccion;
-
-    private void MetodoInicio(){
-        
+    private void MetodoInicio() {
+        GestionMatriculaConfig.icon(this);
         Seccion_LN.getInstance().listarSecciones().forEach(
                 (item) -> cbxSeccion.addItem(item)
         );
     }
-    
-    public void ValidarIngreso(){
-       // String nseccion=cbxSeccion.getText().trim();
-        String nrovacantes=spnVacantes.getValue().toString();
-        
-        if( nrovacantes.isEmpty()){
+
+    public void ValidarIngreso() {
+        // String nseccion=cbxSeccion.getText().trim();
+        String nrovacantes = spnVacantes.getValue().toString();
+
+        if (nrovacantes.isEmpty()) {
             btnAsignar.setEnabled(false);
-        }
-        else
+        } else {
             btnAsignar.setEnabled(true);
+        }
     }
-    
-    public void actualizarVacantes(){
+
+    public void actualizarVacantes() {
         int VacantesSec = seccion.getNroVacantes();
         seccion.setNroVacantes((int) spnVacantes.getValue() + VacantesSec);
     }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -156,10 +158,10 @@ public class FrmAumentarVacante extends javax.swing.JFrame {
     }//GEN-LAST:event_btnCancelarMouseClicked
 
     private void btnAsignarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAsignarMouseClicked
-          // TODO add your handling code here:
+        // TODO add your handling code here:
         actualizarVacantes();
         String mensaje = Seccion_LN.getInstance().ampliarVacantes(seccion, (int) spnVacantes.getValue());
-        if(mensaje.equals("Ampliacion Completada")) {
+        if (mensaje.equals("Ampliacion Completada")) {
             JOptionPane.showMessageDialog(rootPane, mensaje);
         } else {
             JOptionPane.showMessageDialog(rootPane, mensaje, "Error", JOptionPane.ERROR_MESSAGE);

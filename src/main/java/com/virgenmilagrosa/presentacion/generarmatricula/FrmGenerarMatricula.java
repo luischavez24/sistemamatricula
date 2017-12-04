@@ -5,6 +5,7 @@
  */
 package com.virgenmilagrosa.presentacion.generarmatricula;
 
+import com.virgenmilagrosa.GestionMatriculaConfig;
 import com.virgenmilagrosa.logicanegocio.ejecucionmatricula.Matricula_LN;
 import com.virgenmilagrosa.logicanegocio.gestionalumnos.Alumno_LN;
 import com.virgenmilagrosa.logicanegocio.gestionalumnos.Apoderado_LN;
@@ -48,6 +49,7 @@ public class FrmGenerarMatricula extends javax.swing.JFrame {
         Seccion_LN.getInstance().listarSecciones().forEach(
                 (item) -> cbxSeccion.addItem(item)
         );
+        GestionMatriculaConfig.icon(this);
     }
 
     private void EjecutarMatricula() {
